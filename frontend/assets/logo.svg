@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="40" height="40" aria-label="Carbon Footprint Calculator Logo" role="img">
+  <rect width="40" height="40" rx="8" fill="#0F5C5C" />
+  <!-- Instrument dial / gauge arc -->
+  <path d="M10 26 A12 12 0 1 1 30 26" fill="none" stroke="#D5DDDA" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="2 3" opacity="0.6"/>
+  <!-- Active gauge sweep -->
+  <path d="M12 24 A11 11 0 0 1 24 10" fill="none" stroke="#E3A21A" stroke-width="3" stroke-linecap="round"/>
+  <!-- Pivot center -->
+  <circle cx="20" cy="22" r="3" fill="#FFFFFF" />
+  <!-- Pointer needle -->
+  <path d="M20 22 L27 13" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" />
+  <!-- Small waste/leaf accent node -->
+  <circle cx="28" cy="12" r="2" fill="#E3A21A" />
+</svg>

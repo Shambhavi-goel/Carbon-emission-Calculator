@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carbon Footprint Calculator | AI Waste Classification</title>
+  <meta name="description" content="Research-grade carbon footprint calculator using AI image classification to identify waste materials and quantify emissions with empirical ranges.">
+  
+  <!-- Google Fonts: Bricolage Grotesque (600, 700) & IBM Plex Sans (400, 500, 600) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/sections.css">
+
+  <!-- Chart.js CDN (Exact pinned version 4.4.1) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" defer></script>
+</head>
+<body>
+  <!-- Accessibility: Skip Link -->
+  <a href="#calculator" class="skip-link">Skip to calculator</a>
+
+  <!-- Header & Sticky Navigation -->
+  <header class="site-header" id="top-header">
+    <div class="container header-container">
+      <a href="#top" class="brand-link" aria-label="Carbon Footprint Calculator Homepage">
+        <img src="assets/logo.svg" alt="" width="36" height="36" aria-hidden="true">
+        <div class="brand-title">
+          <span>Carbon Emission Calculator</span>
+          <span class="brand-subtitle">AI Waste Classification</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="site-nav" aria-label="Main Navigation">
+        <a href="#top" class="nav-link active">Home</a>
+        <a href="#calculator" class="nav-link">Calculator</a>
+        <a href="#how" class="nav-link">How it works</a>
+        <a href="#materials" class="nav-link">Materials</a>
+        <a href="#history" class="nav-link">History</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+      </nav>
+
+      <!-- Mobile Menu Button -->
+      <button type="button" class="mobile-menu-btn" id="btn-mobile-menu" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-nav-drawer">
+        <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <nav class="mobile-nav-drawer" id="mobile-nav-drawer" aria-label="Mobile Navigation">
+      <a href="#top" class="mobile-nav-link active">Home</a>
+      <a href="#calculator" class="mobile-nav-link">Calculator</a>
+      <a href="#how" class="mobile-nav-link">How it works</a>
+      <a href="#materials" class="mobile-nav-link">Materials</a>
+      <a href="#history" class="mobile-nav-link">History</a>
+      <a href="#about" class="mobile-nav-link">About</a>
+      <a href="#faq" class="mobile-nav-link">FAQ</a>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <!-- ======================================================================
+         1. HERO SECTION (#top)
+         ====================================================================== -->
+    <section class="section hero-section" id="top">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="hero-tagline">
+            <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>Institutional Environmental Research Project</span>
+          </div>
+
+          <h1>Measure the carbon footprint of waste using vision AI</h1>
+          
+          <p class="section-lead">
+            Upload a photo of discarded material and specify its weight. Our vision classification model identifies the material class and calculates its life-cycle carbon footprint with rigorous empirical bounds.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#calculator" class="btn btn-primary">
+              <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+              </svg>
+              <span>Calculate a footprint</span>
+            </a>
+            <a href="#how" class="btn btn-secondary">How it works</a>
+          </div>
+        </div>
+
+        <!-- Static Non-Interactive Demonstration Result Card -->
+        <div class="hero-example-card" aria-label="Sample calculation output preview">
+          <span class="hero-example-badge">Sample Output</span>
+          <div class="result-header-row">
+            <div class="material-tag">
+              <span class="material-dot mat-metal"></span>
+              <strong>Metal (Aluminium)</strong>
+            </div>
+            <span style="font-size: var(--text-xs); color: var(--muted);">Confidence: <strong class="num">93%</strong></span>
+          </div>
+
+          <div class="result-big-footprint" style="margin-top: 14px;">
+            <div style="font-size: var(--text-xs); color: var(--muted); text-transform: uppercase; font-weight: 600;">Carbon Footprint</div>
+            <div class="footprint-lead-number">0.591 <span class="footprint-unit">kg CO₂e</span></div>
+            <div class="footprint-range-text">Range 0.233 to 0.950 kg CO₂e for 250 g sample</div>
+          </div>
+
+          <!-- Static Range Bar Display -->
+          <div class="range-bar-wrapper" style="margin-top: 12px; margin-bottom: 0;">
+            <div class="range-bar-header">
+              <span>Empirical Footprint Range</span>
+              <span>0.591 kg estimate</span>
+            </div>
+            <div class="range-bar-component" role="img" aria-label="Sample range bar: estimated 0.591 kg CO2e within range 0.233 to 0.950 kg CO2e">
+              <div class="range-track"></div>
+              <div class="range-marker-pin" style="left: 49.9%;"></div>
+              <div class="range-marker-callout" style="left: 49.9%;">0.591 kg</div>
+              <div class="range-marker-subtext" style="left: 49.9%;">factor 2.365</div>
+            </div>
+            <div class="range-labels-row">
+              <div class="range-end-label">
+                <span class="range-end-val">0.233 kg</span>
+                <span class="range-end-factor">min factor 0.93</span>
+              </div>
+              <div class="range-end-label right">
+                <span class="range-end-val">0.950 kg</span>
+                <span class="range-end-factor">max factor 3.80</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         2. CALCULATOR SECTION (#calculator)
+         ====================================================================== -->
+    <section class="section" id="calculator">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Waste Footprint Calculator</h2>
+          <p class="section-lead">
+            Upload an image of clean scrap or waste, provide its weight, and compute emissions.
+          </p>
+        </div>
+
+        <div class="calculator-grid">
+          <!-- Left Column: Step 1 (Upload) & Step 2 (Weight) -->
+          <div class="card">
+            <!-- Step 1: Upload -->
+            <div class="calc-step">
+              <div class="calc-step-header">
+                <span class="step-num">1</span>
+                <span>Upload a waste photo</span>
+              </div>
+
+              <!-- Drag and drop zone -->
+              <div class="dropzone" id="upload-dropzone" tabindex="0" role="button" aria-label="Drop photo here or press Enter to browse">
+                <svg class="dropzone-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <div class="dropzone-text">
+                  <strong>Drag & drop your photo here</strong> or select an option below
+                </div>
+                <div class="dropzone-actions">
+                  <button type="button" class="btn btn-secondary btn-sm" onclick="document.getElementById('input-file-browse').click()">Browse files</button>
+                  <button type="button" class="btn btn-secondary btn-sm" onclick="document.getElementById('input-file-camera').click()">Use camera</button>
+                </div>
+                <div style="font-size: var(--text-xs); color: var(--muted); margin-top: 4px;">
+                  Supports JPG, PNG, WebP (Max 10 MB)
+                </div>
+              </div>
+
+              <!-- Hidden inputs -->
+              <input type="file" id="input-file-browse" class="sr-only" accept="image/jpeg,image/png,image/webp">
+              <input type="file" id="input-file-camera" class="sr-only" accept="image/jpeg,image/png,image/webp" capture="environment">
+
+              <!-- Upload Preview Container (Hidden initially) -->
+              <div id="upload-preview-box" class="preview-box" style="display: none;">
+                <img id="upload-preview-img" src="" alt="Selected waste preview" class="preview-thumb">
+                <div class="preview-meta">
+                  <div id="upload-preview-name" class="preview-filename">image.jpg</div>
+                  <div id="upload-preview-size" class="preview-filesize">0 KB</div>
+                </div>
+                <div class="preview-actions">
+                  <button type="button" class="btn btn-ghost btn-sm" id="btn-upload-replace" aria-label="Replace photo">Replace</button>
+                  <button type="button" class="btn btn-danger-ghost btn-sm" id="btn-upload-remove" aria-label="Remove photo">Remove</button>
+                </div>
+              </div>
+
+              <!-- Error message line -->
+              <div id="upload-error-msg" class="form-error-msg" role="alert"></div>
+
+              <!-- Try an example button -->
+              <div class="example-trigger-row">
+                <button type="button" class="btn btn-ghost btn-sm" id="btn-try-example">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                  <span>Try an example photo</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Step 2: Weight -->
+            <div class="calc-step" style="margin-bottom: 0;">
+              <div class="calc-step-header">
+                <span class="step-num">2</span>
+                <span class="form-label-title">
+                  <span>Enter item weight</span>
+                  <div style="position: relative; display: inline-block;">
+                    <button type="button" class="help-trigger" id="btn-weight-help" aria-label="Weight guidelines" aria-expanded="false" aria-controls="popover-weight-help">
+                      <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </button>
+                    <!-- Popover -->
+                    <div class="help-popover" id="popover-weight-help" hidden role="tooltip">
+                      Weight of the waste item itself, not its contents. Use a kitchen scale, or weigh several items of the same material together and enter the total.
+                    </div>
+                  </div>
+                </span>
+              </div>
+
+              <div class="form-group" style="margin-bottom: var(--space-2);">
+                <div class="weight-input-group">
+                  <div class="weight-input-wrapper">
+                    <input type="text" id="input-weight" class="form-control tabular" placeholder="e.g. 250" inputmode="decimal" aria-describedby="weight-error-msg weight-converted-preview">
+                  </div>
+                  <!-- Segmented Unit Switcher -->
+                  <div class="segmented-control" role="radiogroup" aria-label="Weight unit">
+                    <div class="segmented-option">
+                      <input type="radio" id="unit-g" name="weight-unit" value="g" checked>
+                      <label for="unit-g" class="segmented-label">g</label>
+                    </div>
+                    <div class="segmented-option">
+                      <input type="radio" id="unit-kg" name="weight-unit" value="kg">
+                      <label for="unit-kg" class="segmented-label">kg</label>
+                    </div>
+                    <div class="segmented-option">
+                      <input type="radio" id="unit-lb" name="weight-unit" value="lb">
+                      <label for="unit-lb" class="segmented-label">lb</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                  <span id="weight-converted-preview" class="weight-converted-preview tabular">= 0.000 kg</span>
+                  <div id="weight-error-msg" class="form-error-msg" role="alert"></div>
+                </div>
+              </div>
+
+              <!-- Quick fills -->
+              <div class="chips-group">
+                <span class="chips-label">Typical values, edit if different:</span>
+                <div class="chips-list">
+                  <button type="button" class="chip" data-weight="25" data-unit="g">Small bottle (25 g)</button>
+                  <button type="button" class="chip" data-weight="15" data-unit="g">Drink can (15 g)</button>
+                  <button type="button" class="chip" data-weight="5" data-unit="g">A4 paper sheet (5 g)</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Bar -->
+            <div class="calc-action-bar">
+              <button type="button" class="btn btn-primary" id="btn-calculate" disabled>
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+                <span>Calculate footprint</span>
+              </button>
+              <div id="calc-status-hint" class="calc-status-hint">Add a photo and a weight to continue</div>
+            </div>
+          </div>
+
+          <!-- Right Column: Results -->
+          <div class="result-column" id="result-column-container">
+            <!-- Dynamically populated by ResultController -->
+          </div>
+        </div>
+
+        <!-- Hidden aria-live region for screen reader updates -->
+        <div id="calc-live-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         3. HOW IT WORKS SECTION (#how)
+         ====================================================================== -->
+    <section class="section" id="how">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">How It Works</h2>
+          <p class="section-lead">
+            Combining deep learning computer vision with validated life-cycle emission intensity data.
+          </p>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step-card">
+            <span class="step-card-num">01</span>
+            <div class="step-card-title">Upload a photo</div>
+            <div class="step-card-desc">
+              Take or select an image of your discarded waste item on any plain or contrasting surface.
+            </div>
+          </div>
+
+          <div class="step-card">
+            <span class="step-card-num">02</span>
+            <div class="step-card-title">Model identifies material</div>
+            <div class="step-card-desc">
+              Our vision classifier (EfficientNetB0) extracts structural visual patterns and predicts the primary material class.
+            </div>
+          </div>
+
+          <div class="step-card">
+            <span class="step-card-num">03</span>
+            <div class="step-card-title">Factor lookup</div>
+            <div class="step-card-desc">
+              The identified class is cross-referenced against empirical life-cycle assessment factors (min, average, max).
+            </div>
+          </div>
+
+          <div class="step-card">
+            <span class="step-card-num">04</span>
+            <div class="step-card-title">Multiplied by mass</div>
+            <div class="step-card-desc">
+              The looked-up emission factor is multiplied by your verified weight to calculate the net carbon equivalent (kg CO₂e).
+            </div>
+          </div>
+        </div>
+
+        <!-- Worked Calculation & Weight rationale block -->
+        <div class="how-formula-box">
+          <h3 style="margin-bottom: var(--space-2);">Why must you enter the item's weight?</h3>
+          <p style="margin-bottom: var(--space-4); color: var(--muted);">
+            A two-dimensional photograph captures surface texture, geometry, and color, but cannot determine an object's density, wall thickness, or mass. Entering an exact weight turns visual material classification into an accurate physical emission calculation.
+          </p>
+
+          <h4 style="margin-bottom: var(--space-2);">Worked Example Calculation</h4>
+          <p style="color: var(--muted); margin-bottom: var(--space-2);">
+            Consider an aluminium beverage can weighing <strong>250 g</strong> identified as <strong>Metal</strong>:
+          </p>
+          <div class="formula-math">
+            Weight: 250 g = 0.250 kg<br>
+            Average Emission Factor (Metal): 2.365 kg CO₂e / kg<br>
+            Estimated Footprint: 0.250 kg × 2.365 = <strong>0.591 kg CO₂e</strong><br>
+            Empirical Range: [0.250 × 0.93 = 0.233 kg] to [0.250 × 3.80 = 0.950 kg CO₂e]
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         4. MATERIALS SECTION (#materials)
+         ====================================================================== -->
+    <section class="section" id="materials">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Material Emission Factors</h2>
+          <p class="section-lead">
+            Standard empirical factors applied by the classification model. Values are expressed in kilograms of carbon dioxide equivalent per kilogram of material (kg CO₂e / kg).
+          </p>
+        </div>
+
+        <div class="card" style="padding: 0; overflow: hidden;">
+          <div class="table-responsive">
+            <table class="data-table" aria-label="Material Emission Factors Table">
+              <thead>
+                <tr>
+                  <th scope="col">Material Class</th>
+                  <th scope="col" class="numeric">Average Factor</th>
+                  <th scope="col" class="numeric">Lower Bound (Min)</th>
+                  <th scope="col" class="numeric">Upper Bound (Max)</th>
+                  <th scope="col">Unit</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <span class="material-dot mat-metal"></span>
+                      <strong>Metal</strong>
+                    </div>
+                  </td>
+                  <td class="numeric num">2.365</td>
+                  <td class="numeric num">0.930</td>
+                  <td class="numeric num">3.800</td>
+                  <td>kg CO₂e / kg</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <span class="material-dot mat-organic"></span>
+                      <strong>Organic waste</strong>
+                    </div>
+                  </td>
+                  <td class="numeric num">0.280</td>
+                  <td class="numeric num">0.240</td>
+                  <td class="numeric num">0.320</td>
+                  <td>kg CO₂e / kg</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <span class="material-dot mat-paper"></span>
+                      <strong>Paper</strong>
+                    </div>
+                  </td>
+                  <td class="numeric num">1.495</td>
+                  <td class="numeric num">0.490</td>
+                  <td class="numeric num">2.500</td>
+                  <td>kg CO₂e / kg</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <span class="material-dot mat-plastic_low"></span>
+                      <strong>Plastic (low-emission grade)</strong>
+                    </div>
+                  </td>
+                  <td class="numeric num">1.695</td>
+                  <td class="numeric num">1.310</td>
+                  <td class="numeric num">2.080</td>
+                  <td>kg CO₂e / kg</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <span class="material-dot mat-plastic_mid"></span>
+                      <strong>Plastic (medium-emission grade)</strong>
+                    </div>
+                  </td>
+                  <td class="numeric num">3.580</td>
+                  <td class="numeric num">3.290</td>
+                  <td class="numeric num">3.870</td>
+                  <td>kg CO₂e / kg</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <span class="material-dot mat-plastic_high"></span>
+                      <strong>Plastic (high-emission grade)</strong>
+                    </div>
+                  </td>
+                  <td class="numeric num">5.680</td>
+                  <td class="numeric num">5.660</td>
+                  <td class="numeric num">5.700</td>
+                  <td>kg CO₂e / kg</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <span class="material-dot mat-wood"></span>
+                      <strong>Wood</strong>
+                    </div>
+                  </td>
+                  <td class="numeric num">0.378</td>
+                  <td class="numeric num">0.263</td>
+                  <td class="numeric num">0.493</td>
+                  <td>kg CO₂e / kg</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="materials-note">
+          <p><strong>System boundary:</strong> Cradle-to-gate inventory database with regional post-consumer processing credits. [Data source citation placeholder: Institutional LCA Database, 2024 revision].</p>
+          <p style="margin-top: 4px;"><strong>Range definition:</strong> Minimum and maximum bounds represent the lowest and highest documented factors across item subcategories within that class.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         5. HISTORY SECTION (#history)
+         ====================================================================== -->
+    <section class="section" id="history">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Session History & Analysis</h2>
+          <p class="section-lead">
+            Review accumulated calculations from this session, view distribution charts, and export data.
+          </p>
+        </div>
+
+        <!-- Running Totals Metric Bar -->
+        <div class="history-totals-bar" id="history-totals-bar" style="display: none;">
+          <div class="history-total-metric">
+            <span class="metric-label">Total Carbon Footprint</span>
+            <span class="metric-num" id="history-total-footprint">0 kg CO₂e</span>
+          </div>
+          <div class="history-total-metric">
+            <span class="metric-label">Total Range Bounds</span>
+            <span class="metric-num" id="history-total-range" style="font-size: var(--text-lg); color: var(--muted);">0 – 0</span>
+          </div>
+          <div class="history-total-metric">
+            <span class="metric-label">Total Assessed Items</span>
+            <span class="metric-num" id="history-total-count">0 items</span>
+          </div>
+        </div>
+
+        <!-- History Actions -->
+        <div class="history-actions-row">
+          <div style="font-size: var(--text-sm); font-weight: 600; color: var(--ink);">
+            Item Log
+          </div>
+          <div style="display: flex; gap: var(--space-2);">
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-export-csv" disabled>
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              <span>Export CSV</span>
+            </button>
+            <button type="button" class="btn btn-danger-ghost btn-sm" id="btn-clear-history" disabled>
+              Clear history
+            </button>
+          </div>
+        </div>
+
+        <!-- Entries Table -->
+        <div class="card" style="padding: 0; overflow: hidden;">
+          <div class="table-responsive">
+            <table class="data-table" aria-label="Calculation history table">
+              <thead>
+                <tr>
+                  <th scope="col">Thumb</th>
+                  <th scope="col">Material</th>
+                  <th scope="col" class="numeric">Entered Weight</th>
+                  <th scope="col" class="numeric">Factor</th>
+                  <th scope="col" class="numeric">Footprint</th>
+                  <th scope="col" class="numeric">Range</th>
+                  <th scope="col" style="text-align: center;">Status</th>
+                  <th scope="col" style="text-align: right;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="history-table-body">
+                <!-- Dynamically rendered -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Empty state -->
+          <div id="history-empty-state" class="result-empty-state" style="border: none; min-height: 220px;">
+            <svg class="result-empty-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+            </svg>
+            <p>No items yet. Add your first result from the calculator.</p>
+            <div style="margin-top: 12px;">
+              <a href="#calculator" class="btn btn-secondary btn-sm">Go to calculator</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 Analytical Charts -->
+        <div class="charts-grid">
+          <div class="chart-card">
+            <h4>Footprint by Material</h4>
+            <div class="chart-container-box">
+              <canvas id="chart-footprint-material" role="img" aria-label="Footprint distribution by material doughnut chart"></canvas>
+            </div>
+            <div id="summary-footprint-material" class="chart-summary-text">No data available to display.</div>
+          </div>
+
+          <div class="chart-card">
+            <h4>Weight by Material</h4>
+            <div class="chart-container-box">
+              <canvas id="chart-weight-material" role="img" aria-label="Material weight distribution bar chart"></canvas>
+            </div>
+            <div id="summary-weight-material" class="chart-summary-text">No data available to display.</div>
+          </div>
+
+          <div class="chart-card chart-card-full">
+            <h4>Footprint per Entry Over Time</h4>
+            <div class="chart-container-box">
+              <canvas id="chart-footprint-timeline" role="img" aria-label="Footprint per entry timeline line chart"></canvas>
+            </div>
+            <div id="summary-footprint-timeline" class="chart-summary-text">No entries recorded yet.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         6. ABOUT SECTION (#about)
+         ====================================================================== -->
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">About the Project</h2>
+          <p class="section-lead">
+            Academic research initiative applying deep learning to accelerate consumer waste classification and transparent carbon accounting.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <div class="card">
+            <h3 style="margin-bottom: var(--space-3);">Motivation & Mission</h3>
+            <p style="margin-bottom: var(--space-4);">
+              Accurate waste segregation and carbon awareness remain major bottlenecks in circular resource stewardship. This project demonstrates how edge-compatible convolutional neural networks can automate material identification and directly link visual inspection to life-cycle greenhouse gas metrics.
+            </p>
+
+            <h4 style="margin-bottom: var(--space-2);">Supervision & Institutional Context</h4>
+            <p class="secondary-text" style="margin-bottom: var(--space-4);">
+              Developed as a student research project. [Team member names placeholder] under the academic guidance of [Faculty Guide placeholder], Department of [Department Name placeholder], [Institution Name placeholder].
+            </p>
+
+            <h4 style="margin-bottom: var(--space-2);">Technology Stack</h4>
+            <ul class="facts-list">
+              <li class="facts-item">
+                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span><strong>Model Architecture:</strong> EfficientNetB0 with ImageNet transfer learning weights</span>
+              </li>
+              <li class="facts-item">
+                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span><strong>ML Framework:</strong> TensorFlow / Keras (two-stage training: frozen extraction followed by fine-tuning)</span>
+              </li>
+              <li class="facts-item">
+                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span><strong>Backend API:</strong> FastAPI asynchronous service delivering multipart prediction endpoints</span>
+              </li>
+              <li class="facts-item">
+                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span><strong>Frontend:</strong> Semantic HTML5, CSS design tokens, vanilla ES modules, Chart.js</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Dataset & Performance Card -->
+          <div class="card">
+            <h3 style="margin-bottom: var(--space-3);">Model & Dataset Verification</h3>
+            <p class="secondary-text" style="margin-bottom: var(--space-4);">
+              Rigorous two-stage training across 7 discrete material classes using an audited dataset of approximately 20,000 cleaned images.
+            </p>
+
+            <div style="background-color: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: var(--space-4); margin-bottom: var(--space-4);">
+              <div style="font-size: var(--text-xs); color: var(--muted); text-transform: uppercase; font-weight: 600;">Dataset Partitions</div>
+              <div style="font-size: var(--text-sm); font-weight: 600; margin-top: 4px;" class="tabular">
+                13,967 train &bull; 3,054 validation &bull; 2,996 test
+              </div>
+            </div>
+
+            <div style="background-color: var(--teal-light); border: 1px solid rgba(15, 92, 92, 0.2); border-radius: var(--radius-sm); padding: var(--space-4);">
+              <div style="font-size: var(--text-xs); color: var(--teal-dark); text-transform: uppercase; font-weight: 700;">Empirical Performance</div>
+              <div style="font-size: var(--text-xl); font-weight: 700; color: var(--teal-dark); margin: 4px 0;" class="tabular">
+                94.4% Accuracy
+              </div>
+              <p style="font-size: var(--text-xs); color: var(--teal-dark); line-height: 1.4;">
+                Achieved 94.4% accuracy and 0.944 macro F1 on our held-out test images.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         7. FAQ & LIMITATIONS SECTION (#faq)
+         ====================================================================== -->
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Limitations & Frequently Asked Questions</h2>
+          <p class="section-lead">
+            Understanding the scope, constraints, and statistical assumptions behind our predictions.
+          </p>
+        </div>
+
+        <div style="max-width: 800px;">
+          <details class="faq-accordion">
+            <summary class="faq-summary">
+              <span>Why do I need to enter the weight?</span>
+              <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div class="faq-content">
+              A photograph only reveals surface optical qualities (color, geometry, specular reflection), not volume or density. Without entering the exact mass, one cannot determine whether an aluminium object weighs 15 grams or 500 grams. Entering mass converts a unit emission factor (kg CO₂e / kg) into an absolute footprint.
+            </div>
+          </details>
+
+          <details class="faq-accordion">
+            <summary class="faq-summary">
+              <span>What if my photo contains mixed waste or composite packaging?</span>
+              <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div class="faq-content">
+              The model identifies the predominant material visible in the frame. For composite items (such as juice cartons combining paper, plastic, and aluminium foil), classify the main material and use the manual subclass or class override dropdowns to reflect the dominant constituent.
+            </div>
+          </details>
+
+          <details class="faq-accordion">
+            <summary class="faq-summary">
+              <span>Why is there a minimum and maximum range?</span>
+              <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div class="faq-content">
+              Carbon intensity varies significantly depending on alloy composition, virgin versus recycled feedstocks, manufacturing processes, and regional electrical grid mixes. The range bar visually illustrates this variability so users see the empirical uncertainty rather than a false sense of single-point precision.
+            </div>
+          </details>
+
+          <details class="faq-accordion">
+            <summary class="faq-summary">
+              <span>Why might plastic grades be confused?</span>
+              <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div class="faq-content">
+              Many thermoplastic polymers (such as PET, HDPE, and PP) share transparent or translucent visual appearances that are difficult to distinguish purely from photographs. When two plastic grades have close prediction scores, the interface presents both alongside their respective footprints and prompts you to select the correct polymer.
+            </div>
+          </details>
+
+          <details class="faq-accordion">
+            <summary class="faq-summary">
+              <span>How accurate is the classification model?</span>
+              <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div class="faq-content">
+              The fine-tuned EfficientNetB0 model achieved 94.4% accuracy and a 0.944 macro F1 score on our held-out test images. Real-world performance may vary depending on camera lighting, background clutter, and image clarity.
+            </div>
+          </details>
+
+          <details class="faq-accordion">
+            <summary class="faq-summary">
+              <span>Are these calculation results exact carbon audit figures?</span>
+              <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div class="faq-content">
+              No. These calculations provide educated estimates intended for public awareness, education, and comparative benchmarking. They do not constitute a formal ISO 14040/14044 certified greenhouse gas audit.
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ======================================================================
+       8. FOOTER
+       ====================================================================== -->
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h3>AI Waste Classification Carbon Footprint Calculator</h3>
+          <p>
+            An academic research tool connecting computer vision classification with empirical life-cycle assessment factors.
+          </p>
+          <div style="font-size: var(--text-xs); color: #8A9CA8; margin-top: 4px;">
+            Institutional research project &bull; [Department placeholder], [Institution Name placeholder]
+          </div>
+        </div>
+
+        <div class="footer-links">
+          <a href="#calculator">Calculator</a>
+          <a href="#how">Methodology</a>
+          <a href="#materials">Factors</a>
+          <a href="#history">Session History</a>
+          <a href="#about">About</a>
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
+        </div>
+      </div>
+
+      <div class="footer-disclaimer">
+        <div>
+          <strong>Disclaimer:</strong> Estimates for awareness and education; not an official carbon audit.
+        </div>
+        <div>
+          &copy; 2024 AI Carbon Calculator Research Team. All rights reserved.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Bootstrap -->
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

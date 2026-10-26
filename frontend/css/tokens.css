@@ -1,0 +1,72 @@
+/* ==========================================================================
+   Design Tokens
+   Instrument-grade, calm, restrained visual identity for carbon calculation.
+   ========================================================================== */
+
+:root {
+  /* Brand and Palette Colors */
+  --ink: #12202B;
+  --paper: #F3F6F5;
+  --surface: #FFFFFF;
+  --teal: #0F5C5C;
+  --teal-dark: #0A4444;
+  --teal-light: #E7EFEB;
+  --signal: #E3A21A;
+  --signal-bg: #FCF5E6;
+  --alert: #B3402A;
+  --alert-bg: #FBECE8;
+  --line: #D5DDDA;
+  --line-strong: #A8B8B2;
+  --muted: #5B6B75;
+
+  /* Material Semantic Colors */
+  --mat-metal: #6B7380;
+  --mat-organic: #5E9B4E;
+  --mat-paper: #7A8FA6;
+  --mat-plastic-low: #3E9CB5;
+  --mat-plastic-mid: #2F6FB0;
+  --mat-plastic-high: #5B4B9A;
+  --mat-wood: #A0703F;
+
+  /* Typography */
+  --font-heading: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Type Scale */
+  --text-xs: 0.75rem;    /* 12px */
+  --text-sm: 0.875rem;   /* 14px */
+  --text-base: 1rem;     /* 16px */
+  --text-md: 1.125rem;   /* 18px */
+  --text-lg: 1.5rem;     /* 24px */
+  --text-xl: 2rem;       /* 32px */
+  --text-2xl: 3rem;      /* 48px */
+
+  /* Spacing Grid (8px basis) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+
+  --max-content-width: 1120px;
+
+  /* Shapes & Radii */
+  --radius-sm: 8px;      /* Inputs, buttons, chips */
+  --radius-lg: 16px;     /* Cards, modals */
+
+  /* Shadow (only on result card & active popovers) */
+  --shadow-result: 0 10px 30px -5px rgba(18, 32, 43, 0.08), 0 4px 12px -2px rgba(18, 32, 43, 0.04);
+  --shadow-popover: 0 8px 24px -4px rgba(18, 32, 43, 0.12);
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-marker: 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
