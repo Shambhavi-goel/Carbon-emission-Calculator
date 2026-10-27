@@ -16,6 +16,25 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
+section[id], div[id] {
+  scroll-margin-top: 80px;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+button {
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
 body {
   background-color: var(--paper);
   color: var(--ink);

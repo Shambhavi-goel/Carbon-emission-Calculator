@@ -13,11 +13,13 @@ export class ResultController {
   constructor({
     containerEl,
     liveAnnouncerEl,
-    onAddToHistory
+    onAddToHistory,
+    accountController = null
   }) {
     this.containerEl = containerEl;
     this.liveAnnouncerEl = liveAnnouncerEl;
     this.onAddToHistory = onAddToHistory;
+    this.accountController = accountController;
 
     this.currentData = null;
     this.currentWeight = 0;
@@ -28,6 +30,7 @@ export class ResultController {
     this.isAddedToHistory = false;
     this.subclassesMap = {};
     this.selectedSubclass = null;
+    this.earnedPoints = 0;
   }
 
   showEmpty() {
@@ -141,6 +144,13 @@ export class ResultController {
     const minFootprint = formatFootprint(data.range_kg_co2e[0]);
     const maxFootprint = formatFootprint(data.range_kg_co2e[1]);
 
+    // Compute Green Eco-Points earned for this assessment
+    if (this.accountController) {
+      this.earnedPoints = this.accountController.calculateEarnedPoints(this.currentWeightKg, data.footprint_kg_co2e);
+    } else {
+      this.earnedPoints = Math.max(15, Math.round(15 + (this.currentWeightKg * 40) + (data.footprint_kg_co2e * 20)));
+    }
+
     const html = `
       <div class="card card-result" id="result-card-inner">
         <!-- 1. Header: Material Tag & Status -->
@@ -203,6 +213,12 @@ export class ResultController {
             <div class="footprint-range-text">
               Range ${escapeHtml(minFootprint)} to ${escapeHtml(maxFootprint)}
             </div>
+
+            <!-- Eco-Points Reward Pill -->
+            <div class="points-reward-pill">
+              <span class="points-reward-icon">🌿</span>
+              <span>Assessing this item yields <strong>+${this.earnedPoints} Green Eco-Points</strong></span>
+            </div>
           </div>
 
           <div style="font-size: var(--text-sm); color: var(--muted);">
@@ -258,13 +274,13 @@ export class ResultController {
           </div>
         </div>
 
-        <!-- 9. Add to History -->
+        <!-- 9. Add to History & Bank Points -->
         <div>
           <button type="button" class="btn btn-primary" id="btn-add-history" ${isLowConf || this.isAddedToHistory ? "disabled" : ""}>
             <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
             </svg>
-            ${this.isAddedToHistory ? "Added to history" : "Add to history"}
+            ${this.isAddedToHistory ? `✓ Saved & +${this.earnedPoints} Pts Banked` : `Save to History & Earn +${this.earnedPoints} Pts`}
           </button>
         </div>
 
@@ -453,7 +469,7 @@ export class ResultController {
         if (this.onAddToHistory && !this.isAddedToHistory) {
           this.isAddedToHistory = true;
           addHistoryBtn.disabled = true;
-          addHistoryBtn.textContent = "Added to history";
+          addHistoryBtn.textContent = `✓ Saved & +${this.earnedPoints} Pts Banked!`;
           this.onAddToHistory({
             class: this.currentData.class,
             subclass: this.selectedSubclass,
@@ -465,7 +481,8 @@ export class ResultController {
             range: this.currentData.range_kg_co2e,
             confidence: this.currentData.confidence,
             userCorrected: this.isUserCorrected,
-            thumbnailUrl: this.currentThumb
+            thumbnailUrl: this.currentThumb,
+            pointsEarned: this.earnedPoints
           });
         }
       });

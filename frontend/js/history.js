@@ -80,7 +80,8 @@ export class HistoryController {
       rangeMin: entry.range[0],
       rangeMax: entry.range[1],
       confidence: entry.confidence,
-      userCorrected: !!entry.userCorrected
+      userCorrected: !!entry.userCorrected,
+      pointsEarned: Number(entry.pointsEarned) || 20
     };
 
     // Prepend item
@@ -182,7 +183,10 @@ export class HistoryController {
               <br><small style="color: var(--muted);">= ${item.weightKg.toFixed(3)} kg</small>
             </td>
             <td class="numeric num">${formatSigDigits(item.factor)}</td>
-            <td class="numeric num"><strong>${formatFootprint(item.footprint)}</strong></td>
+            <td class="numeric num">
+              <strong>${formatFootprint(item.footprint)}</strong>
+              <div style="font-size: var(--text-xs); color: var(--teal); font-weight: 600;">+${item.pointsEarned || 20} pts</div>
+            </td>
             <td class="numeric num" style="color: var(--muted); font-size: var(--text-xs);">
               ${formatFootprint(item.rangeMin)} – ${formatFootprint(item.rangeMax)}
             </td>
@@ -223,6 +227,7 @@ export class HistoryController {
       "Carbon Footprint (kg CO2e)",
       "Range Min (kg CO2e)",
       "Range Max (kg CO2e)",
+      "Green Points Earned",
       "Confidence",
       "User Corrected"
     ];
@@ -239,6 +244,7 @@ export class HistoryController {
       item.footprint.toFixed(4),
       item.rangeMin.toFixed(4),
       item.rangeMax.toFixed(4),
+      item.pointsEarned || 20,
       (item.confidence * 100).toFixed(1) + "%",
       item.userCorrected ? "Yes" : "No"
     ]);

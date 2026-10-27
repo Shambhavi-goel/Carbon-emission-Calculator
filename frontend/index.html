@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Carbon Footprint Calculator | AI Waste Classification</title>
-  <meta name="description" content="Research-grade carbon footprint calculator using AI image classification to identify waste materials and quantify emissions with empirical ranges.">
+  <title>Carbon Footprint Calculator | AI Waste Classification & Green Rewards</title>
+  <meta name="description" content="AI-driven waste classification carbon calculator. Identify materials from photos, quantify empirical greenhouse emissions, and earn redeemable Green Points for sustainable rewards.">
   
   <!-- Google Fonts: Bricolage Grotesque (600, 700) & IBM Plex Sans (400, 500, 600) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,111 +30,341 @@
       <a href="#top" class="brand-link" aria-label="Carbon Footprint Calculator Homepage">
         <img src="assets/logo.svg" alt="" width="36" height="36" aria-hidden="true">
         <div class="brand-title">
-          <span>Carbon Emission Calculator</span>
-          <span class="brand-subtitle">AI Waste Classification</span>
+          <span>Carbon Footprint Calculator</span>
+          <span class="brand-subtitle">AI Waste Classification &amp; Rewards</span>
         </div>
       </a>
 
       <!-- Desktop Navigation -->
       <nav class="site-nav" aria-label="Main Navigation">
         <a href="#top" class="nav-link active">Home</a>
-        <a href="#calculator" class="nav-link">Calculator</a>
-        <a href="#how" class="nav-link">How it works</a>
-        <a href="#materials" class="nav-link">Materials</a>
-        <a href="#history" class="nav-link">History</a>
-        <a href="#about" class="nav-link">About</a>
-        <a href="#faq" class="nav-link">FAQ</a>
+        <a href="#account" class="nav-link auth-nav-link" id="nav-link-account">My Account</a>
+        <a href="#calculator" class="nav-link auth-nav-link">Calculator</a>
+        <a href="#history" class="nav-link auth-nav-link">History &amp; Impact</a>
+        <a href="#rewards" class="nav-link auth-nav-link">Rewards</a>
       </nav>
 
-      <!-- Mobile Menu Button -->
-      <button type="button" class="mobile-menu-btn" id="btn-mobile-menu" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-nav-drawer">
-        <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
+      <!-- Account & Points Header Widget with Person Icon -->
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <button type="button" class="btn-nav-auth" id="btn-nav-login" style="display: inline-flex;">
+          <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
+          <span>Sign In / Join</span>
+        </button>
+
+        <!-- Person Icon Button & Dropdown Wrapper -->
+        <div class="user-menu-wrapper" id="user-menu-wrapper" style="display: none;">
+          <button type="button" class="user-nav-chip" id="btn-open-account" aria-label="Open User Account Options" aria-expanded="false" aria-haspopup="true">
+            <span class="user-person-icon" aria-hidden="true">
+              <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+            </span>
+            <span id="header-user-name">EcoChampion</span>
+            <span class="user-nav-points" id="header-user-points">80 pts</span>
+            <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+
+          <!-- Dropdown Menu with Multiple Relevant Options -->
+          <div class="user-dropdown-menu" id="user-account-dropdown" role="menu" aria-label="User Options">
+            <div class="user-dropdown-header">
+              <div class="dropdown-avatar" id="dropdown-avatar-initials">EC</div>
+              <div class="dropdown-user-info">
+                <div class="dropdown-user-name" id="dropdown-user-name">Alex Rivera</div>
+                <div class="dropdown-user-email" id="dropdown-user-email">champion@ecotrack.local</div>
+                <span class="tier-badge-xs" id="dropdown-user-tier">Green Explorer</span>
+              </div>
+            </div>
+
+            <div class="user-dropdown-stats">
+              <div>
+                <div class="dd-stat-label">Points</div>
+                <div class="dd-stat-val" id="dropdown-user-points">80 pts</div>
+              </div>
+              <div>
+                <div class="dd-stat-label">CO₂e Avoided</div>
+                <div class="dd-stat-val" id="dropdown-user-co2">3.42 kg</div>
+              </div>
+              <div>
+                <div class="dd-stat-label">Diverted</div>
+                <div class="dd-stat-val" id="dropdown-user-diverted">1.45 kg</div>
+              </div>
+            </div>
+
+            <div class="user-dropdown-links">
+              <button type="button" class="user-dropdown-item" data-goto-tab="tab-overview">
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                <span>My Account Dashboard</span>
+              </button>
+
+              <button type="button" class="user-dropdown-item" data-goto-tab="tab-impact">
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                <span>Carbon Impact Analytics</span>
+              </button>
+
+              <button type="button" class="user-dropdown-item" data-goto-tab="tab-ledger">
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                <span>Points Wallet &amp; Ledger</span>
+              </button>
+
+              <button type="button" class="user-dropdown-item" data-goto-tab="tab-vouchers">
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/></svg>
+                <span>Claimed Digital Vouchers</span>
+              </button>
+
+              <button type="button" class="user-dropdown-item" data-goto-tab="tab-achievements">
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+                <span>Eco Badges &amp; Milestones</span>
+              </button>
+
+              <button type="button" class="user-dropdown-item" id="dropdown-btn-edit-profile">
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                <span>Edit Profile Settings</span>
+              </button>
+
+              <a href="#rewards" class="user-dropdown-item">
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/></svg>
+                <span>Rewards Catalog Store</span>
+              </a>
+            </div>
+
+            <div class="user-dropdown-divider"></div>
+
+            <div class="user-dropdown-footer">
+              <button type="button" class="user-dropdown-logout" id="dropdown-btn-logout">
+                <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                <span>Sign Out</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button type="button" class="mobile-menu-btn" id="btn-mobile-menu" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-nav-drawer">
+          <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
     </div>
 
     <!-- Mobile Navigation Drawer -->
     <nav class="mobile-nav-drawer" id="mobile-nav-drawer" aria-label="Mobile Navigation">
       <a href="#top" class="mobile-nav-link active">Home</a>
-      <a href="#calculator" class="mobile-nav-link">Calculator</a>
-      <a href="#how" class="mobile-nav-link">How it works</a>
-      <a href="#materials" class="mobile-nav-link">Materials</a>
-      <a href="#history" class="mobile-nav-link">History</a>
-      <a href="#about" class="mobile-nav-link">About</a>
-      <a href="#faq" class="mobile-nav-link">FAQ</a>
+      <a href="#account" class="mobile-nav-link auth-nav-link" id="mobile-nav-link-account">My Account</a>
+      <a href="#calculator" class="mobile-nav-link auth-nav-link">Calculator</a>
+      <a href="#history" class="mobile-nav-link auth-nav-link">History &amp; Impact</a>
+      <a href="#rewards" class="mobile-nav-link auth-nav-link">Rewards Store</a>
     </nav>
   </header>
 
   <main id="main-content">
     <!-- ======================================================================
-         1. HERO SECTION (#top)
+         1. LANDING PAGE / HERO SECTION (#top)
          ====================================================================== -->
     <section class="section hero-section" id="top">
       <div class="container hero-grid">
+        <!-- LEFT COLUMN: INTRODUCTION & CORE CAPABILITIES -->
         <div class="hero-content">
-          <div class="hero-tagline">
-            <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          <div class="hero-tagline-badge">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
-            <span>Institutional Environmental Research Project</span>
+            <span>Smart Vision AI &bull; Earn Green Rewards</span>
           </div>
 
-          <h1>Measure the carbon footprint of waste using vision AI</h1>
+          <h1>Classify Waste with AI. Measure Carbon. Earn Real Rewards.</h1>
           
           <p class="section-lead">
-            Upload a photo of discarded material and specify its weight. Our vision classification model identifies the material class and calculates its life-cycle carbon footprint with rigorous empirical bounds.
+            Turn everyday recycling and waste management into measurable climate action. Upload a photo of any discarded item to automatically classify its material, compute life-cycle carbon emissions with empirical ranges, and earn redeemable Green Points for sustainable products, vouchers, and tree planting.
           </p>
 
-          <div class="hero-actions">
+          <div class="hero-features-list" style="margin-top: var(--space-2);">
+            <div class="hero-feature-item">
+              <div class="hero-feature-icon" aria-hidden="true">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                </svg>
+              </div>
+              <div class="hero-feature-text">
+                <h4>Instant Material Identification</h4>
+                <p>Computer vision accurately identifies metal, plastics, paper, organics, and wood from a single photo.</p>
+              </div>
+            </div>
+
+            <div class="hero-feature-item">
+              <div class="hero-feature-icon" aria-hidden="true">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+              </div>
+              <div class="hero-feature-text">
+                <h4>Verified Carbon Intensity &amp; Range</h4>
+                <p>Calculates life-cycle CO₂e with empirical lower and upper bounds based on verified factor tables.</p>
+              </div>
+            </div>
+
+            <div class="hero-feature-item">
+              <div class="hero-feature-icon" aria-hidden="true">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+                </svg>
+              </div>
+              <div class="hero-feature-text">
+                <h4>Points on Every Calculation</h4>
+                <p>Earn Green Points every time you classify and log waste items. Redeem points for native trees, zero-waste products, and vouchers.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-actions" id="hero-cta-actions" style="display: none;">
             <a href="#calculator" class="btn btn-primary">
               <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
               </svg>
-              <span>Calculate a footprint</span>
+              <span>Calculate Footprint</span>
             </a>
-            <a href="#how" class="btn btn-secondary">How it works</a>
+            <a href="#rewards" class="btn btn-secondary">
+              <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+              </svg>
+              <span>Rewards Catalog</span>
+            </a>
           </div>
         </div>
 
-        <!-- Static Non-Interactive Demonstration Result Card -->
-        <div class="hero-example-card" aria-label="Sample calculation output preview">
-          <span class="hero-example-badge">Sample Output</span>
-          <div class="result-header-row">
-            <div class="material-tag">
-              <span class="material-dot mat-metal"></span>
-              <strong>Metal (Aluminium)</strong>
+        <!-- RIGHT COLUMN: SIGN IN / SIGN UP (GUEST) OR ACTIVE USER SNAPSHOT (LOGGED IN) -->
+        <div class="hero-right-col">
+          <!-- State A: Home Page Sign In / Sign Up Card (Visible when Logged Out) -->
+          <div class="auth-card" id="hero-auth-card">
+            <div class="auth-nav-tabs">
+              <button type="button" class="auth-tab-btn active" id="hero-btn-tab-signin" data-hero-auth-tab="hero-pane-signin">
+                <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
+                <span>Sign In</span>
+              </button>
+              <button type="button" class="auth-tab-btn" id="hero-btn-tab-signup" data-hero-auth-tab="hero-pane-signup">
+                <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+                <span>Create Account</span>
+              </button>
             </div>
-            <span style="font-size: var(--text-xs); color: var(--muted);">Confidence: <strong class="num">93%</strong></span>
+
+            <!-- Tab 1: Sign In -->
+            <div class="auth-tab-content" id="hero-pane-signin">
+              <div class="auth-header">
+                <h3>Sign in to your Eco-Account</h3>
+                <p>Access your personal carbon ledger, points balance, and rewards.</p>
+              </div>
+              <form id="hero-form-signin" class="auth-form">
+                <div class="auth-field">
+                  <label for="hero-signin-email">Email or Username</label>
+                  <input type="text" id="hero-signin-email" class="form-control" placeholder="champion@ecotrack.local" value="champion@ecotrack.local" autocomplete="username">
+                </div>
+                <div class="auth-field">
+                  <label for="hero-signin-password">Password</label>
+                  <input type="password" id="hero-signin-password" class="form-control" placeholder="••••••••" value="demo123" autocomplete="current-password">
+                </div>
+                <div class="auth-options">
+                  <label class="auth-checkbox-label">
+                    <input type="checkbox" id="hero-signin-remember" checked>
+                    <span>Remember me</span>
+                  </label>
+                  <span style="font-size: var(--text-xs); color: var(--muted);">Demo account ready</span>
+                </div>
+                <button type="submit" class="btn btn-primary" id="hero-btn-signin-submit" style="width: 100%;">
+                  <span>Sign In &amp; Open My Account</span>
+                  <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </button>
+              </form>
+
+              <!-- 1-Click Quick Demo Sign In -->
+              <div class="auth-demo-box">
+                <span class="auth-demo-label">Instant 1-Click Demo Testing</span>
+                <div class="auth-demo-grid">
+                  <button type="button" class="btn-demo-quick" id="hero-btn-demo-champion">
+                    <span>🌿 EcoChampion (Alex Rivera)</span>
+                  </button>
+                  <button type="button" class="btn-demo-quick" id="hero-btn-demo-newuser">
+                    <span>✨ New Member (+150 pts)</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab 2: Create Account -->
+            <div class="auth-tab-content" id="hero-pane-signup" style="display: none;">
+              <div class="auth-header">
+                <h3>Join the Climate Action Movement</h3>
+                <p>Register now to earn +150 welcome points instantly.</p>
+              </div>
+              <form id="hero-form-signup" class="auth-form">
+                <div class="auth-field">
+                  <label for="hero-signup-name">Full Name</label>
+                  <input type="text" id="hero-signup-name" class="form-control" placeholder="Alex Rivera" value="Alex Rivera" autocomplete="name">
+                </div>
+                <div class="auth-field">
+                  <label for="hero-signup-email">Email Address</label>
+                  <input type="email" id="hero-signup-email" class="form-control" placeholder="alex@ecotrack.local" value="alex@ecotrack.local" autocomplete="email">
+                </div>
+                <div class="auth-field">
+                  <label for="hero-signup-password">Create Password</label>
+                  <input type="password" id="hero-signup-password" class="form-control" placeholder="At least 6 characters" value="demo123" autocomplete="new-password">
+                </div>
+                <div class="auth-field">
+                  <label for="hero-signup-role">Sustainability Focus</label>
+                  <select id="hero-signup-role" class="form-control">
+                    <option value="Household Recycling">Household Waste Reduction</option>
+                    <option value="Student Research">Academic &amp; Student Research</option>
+                    <option value="Corporate Sustainability">Workplace / Green Team</option>
+                    <option value="Eco Volunteer">Community Recycling Advocate</option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-primary" id="hero-btn-signup-submit" style="width: 100%;">
+                  <span>Create Account &amp; Claim +150 Pts</span>
+                  <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                </button>
+              </form>
+            </div>
           </div>
 
-          <div class="result-big-footprint" style="margin-top: 14px;">
-            <div style="font-size: var(--text-xs); color: var(--muted); text-transform: uppercase; font-weight: 600;">Carbon Footprint</div>
-            <div class="footprint-lead-number">0.591 <span class="footprint-unit">kg CO₂e</span></div>
-            <div class="footprint-range-text">Range 0.233 to 0.950 kg CO₂e for 250 g sample</div>
-          </div>
+          <!-- State B: Home Page Logged-In Snapshot Card (Visible when Logged In) -->
+          <div class="hero-highlights-card" id="hero-logged-in-snapshot" style="display: none;">
+            <div class="hero-balance-banner">
+              <div>
+                <div class="hero-balance-label">Your Points Balance</div>
+                <div class="hero-balance-val" id="hero-user-points">80 pts</div>
+              </div>
+              <a href="#rewards" class="btn btn-secondary btn-sm" style="background: rgba(255, 255, 255, 0.95); border: none; font-weight: 700; color: var(--teal-dark);">
+                Redeem Store &rarr;
+              </a>
+            </div>
 
-          <!-- Static Range Bar Display -->
-          <div class="range-bar-wrapper" style="margin-top: 12px; margin-bottom: 0;">
-            <div class="range-bar-header">
-              <span>Empirical Footprint Range</span>
-              <span>0.591 kg estimate</span>
-            </div>
-            <div class="range-bar-component" role="img" aria-label="Sample range bar: estimated 0.591 kg CO2e within range 0.233 to 0.950 kg CO2e">
-              <div class="range-track"></div>
-              <div class="range-marker-pin" style="left: 49.9%;"></div>
-              <div class="range-marker-callout" style="left: 49.9%;">0.591 kg</div>
-              <div class="range-marker-subtext" style="left: 49.9%;">factor 2.365</div>
-            </div>
-            <div class="range-labels-row">
-              <div class="range-end-label">
-                <span class="range-end-val">0.233 kg</span>
-                <span class="range-end-factor">min factor 0.93</span>
+            <!-- Welcome Greeting & Quick Stats -->
+            <div style="background-color: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: var(--space-4);">
+              <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+                <div class="dropdown-avatar" id="hero-avatar-initials" style="width: 36px; height: 36px; font-size: var(--text-xs);">EC</div>
+                <div>
+                  <div style="font-weight: 700; font-size: var(--text-sm); color: var(--ink);">Welcome back, <span id="hero-greeting-name">Alex</span>!</div>
+                  <span class="tier-badge-xs" id="hero-greeting-tier">Green Explorer</span>
+                </div>
               </div>
-              <div class="range-end-label right">
-                <span class="range-end-val">0.950 kg</span>
-                <span class="range-end-factor">max factor 3.80</span>
+              <div style="display: flex; justify-content: space-between; font-size: var(--text-xs); color: var(--muted); padding-top: 8px; border-top: 1px dashed var(--line); margin-top: 8px;">
+                <span>Avoided: <strong style="color: var(--teal);" id="hero-stat-co2">3.42 kg CO₂e</strong></span>
+                <span>Diverted: <strong style="color: var(--ink);" id="hero-stat-diverted">1.45 kg</strong></span>
               </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: var(--space-2);">
+              <a href="#account" class="btn btn-primary" style="width: 100%;">
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                <span>Go to My Account Dashboard</span>
+              </a>
+              <a href="#calculator" class="btn btn-secondary" style="width: 100%;">
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                <span>Classify Waste &amp; Earn Points</span>
+              </a>
             </div>
           </div>
         </div>
@@ -142,14 +372,18 @@
     </section>
 
     <!-- ======================================================================
-         2. CALCULATOR SECTION (#calculator)
+         AUTHENTICATED APP CONTENT (REVEALED ONLY UPON SIGN IN)
          ====================================================================== -->
-    <section class="section" id="calculator">
+    <div id="authenticated-app-content" style="display: none;">
+      <!-- ======================================================================
+           2. CALCULATOR SECTION (#calculator)
+           ====================================================================== -->
+      <section class="section" id="calculator">
       <div class="container">
         <div class="section-header">
           <h2 class="section-title">Waste Footprint Calculator</h2>
           <p class="section-lead">
-            Upload an image of clean scrap or waste, provide its weight, and compute emissions.
+            Upload an image of your clean scrap or waste item, enter its weight, and earn points on your assessment.
           </p>
         </div>
 
@@ -169,7 +403,7 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
                 <div class="dropzone-text">
-                  <strong>Drag & drop your photo here</strong> or select an option below
+                  <strong>Drag &amp; drop your photo here</strong> or select an option below
                 </div>
                 <div class="dropzone-actions">
                   <button type="button" class="btn btn-secondary btn-sm" onclick="document.getElementById('input-file-browse').click()">Browse files</button>
@@ -184,7 +418,7 @@
               <input type="file" id="input-file-browse" class="sr-only" accept="image/jpeg,image/png,image/webp">
               <input type="file" id="input-file-camera" class="sr-only" accept="image/jpeg,image/png,image/webp" capture="environment">
 
-              <!-- Upload Preview Container (Hidden initially) -->
+              <!-- Upload Preview Container -->
               <div id="upload-preview-box" class="preview-box" style="display: none;">
                 <img id="upload-preview-img" src="" alt="Selected waste preview" class="preview-thumb">
                 <div class="preview-meta">
@@ -288,208 +522,19 @@
           </div>
         </div>
 
-        <!-- Hidden aria-live region for screen reader updates -->
         <div id="calc-live-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
       </div>
     </section>
 
     <!-- ======================================================================
-         3. HOW IT WORKS SECTION (#how)
-         ====================================================================== -->
-    <section class="section" id="how">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">How It Works</h2>
-          <p class="section-lead">
-            Combining deep learning computer vision with validated life-cycle emission intensity data.
-          </p>
-        </div>
-
-        <div class="steps-grid">
-          <div class="step-card">
-            <span class="step-card-num">01</span>
-            <div class="step-card-title">Upload a photo</div>
-            <div class="step-card-desc">
-              Take or select an image of your discarded waste item on any plain or contrasting surface.
-            </div>
-          </div>
-
-          <div class="step-card">
-            <span class="step-card-num">02</span>
-            <div class="step-card-title">Model identifies material</div>
-            <div class="step-card-desc">
-              Our vision classifier (EfficientNetB0) extracts structural visual patterns and predicts the primary material class.
-            </div>
-          </div>
-
-          <div class="step-card">
-            <span class="step-card-num">03</span>
-            <div class="step-card-title">Factor lookup</div>
-            <div class="step-card-desc">
-              The identified class is cross-referenced against empirical life-cycle assessment factors (min, average, max).
-            </div>
-          </div>
-
-          <div class="step-card">
-            <span class="step-card-num">04</span>
-            <div class="step-card-title">Multiplied by mass</div>
-            <div class="step-card-desc">
-              The looked-up emission factor is multiplied by your verified weight to calculate the net carbon equivalent (kg CO₂e).
-            </div>
-          </div>
-        </div>
-
-        <!-- Worked Calculation & Weight rationale block -->
-        <div class="how-formula-box">
-          <h3 style="margin-bottom: var(--space-2);">Why must you enter the item's weight?</h3>
-          <p style="margin-bottom: var(--space-4); color: var(--muted);">
-            A two-dimensional photograph captures surface texture, geometry, and color, but cannot determine an object's density, wall thickness, or mass. Entering an exact weight turns visual material classification into an accurate physical emission calculation.
-          </p>
-
-          <h4 style="margin-bottom: var(--space-2);">Worked Example Calculation</h4>
-          <p style="color: var(--muted); margin-bottom: var(--space-2);">
-            Consider an aluminium beverage can weighing <strong>250 g</strong> identified as <strong>Metal</strong>:
-          </p>
-          <div class="formula-math">
-            Weight: 250 g = 0.250 kg<br>
-            Average Emission Factor (Metal): 2.365 kg CO₂e / kg<br>
-            Estimated Footprint: 0.250 kg × 2.365 = <strong>0.591 kg CO₂e</strong><br>
-            Empirical Range: [0.250 × 0.93 = 0.233 kg] to [0.250 × 3.80 = 0.950 kg CO₂e]
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ======================================================================
-         4. MATERIALS SECTION (#materials)
-         ====================================================================== -->
-    <section class="section" id="materials">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">Material Emission Factors</h2>
-          <p class="section-lead">
-            Standard empirical factors applied by the classification model. Values are expressed in kilograms of carbon dioxide equivalent per kilogram of material (kg CO₂e / kg).
-          </p>
-        </div>
-
-        <div class="card" style="padding: 0; overflow: hidden;">
-          <div class="table-responsive">
-            <table class="data-table" aria-label="Material Emission Factors Table">
-              <thead>
-                <tr>
-                  <th scope="col">Material Class</th>
-                  <th scope="col" class="numeric">Average Factor</th>
-                  <th scope="col" class="numeric">Lower Bound (Min)</th>
-                  <th scope="col" class="numeric">Upper Bound (Max)</th>
-                  <th scope="col">Unit</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                      <span class="material-dot mat-metal"></span>
-                      <strong>Metal</strong>
-                    </div>
-                  </td>
-                  <td class="numeric num">2.365</td>
-                  <td class="numeric num">0.930</td>
-                  <td class="numeric num">3.800</td>
-                  <td>kg CO₂e / kg</td>
-                </tr>
-                <tr>
-                  <td>
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                      <span class="material-dot mat-organic"></span>
-                      <strong>Organic waste</strong>
-                    </div>
-                  </td>
-                  <td class="numeric num">0.280</td>
-                  <td class="numeric num">0.240</td>
-                  <td class="numeric num">0.320</td>
-                  <td>kg CO₂e / kg</td>
-                </tr>
-                <tr>
-                  <td>
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                      <span class="material-dot mat-paper"></span>
-                      <strong>Paper</strong>
-                    </div>
-                  </td>
-                  <td class="numeric num">1.495</td>
-                  <td class="numeric num">0.490</td>
-                  <td class="numeric num">2.500</td>
-                  <td>kg CO₂e / kg</td>
-                </tr>
-                <tr>
-                  <td>
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                      <span class="material-dot mat-plastic_low"></span>
-                      <strong>Plastic (low-emission grade)</strong>
-                    </div>
-                  </td>
-                  <td class="numeric num">1.695</td>
-                  <td class="numeric num">1.310</td>
-                  <td class="numeric num">2.080</td>
-                  <td>kg CO₂e / kg</td>
-                </tr>
-                <tr>
-                  <td>
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                      <span class="material-dot mat-plastic_mid"></span>
-                      <strong>Plastic (medium-emission grade)</strong>
-                    </div>
-                  </td>
-                  <td class="numeric num">3.580</td>
-                  <td class="numeric num">3.290</td>
-                  <td class="numeric num">3.870</td>
-                  <td>kg CO₂e / kg</td>
-                </tr>
-                <tr>
-                  <td>
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                      <span class="material-dot mat-plastic_high"></span>
-                      <strong>Plastic (high-emission grade)</strong>
-                    </div>
-                  </td>
-                  <td class="numeric num">5.680</td>
-                  <td class="numeric num">5.660</td>
-                  <td class="numeric num">5.700</td>
-                  <td>kg CO₂e / kg</td>
-                </tr>
-                <tr>
-                  <td>
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                      <span class="material-dot mat-wood"></span>
-                      <strong>Wood</strong>
-                    </div>
-                  </td>
-                  <td class="numeric num">0.378</td>
-                  <td class="numeric num">0.263</td>
-                  <td class="numeric num">0.493</td>
-                  <td>kg CO₂e / kg</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="materials-note">
-          <p><strong>System boundary:</strong> Cradle-to-gate inventory database with regional post-consumer processing credits. [Data source citation placeholder: Institutional LCA Database, 2024 revision].</p>
-          <p style="margin-top: 4px;"><strong>Range definition:</strong> Minimum and maximum bounds represent the lowest and highest documented factors across item subcategories within that class.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ======================================================================
-         5. HISTORY SECTION (#history)
+         3. HISTORY SECTION (#history)
          ====================================================================== -->
     <section class="section" id="history">
       <div class="container">
         <div class="section-header">
-          <h2 class="section-title">Session History & Analysis</h2>
+          <h2 class="section-title">Session History &amp; Impact</h2>
           <p class="section-lead">
-            Review accumulated calculations from this session, view distribution charts, and export data.
+            Review accumulated calculations from this session, view distribution charts, and export your logged waste data.
           </p>
         </div>
 
@@ -512,7 +557,7 @@
         <!-- History Actions -->
         <div class="history-actions-row">
           <div style="font-size: var(--text-sm); font-weight: 600; color: var(--ink);">
-            Item Log
+            Item Assessment Log
           </div>
           <div style="display: flex; gap: var(--space-2);">
             <button type="button" class="btn btn-secondary btn-sm" id="btn-export-csv" disabled>
@@ -554,7 +599,7 @@
             <svg class="result-empty-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
             </svg>
-            <p>No items yet. Add your first result from the calculator.</p>
+            <p>No items yet. Add your first result from the calculator to bank points.</p>
             <div style="margin-top: 12px;">
               <a href="#calculator" class="btn btn-secondary btn-sm">Go to calculator</a>
             </div>
@@ -591,211 +636,428 @@
     </section>
 
     <!-- ======================================================================
-         6. ABOUT SECTION (#about)
+         4. REWARDS STORE SECTION (#rewards)
          ====================================================================== -->
-    <section class="section" id="about">
+    <section class="section" id="rewards">
       <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">About the Project</h2>
-          <p class="section-lead">
-            Academic research initiative applying deep learning to accelerate consumer waste classification and transparent carbon accounting.
-          </p>
+        <div class="rewards-header-banner">
+          <div>
+            <h2 class="section-title">Green Points Rewards Store</h2>
+            <p class="section-lead" style="margin-bottom: 0;">
+              Earn points for every waste item assessed and logged. Redeem your balance for verified tree planting, sustainable gear, and digital gift vouchers.
+            </p>
+          </div>
+          <div class="rewards-balance-pill">
+            <span style="font-size: 1.5rem;">🌿</span>
+            <div>
+              <div style="font-size: var(--text-xs); color: var(--teal-dark); font-weight: 600; text-transform: uppercase;">Available Points</div>
+              <div class="rewards-balance-num" id="rewards-available-points">80 pts</div>
+            </div>
+          </div>
         </div>
 
-        <div class="about-grid">
-          <div class="card">
-            <h3 style="margin-bottom: var(--space-3);">Motivation & Mission</h3>
-            <p style="margin-bottom: var(--space-4);">
-              Accurate waste segregation and carbon awareness remain major bottlenecks in circular resource stewardship. This project demonstrates how edge-compatible convolutional neural networks can automate material identification and directly link visual inspection to life-cycle greenhouse gas metrics.
-            </p>
+        <!-- Rewards Grid (populated dynamically) -->
+        <div class="rewards-grid" id="rewards-grid">
+          <!-- Populated by main.js from REWARDS_CATALOG -->
+        </div>
 
-            <h4 style="margin-bottom: var(--space-2);">Supervision & Institutional Context</h4>
-            <p class="secondary-text" style="margin-bottom: var(--space-4);">
-              Developed as a student research project. [Team member names placeholder] under the academic guidance of [Faculty Guide placeholder], Department of [Department Name placeholder], [Institution Name placeholder].
-            </p>
-
-            <h4 style="margin-bottom: var(--space-2);">Technology Stack</h4>
-            <ul class="facts-list">
-              <li class="facts-item">
-                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                <span><strong>Model Architecture:</strong> EfficientNetB0 with ImageNet transfer learning weights</span>
-              </li>
-              <li class="facts-item">
-                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                <span><strong>ML Framework:</strong> TensorFlow / Keras (two-stage training: frozen extraction followed by fine-tuning)</span>
-              </li>
-              <li class="facts-item">
-                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                <span><strong>Backend API:</strong> FastAPI asynchronous service delivering multipart prediction endpoints</span>
-              </li>
-              <li class="facts-item">
-                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                <span><strong>Frontend:</strong> Semantic HTML5, CSS design tokens, vanilla ES modules, Chart.js</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Dataset & Performance Card -->
-          <div class="card">
-            <h3 style="margin-bottom: var(--space-3);">Model & Dataset Verification</h3>
-            <p class="secondary-text" style="margin-bottom: var(--space-4);">
-              Rigorous two-stage training across 7 discrete material classes using an audited dataset of approximately 20,000 cleaned images.
-            </p>
-
-            <div style="background-color: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: var(--space-4); margin-bottom: var(--space-4);">
-              <div style="font-size: var(--text-xs); color: var(--muted); text-transform: uppercase; font-weight: 600;">Dataset Partitions</div>
-              <div style="font-size: var(--text-sm); font-weight: 600; margin-top: 4px;" class="tabular">
-                13,967 train &bull; 3,054 validation &bull; 2,996 test
-              </div>
-            </div>
-
-            <div style="background-color: var(--teal-light); border: 1px solid rgba(15, 92, 92, 0.2); border-radius: var(--radius-sm); padding: var(--space-4);">
-              <div style="font-size: var(--text-xs); color: var(--teal-dark); text-transform: uppercase; font-weight: 700;">Empirical Performance</div>
-              <div style="font-size: var(--text-xl); font-weight: 700; color: var(--teal-dark); margin: 4px 0;" class="tabular">
-                94.4% Accuracy
-              </div>
-              <p style="font-size: var(--text-xs); color: var(--teal-dark); line-height: 1.4;">
-                Achieved 94.4% accuracy and 0.944 macro F1 on our held-out test images.
-              </p>
-            </div>
-          </div>
+        <!-- How points are calculated guide -->
+        <div style="margin-top: var(--space-8); padding: var(--space-5); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); font-size: var(--text-sm);">
+          <h4 style="margin-bottom: 6px; color: var(--teal-dark);">🌱 How to earn Green Points:</h4>
+          <ul style="list-style: disc; padding-left: 20px; color: var(--muted); line-height: 1.6;">
+            <li><strong>Base reward:</strong> Earn <strong>+15 points</strong> for every unique waste item classified with AI.</li>
+            <li><strong>Weight incentive:</strong> Earn <strong>+40 points per kg</strong> of material diverted from landfills.</li>
+            <li><strong>Carbon awareness bonus:</strong> Earn additional points scaled to the emission intensity avoided.</li>
+          </ul>
         </div>
       </div>
     </section>
 
     <!-- ======================================================================
-         7. FAQ & LIMITATIONS SECTION (#faq)
+         5. ECO-ACCOUNT & LOGIN / SIGNUP PORTAL (#account)
          ====================================================================== -->
-    <section class="section" id="faq">
+    <section class="section account-section" id="account">
       <div class="container">
         <div class="section-header">
-          <h2 class="section-title">Limitations & Frequently Asked Questions</h2>
+          <h2 class="section-title">Eco-Account &amp; Climate Portal</h2>
           <p class="section-lead">
-            Understanding the scope, constraints, and statistical assumptions behind our predictions.
+            Manage your personal waste diversion audits, monitor lifetime carbon savings, and access your redeemable digital vouchers.
           </p>
         </div>
 
-        <div style="max-width: 800px;">
-          <details class="faq-accordion">
-            <summary class="faq-summary">
-              <span>Why do I need to enter the weight?</span>
-              <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </summary>
-            <div class="faq-content">
-              A photograph only reveals surface optical qualities (color, geometry, specular reflection), not volume or density. Without entering the exact mass, one cannot determine whether an aluminium object weighs 15 grams or 500 grams. Entering mass converts a unit emission factor (kg CO₂e / kg) into an absolute footprint.
+        <!-- ------------------------------------------------------------------
+             STATE 1: GUEST VIEW (LOGIN & SIGN UP TABS)
+             ------------------------------------------------------------------ -->
+        <div class="auth-wrapper" id="account-guest-view" style="display: none;">
+          <div class="auth-card">
+            <div class="auth-nav-tabs">
+              <button type="button" class="auth-tab-btn active" id="btn-tab-signin" data-auth-tab="pane-signin">
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
+                <span>Sign In</span>
+              </button>
+              <button type="button" class="auth-tab-btn" id="btn-tab-signup" data-auth-tab="pane-signup">
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+                <span>Create Free Account</span>
+              </button>
             </div>
-          </details>
 
-          <details class="faq-accordion">
-            <summary class="faq-summary">
-              <span>What if my photo contains mixed waste or composite packaging?</span>
-              <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </summary>
-            <div class="faq-content">
-              The model identifies the predominant material visible in the frame. For composite items (such as juice cartons combining paper, plastic, and aluminium foil), classify the main material and use the manual subclass or class override dropdowns to reflect the dominant constituent.
-            </div>
-          </details>
+            <!-- Tab Pane 1: Sign In -->
+            <div class="auth-tab-content" id="pane-signin">
+              <div class="auth-header">
+                <h3>Welcome back, Climate Champion</h3>
+                <p>Enter your credentials to access your points wallet and carbon logs.</p>
+              </div>
+              <form id="form-signin" class="auth-form">
+                <div class="auth-field">
+                  <label for="signin-email">Email or Username</label>
+                  <input type="text" id="signin-email" class="form-control" placeholder="champion@ecotrack.local" required autocomplete="username">
+                </div>
+                <div class="auth-field">
+                  <label for="signin-password">Password</label>
+                  <input type="password" id="signin-password" class="form-control" placeholder="••••••••" required autocomplete="current-password">
+                </div>
+                <div class="auth-options">
+                  <label class="auth-checkbox-label">
+                    <input type="checkbox" id="signin-remember" checked>
+                    <span>Remember me</span>
+                  </label>
+                  <a href="#calculator" style="font-size: var(--text-xs); color: var(--teal); text-decoration: none;">Forgot password?</a>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                  <span>Sign In to My Account</span>
+                  <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </button>
+              </form>
 
-          <details class="faq-accordion">
-            <summary class="faq-summary">
-              <span>Why is there a minimum and maximum range?</span>
-              <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </summary>
-            <div class="faq-content">
-              Carbon intensity varies significantly depending on alloy composition, virgin versus recycled feedstocks, manufacturing processes, and regional electrical grid mixes. The range bar visually illustrates this variability so users see the empirical uncertainty rather than a false sense of single-point precision.
+              <!-- 1-Click Quick Demo Sign In -->
+              <div class="auth-demo-box">
+                <span class="auth-demo-label">Instant 1-Click Demo Testing</span>
+                <div class="auth-demo-grid">
+                  <button type="button" class="btn-demo-quick" id="btn-demo-champion">
+                    <span>🌿 EcoChampion (80 pts)</span>
+                  </button>
+                  <button type="button" class="btn-demo-quick" id="btn-demo-newuser">
+                    <span>✨ New Member (+150 pts)</span>
+                  </button>
+                </div>
+              </div>
             </div>
-          </details>
 
-          <details class="faq-accordion">
-            <summary class="faq-summary">
-              <span>Why might plastic grades be confused?</span>
-              <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </summary>
-            <div class="faq-content">
-              Many thermoplastic polymers (such as PET, HDPE, and PP) share transparent or translucent visual appearances that are difficult to distinguish purely from photographs. When two plastic grades have close prediction scores, the interface presents both alongside their respective footprints and prompts you to select the correct polymer.
+            <!-- Tab Pane 2: Sign Up -->
+            <div class="auth-tab-content" id="pane-signup" style="display: none;">
+              <div class="auth-header">
+                <h3>Join the Climate Action Movement</h3>
+                <p>Start tracking waste diversion and earn +150 welcome bonus points instantly.</p>
+              </div>
+              <form id="form-signup" class="auth-form">
+                <div class="auth-field">
+                  <label for="signup-name">Full Name</label>
+                  <input type="text" id="signup-name" class="form-control" placeholder="Alex Rivera" required autocomplete="name">
+                </div>
+                <div class="auth-field">
+                  <label for="signup-email">Email Address</label>
+                  <input type="email" id="signup-email" class="form-control" placeholder="alex@example.org" required autocomplete="email">
+                </div>
+                <div class="auth-field">
+                  <label for="signup-password">Create Password</label>
+                  <input type="password" id="signup-password" class="form-control" placeholder="At least 6 characters" required autocomplete="new-password">
+                </div>
+                <div class="auth-field">
+                  <label for="signup-role">Primary Sustainability Goal</label>
+                  <select id="signup-role" class="form-control">
+                    <option value="Household Recycling">Household Waste Reduction</option>
+                    <option value="Student Research">Academic &amp; Research Project</option>
+                    <option value="Corporate Sustainability">Workplace / Green Team</option>
+                    <option value="Eco Volunteer">Community Recycling Advocate</option>
+                  </select>
+                </div>
+                <div class="auth-options">
+                  <label class="auth-checkbox-label">
+                    <input type="checkbox" id="signup-terms" required checked>
+                    <span>I agree to eco guidelines and claim +150 welcome points</span>
+                  </label>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                  <span>Create Account &amp; Claim +150 Pts</span>
+                  <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                </button>
+              </form>
             </div>
-          </details>
+          </div>
+        </div>
 
-          <details class="faq-accordion">
-            <summary class="faq-summary">
-              <span>How accurate is the classification model?</span>
-              <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </summary>
-            <div class="faq-content">
-              The fine-tuned EfficientNetB0 model achieved 94.4% accuracy and a 0.944 macro F1 score on our held-out test images. Real-world performance may vary depending on camera lighting, background clutter, and image clarity.
+        <!-- ------------------------------------------------------------------
+             STATE 2: LOGGED-IN VIEW (COMPREHENSIVE MULTI-SECTION DASHBOARD)
+             ------------------------------------------------------------------ -->
+        <div class="account-dashboard" id="account-logged-in-view">
+          <!-- Profile Hero Card -->
+          <div class="account-profile-hero">
+            <div class="account-user-info">
+              <div class="account-avatar" id="acc-avatar-initials">EC</div>
+              <div class="account-user-meta">
+                <h3 id="acc-full-name">Alex Rivera</h3>
+                <p><span id="acc-username">@EcoChampion</span> &bull; <span id="acc-email">champion@ecotrack.local</span></p>
+                <div class="account-badges-row">
+                  <span class="tier-badge" id="acc-tier-badge">
+                    <svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    <span id="acc-tier-name">Green Explorer</span>
+                  </span>
+                  <span style="font-size: var(--text-xs); opacity: 0.85;">Member since <span id="acc-member-since">October 2024</span></span>
+                </div>
+              </div>
             </div>
-          </details>
 
-          <details class="faq-accordion">
-            <summary class="faq-summary">
-              <span>Are these calculation results exact carbon audit figures?</span>
-              <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </summary>
-            <div class="faq-content">
-              No. These calculations provide educated estimates intended for public awareness, education, and comparative benchmarking. They do not constitute a formal ISO 14040/14044 certified greenhouse gas audit.
+            <div class="account-hero-actions">
+              <button type="button" class="btn-hero-white" id="btn-toggle-edit-profile">
+                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                <span>Edit Profile</span>
+              </button>
+              <button type="button" class="btn-hero-ghost" id="btn-account-logout">
+                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                <span>Sign Out</span>
+              </button>
             </div>
-          </details>
+          </div>
+
+          <!-- Edit Profile Card (Toggled) -->
+          <div id="acc-edit-profile-card" class="account-edit-box" style="display: none;">
+            <h4 style="margin-bottom: var(--space-4); color: var(--ink);">Update Profile Details</h4>
+            <form id="form-update-profile" style="display: flex; flex-direction: column; gap: var(--space-4);">
+              <div class="auth-field">
+                <label for="edit-display-name">Full Name</label>
+                <input type="text" id="edit-display-name" class="form-control" required>
+              </div>
+              <div class="auth-field">
+                <label for="edit-email">Email Address</label>
+                <input type="email" id="edit-email" class="form-control" required>
+              </div>
+              <div style="display: flex; gap: var(--space-3); margin-top: 4px;">
+                <button type="submit" class="btn btn-primary btn-sm">Save Changes</button>
+                <button type="button" class="btn btn-secondary btn-sm" id="btn-cancel-edit-profile">Cancel</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- 5 Section Tab Navigation -->
+          <nav class="account-section-tabs" aria-label="Account Sections Navigation">
+            <button type="button" class="account-tab-link active" data-acc-tab="tab-overview">
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+              <span>1. Overview &amp; Status</span>
+            </button>
+            <button type="button" class="account-tab-link" data-acc-tab="tab-impact">
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+              <span>2. Carbon Impact Analytics</span>
+            </button>
+            <button type="button" class="account-tab-link" data-acc-tab="tab-ledger">
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+              <span>3. Green Points Wallet</span>
+            </button>
+            <button type="button" class="account-tab-link" data-acc-tab="tab-vouchers">
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/></svg>
+              <span>4. Claimed Digital Vouchers</span>
+            </button>
+            <button type="button" class="account-tab-link" data-acc-tab="tab-achievements">
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+              <span>5. Eco Badges &amp; Milestones</span>
+            </button>
+          </nav>
+
+          <!-- TAB 1: OVERVIEW & STATUS -->
+          <div class="account-tab-content-panel active" id="tab-overview">
+            <div class="account-stats-row">
+              <div class="account-stat-card">
+                <div class="account-stat-label">
+                  <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  <span>Available Balance</span>
+                </div>
+                <div class="account-stat-val" id="acc-stat-points">80 pts</div>
+                <div class="account-stat-sub"><a href="#rewards" style="text-decoration: underline;">Redeem in store &rarr;</a></div>
+              </div>
+
+              <div class="account-stat-card">
+                <div class="account-stat-label">
+                  <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                  <span>Lifetime Earned</span>
+                </div>
+                <div class="account-stat-val" id="acc-stat-lifetime">80 pts</div>
+                <div class="account-stat-sub">Cumulative earned points</div>
+              </div>
+
+              <div class="account-stat-card">
+                <div class="account-stat-label">
+                  <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/></svg>
+                  <span>Carbon Monitored</span>
+                </div>
+                <div class="account-stat-val" id="acc-stat-co2">3.42 kg</div>
+                <div class="account-stat-sub">CO₂e emissions audited</div>
+              </div>
+
+              <div class="account-stat-card">
+                <div class="account-stat-label">
+                  <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                  <span>Waste Diverted</span>
+                </div>
+                <div class="account-stat-val" id="acc-stat-diverted">1.45 kg</div>
+                <div class="account-stat-sub">From local municipal landfills</div>
+              </div>
+            </div>
+
+            <!-- Tier Progress Component -->
+            <div class="tier-progress-card">
+              <div class="tier-progress-header">
+                <div class="tier-progress-title">
+                  Eco-Tier Status: <strong style="color: var(--teal);" id="acc-tier-prog-name">Green Explorer</strong>
+                </div>
+                <div class="tier-progress-target" id="acc-tier-prog-target">
+                  80 / 200 pts to Eco Advocate (40%)
+                </div>
+              </div>
+              <div class="tier-progress-track">
+                <div class="tier-progress-fill" id="acc-tier-prog-fill" style="width: 40%;"></div>
+              </div>
+              <p style="font-size: var(--text-xs); color: var(--muted); margin-top: 8px;">
+                Every classified waste item earns Green Points that advance your eco-tier and unlock higher reward multipliers.
+              </p>
+            </div>
+          </div>
+
+          <!-- TAB 2: CARBON IMPACT ANALYTICS -->
+          <div class="account-tab-content-panel" id="tab-impact">
+            <div class="impact-analytics-grid">
+              <div class="impact-tile">
+                <div class="impact-tile-icon" aria-hidden="true">
+                  <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+                </div>
+                <div class="impact-tile-info">
+                  <h4>Tree Absorption Equivalent</h4>
+                  <div class="impact-number" id="acc-tree-equiv">~0.16 Trees</div>
+                  <p>Offset equivalent in annual tree absorption capacity based on avoided landfill methane emissions.</p>
+                </div>
+              </div>
+
+              <div class="impact-tile">
+                <div class="impact-tile-icon" aria-hidden="true">
+                  <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <div class="impact-tile-info">
+                  <h4>Avoided Vehicle Driving</h4>
+                  <div class="impact-number" id="acc-car-equiv">~13.7 km</div>
+                  <p>Kilometres of passenger vehicle driving carbon footprint prevented through responsible disposal.</p>
+                </div>
+              </div>
+
+              <div class="impact-tile">
+                <div class="impact-tile-icon" aria-hidden="true">
+                  <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                </div>
+                <div class="impact-tile-info">
+                  <h4>Single-Use Items Diverted</h4>
+                  <div class="impact-number" id="acc-bottles-equiv">~58 Items</div>
+                  <p>Calculated equivalent of single-use containers and packaging saved from municipal incinerators.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 3: GREEN POINTS WALLET & LEDGER -->
+          <div class="account-tab-content-panel" id="tab-ledger">
+            <div class="card" style="padding: var(--space-5);">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4);">
+                <h4 style="font-size: var(--text-base); color: var(--ink);">Transaction &amp; Points Activity</h4>
+                <span style="font-size: var(--text-xs); color: var(--muted);">Real-time ledger</span>
+              </div>
+              <div class="redemptions-list" id="acc-full-ledger-list">
+                <!-- Populated dynamically -->
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 4: CLAIMED DIGITAL VOUCHERS -->
+          <div class="account-tab-content-panel" id="tab-vouchers">
+            <div class="vouchers-list-grid" id="acc-vouchers-grid">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+
+          <!-- TAB 5: ECO BADGES & ACHIEVEMENTS -->
+          <div class="account-tab-content-panel" id="tab-achievements">
+            <div class="achievements-grid" id="acc-achievements-grid">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
         </div>
       </div>
     </section>
+  </div> <!-- end #authenticated-app-content -->
   </main>
 
   <!-- ======================================================================
-       8. FOOTER
+       FOOTER
        ====================================================================== -->
   <footer class="site-footer">
     <div class="container footer-container">
       <div class="footer-top">
         <div class="footer-brand">
-          <h3>AI Waste Classification Carbon Footprint Calculator</h3>
+          <h3>AI Waste Classification &amp; Carbon Footprint Calculator</h3>
           <p>
-            An academic research tool connecting computer vision classification with empirical life-cycle assessment factors.
+            An innovative platform turning computer vision waste identification into transparent carbon accounting and tangible green rewards.
           </p>
-          <div style="font-size: var(--text-xs); color: #8A9CA8; margin-top: 4px;">
-            Institutional research project &bull; [Department placeholder], [Institution Name placeholder]
-          </div>
         </div>
 
         <div class="footer-links">
+          <a href="#top">Home</a>
           <a href="#calculator">Calculator</a>
-          <a href="#how">Methodology</a>
-          <a href="#materials">Factors</a>
-          <a href="#history">Session History</a>
-          <a href="#about">About</a>
-          <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
+          <a href="#history">History &amp; Impact</a>
+          <a href="#rewards">Rewards Store</a>
         </div>
       </div>
 
       <div class="footer-disclaimer">
         <div>
-          <strong>Disclaimer:</strong> Estimates for awareness and education; not an official carbon audit.
+          <strong>Disclaimer:</strong> Estimates for educational and awareness purposes. Points and vouchers are digital incentives.
         </div>
         <div>
-          &copy; 2024 AI Carbon Calculator Research Team. All rights reserved.
+          &copy; 2024 AI Carbon Footprint Calculator. All rights reserved.
         </div>
       </div>
     </div>
   </footer>
+
+
+
+  <!-- ======================================================================
+       REDEMPTION SUCCESS MODAL
+       ====================================================================== -->
+  <div class="modal-backdrop" id="redemption-success-modal" role="dialog" aria-modal="true" aria-labelledby="modal-success-title">
+    <div class="modal-container" style="max-width: 440px;">
+      <div class="modal-header" style="background-color: var(--teal-light);">
+        <h3 id="modal-success-title" style="color: var(--teal-dark); display: flex; align-items: center; gap: 8px;">
+          <span>🎉</span> Reward Claimed!
+        </h3>
+        <button type="button" class="modal-close-btn" id="btn-close-success-modal" aria-label="Close modal">
+          <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body" style="text-align: center; gap: var(--space-4);">
+        <p style="font-size: var(--text-sm); color: var(--muted);">You successfully redeemed:</p>
+        <h4 id="success-reward-title" style="font-size: var(--text-lg); color: var(--ink);">Plant a Native Forest Tree</h4>
+        <div style="background-color: var(--paper); border: 2px dashed var(--teal); border-radius: var(--radius-sm); padding: var(--space-4); margin: var(--space-2) 0;">
+          <div style="font-size: var(--text-xs); color: var(--muted); text-transform: uppercase; font-weight: 600;">Your Voucher / Certificate Code</div>
+          <div id="success-reward-code" style="font-family: var(--font-mono); font-size: 1.25rem; font-weight: 700; color: var(--teal); letter-spacing: 0.05em; margin-top: 6px;">
+            ECO-TREE-8492
+          </div>
+        </div>
+        <p style="font-size: var(--text-xs); color: var(--muted);">
+          This record has been saved to your account redemptions list. Show this voucher or certificate code to our sustainable partners!
+        </p>
+        <button type="button" class="btn btn-primary" onclick="document.getElementById('redemption-success-modal').classList.remove('is-open')" style="width: 100%;">
+          Awesome, got it!
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- Application Bootstrap -->
   <script type="module" src="js/main.js"></script>
