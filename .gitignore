@@ -1,0 +1,26 @@
+# Environment Variables & Secrets
+.env
+.env.local
+.env.*.local
+*.env
+
+# Dependencies
+node_modules/
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+
+# Database files & logs
+*.log
+*.sqlite
+*.sqlite3
+
+# IDE & OS files
+.DS_Store
+Thumbs.db
+.idea/
+*.swp
+*.swo
