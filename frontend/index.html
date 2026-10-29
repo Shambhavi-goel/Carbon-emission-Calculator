@@ -1,1065 +1,429 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Carbon Footprint Calculator | AI Waste Classification & Green Rewards</title>
-  <meta name="description" content="AI-driven waste classification carbon calculator. Identify materials from photos, quantify empirical greenhouse emissions, and earn redeemable Green Points for sustainable rewards.">
-  
-  <!-- Google Fonts: Bricolage Grotesque (600, 700) & IBM Plex Sans (400, 500, 600) -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Calculate the carbon footprint of your waste items with our free online waste carbon calculator. Upload a photo, enter the weight, and get an instant CO₂e estimate.">
+  <title>Waste Impact | Waste Carbon Calculator</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-
-  <!-- Core Stylesheets -->
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/sections.css">
-
-  <!-- Chart.js CDN (Exact pinned version 4.4.1) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" defer></script>
+  <script type="module" src="js/main.js"></script>
 </head>
 <body>
-  <!-- Accessibility: Skip Link -->
-  <a href="#calculator" class="skip-link">Skip to calculator</a>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
 
-  <!-- Header & Sticky Navigation -->
-  <header class="site-header" id="top-header">
-    <div class="container header-container">
-      <a href="#top" class="brand-link" aria-label="Carbon Footprint Calculator Homepage">
-        <img src="assets/logo.svg" alt="" width="36" height="36" aria-hidden="true">
-        <div class="brand-title">
-          <span>Carbon Footprint Calculator</span>
-          <span class="brand-subtitle">AI Waste Classification &amp; Rewards</span>
-        </div>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Waste Impact home">
+        <img src="assets/logo.svg" alt="">
+        <span>Waste Impact</span>
       </a>
 
-      <!-- Desktop Navigation -->
-      <nav class="site-nav" aria-label="Main Navigation">
-        <a href="#top" class="nav-link active">Home</a>
-        <a href="#account" class="nav-link auth-nav-link" id="nav-link-account">My Account</a>
-        <a href="#calculator" class="nav-link auth-nav-link">Calculator</a>
-        <a href="#history" class="nav-link auth-nav-link">History &amp; Impact</a>
-        <a href="#rewards" class="nav-link auth-nav-link">Rewards</a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#impact">Impact</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#faq">FAQ</a>
       </nav>
 
-      <!-- Account & Points Header Widget with Person Icon -->
-      <div style="display: flex; align-items: center; gap: 12px;">
-        <button type="button" class="btn-nav-auth" id="btn-nav-login" style="display: inline-flex;">
-          <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-          </svg>
-          <span>Sign In / Join</span>
-        </button>
-
-        <!-- Person Icon Button & Dropdown Wrapper -->
-        <div class="user-menu-wrapper" id="user-menu-wrapper" style="display: none;">
-          <button type="button" class="user-nav-chip" id="btn-open-account" aria-label="Open User Account Options" aria-expanded="false" aria-haspopup="true">
-            <span class="user-person-icon" aria-hidden="true">
-              <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
-            </span>
-            <span id="header-user-name">EcoChampion</span>
-            <span class="user-nav-points" id="header-user-points">80 pts</span>
-            <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-
-          <!-- Dropdown Menu with Multiple Relevant Options -->
-          <div class="user-dropdown-menu" id="user-account-dropdown" role="menu" aria-label="User Options">
-            <div class="user-dropdown-header">
-              <div class="dropdown-avatar" id="dropdown-avatar-initials">EC</div>
-              <div class="dropdown-user-info">
-                <div class="dropdown-user-name" id="dropdown-user-name">Alex Rivera</div>
-                <div class="dropdown-user-email" id="dropdown-user-email">champion@ecotrack.local</div>
-                <span class="tier-badge-xs" id="dropdown-user-tier">Green Explorer</span>
-              </div>
-            </div>
-
-            <div class="user-dropdown-stats">
-              <div>
-                <div class="dd-stat-label">Points</div>
-                <div class="dd-stat-val" id="dropdown-user-points">80 pts</div>
-              </div>
-              <div>
-                <div class="dd-stat-label">CO₂e Avoided</div>
-                <div class="dd-stat-val" id="dropdown-user-co2">3.42 kg</div>
-              </div>
-              <div>
-                <div class="dd-stat-label">Diverted</div>
-                <div class="dd-stat-val" id="dropdown-user-diverted">1.45 kg</div>
-              </div>
-            </div>
-
-            <div class="user-dropdown-links">
-              <button type="button" class="user-dropdown-item" data-goto-tab="tab-overview">
-                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-                <span>My Account Dashboard</span>
-              </button>
-
-              <button type="button" class="user-dropdown-item" data-goto-tab="tab-impact">
-                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-                <span>Carbon Impact Analytics</span>
-              </button>
-
-              <button type="button" class="user-dropdown-item" data-goto-tab="tab-ledger">
-                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                <span>Points Wallet &amp; Ledger</span>
-              </button>
-
-              <button type="button" class="user-dropdown-item" data-goto-tab="tab-vouchers">
-                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/></svg>
-                <span>Claimed Digital Vouchers</span>
-              </button>
-
-              <button type="button" class="user-dropdown-item" data-goto-tab="tab-achievements">
-                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
-                <span>Eco Badges &amp; Milestones</span>
-              </button>
-
-              <button type="button" class="user-dropdown-item" id="dropdown-btn-edit-profile">
-                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-                <span>Edit Profile Settings</span>
-              </button>
-
-              <a href="#rewards" class="user-dropdown-item">
-                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/></svg>
-                <span>Rewards Catalog Store</span>
-              </a>
-            </div>
-
-            <div class="user-dropdown-divider"></div>
-
-            <div class="user-dropdown-footer">
-              <button type="button" class="user-dropdown-logout" id="dropdown-btn-logout">
-                <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
-                <span>Sign Out</span>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Mobile Menu Button -->
-        <button type="button" class="mobile-menu-btn" id="btn-mobile-menu" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-nav-drawer">
-          <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
+      <div class="header-actions">
+        <a class="header-signin" href="#account-access">Sign in</a>
+        <a class="button button-primary button-small" href="#account-access">Get started</a>
       </div>
     </div>
-
-    <!-- Mobile Navigation Drawer -->
-    <nav class="mobile-nav-drawer" id="mobile-nav-drawer" aria-label="Mobile Navigation">
-      <a href="#top" class="mobile-nav-link active">Home</a>
-      <a href="#account" class="mobile-nav-link auth-nav-link" id="mobile-nav-link-account">My Account</a>
-      <a href="#calculator" class="mobile-nav-link auth-nav-link">Calculator</a>
-      <a href="#history" class="mobile-nav-link auth-nav-link">History &amp; Impact</a>
-      <a href="#rewards" class="mobile-nav-link auth-nav-link">Rewards Store</a>
-    </nav>
   </header>
 
   <main id="main-content">
-    <!-- ======================================================================
-         1. LANDING PAGE / HERO SECTION (#top)
-         ====================================================================== -->
-    <section class="section hero-section" id="top">
+
+    <!-- ─── HERO ─────────────────────────────────────────────────────────── -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-bg-decoration" aria-hidden="true">
+        <span class="hero-orb hero-orb-1"></span>
+        <span class="hero-orb hero-orb-2"></span>
+      </div>
       <div class="container hero-grid">
-        <!-- LEFT COLUMN: INTRODUCTION & CORE CAPABILITIES -->
-        <div class="hero-content">
-          <div class="hero-tagline-badge">
-            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-            <span>Smart Vision AI &bull; Earn Green Rewards</span>
-          </div>
-
-          <h1>Classify Waste with AI. Measure Carbon. Earn Real Rewards.</h1>
-          
-          <p class="section-lead">
-            Turn everyday recycling and waste management into measurable climate action. Upload a photo of any discarded item to automatically classify its material, compute life-cycle carbon emissions with empirical ranges, and earn redeemable Green Points for sustainable products, vouchers, and tree planting.
-          </p>
-
-          <div class="hero-features-list" style="margin-top: var(--space-2);">
-            <div class="hero-feature-item">
-              <div class="hero-feature-icon" aria-hidden="true">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                </svg>
-              </div>
-              <div class="hero-feature-text">
-                <h4>Instant Material Identification</h4>
-                <p>Computer vision accurately identifies metal, plastics, paper, organics, and wood from a single photo.</p>
-              </div>
-            </div>
-
-            <div class="hero-feature-item">
-              <div class="hero-feature-icon" aria-hidden="true">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
-              </div>
-              <div class="hero-feature-text">
-                <h4>Verified Carbon Intensity &amp; Range</h4>
-                <p>Calculates life-cycle CO₂e with empirical lower and upper bounds based on verified factor tables.</p>
-              </div>
-            </div>
-
-            <div class="hero-feature-item">
-              <div class="hero-feature-icon" aria-hidden="true">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
-                </svg>
-              </div>
-              <div class="hero-feature-text">
-                <h4>Points on Every Calculation</h4>
-                <p>Earn Green Points every time you classify and log waste items. Redeem points for native trees, zero-waste products, and vouchers.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="hero-actions" id="hero-cta-actions" style="display: none;">
-            <a href="#calculator" class="btn btn-primary">
-              <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-              </svg>
-              <span>Calculate Footprint</span>
+        <div class="hero-copy">
+          <span class="eyebrow hero-eyebrow">
+            <span class="eyebrow-dot" aria-hidden="true"></span>
+            Waste carbon calculator
+          </span>
+          <h1 id="hero-title">See the carbon footprint<br>hiding in your waste.</h1>
+          <p class="hero-intro">Upload a photo of any waste item, enter its weight, and get an instant illustrative CO₂e estimate — with clear assumptions so you always know what the number means.</p>
+          <div class="hero-actions">
+            <a class="button button-primary hero-cta" href="#account-access">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3Zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22Z" fill="currentColor"/></svg>
+              Create your account
             </a>
-            <a href="#rewards" class="btn btn-secondary">
-              <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
-              </svg>
-              <span>Rewards Catalog</span>
-            </a>
+            <a class="button button-secondary" href="#how-it-works">Learn how it works</a>
+          </div>
+          <div class="hero-trust-row">
+            <span class="trust-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4Z" fill="currentColor"/></svg>
+              Browser-only — no data sent to server
+            </span>
+            <span class="trust-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
+              Free to use
+            </span>
           </div>
         </div>
 
-        <!-- RIGHT COLUMN: SIGN IN / SIGN UP (GUEST) OR ACTIVE USER SNAPSHOT (LOGGED IN) -->
-        <div class="hero-right-col">
-          <!-- State A: Home Page Sign In / Sign Up Card (Visible when Logged Out) -->
-          <div class="auth-card" id="hero-auth-card">
-            <div class="auth-nav-tabs">
-              <button type="button" class="auth-tab-btn active" id="hero-btn-tab-signin" data-hero-auth-tab="hero-pane-signin">
-                <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
-                <span>Sign In</span>
-              </button>
-              <button type="button" class="auth-tab-btn" id="hero-btn-tab-signup" data-hero-auth-tab="hero-pane-signup">
-                <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
-                <span>Create Account</span>
-              </button>
-            </div>
-
-            <!-- Tab 1: Sign In -->
-            <div class="auth-tab-content" id="hero-pane-signin">
-              <div class="auth-header">
-                <h3>Sign in to your Eco-Account</h3>
-                <p>Access your personal carbon ledger, points balance, and rewards.</p>
-              </div>
-              <form id="hero-form-signin" class="auth-form">
-                <div class="auth-field">
-                  <label for="hero-signin-email">Email or Username</label>
-                  <input type="text" id="hero-signin-email" class="form-control" placeholder="champion@ecotrack.local" value="champion@ecotrack.local" autocomplete="username">
-                </div>
-                <div class="auth-field">
-                  <label for="hero-signin-password">Password</label>
-                  <input type="password" id="hero-signin-password" class="form-control" placeholder="••••••••" value="demo123" autocomplete="current-password">
-                </div>
-                <div class="auth-options">
-                  <label class="auth-checkbox-label">
-                    <input type="checkbox" id="hero-signin-remember" checked>
-                    <span>Remember me</span>
-                  </label>
-                  <span style="font-size: var(--text-xs); color: var(--muted);">Demo account ready</span>
-                </div>
-                <button type="submit" class="btn btn-primary" id="hero-btn-signin-submit" style="width: 100%;">
-                  <span>Sign In &amp; Open My Account</span>
-                  <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                </button>
-              </form>
-
-              <!-- 1-Click Quick Demo Sign In -->
-              <div class="auth-demo-box">
-                <span class="auth-demo-label">Instant 1-Click Demo Testing</span>
-                <div class="auth-demo-grid">
-                  <button type="button" class="btn-demo-quick" id="hero-btn-demo-champion">
-                    <span>🌿 EcoChampion (Alex Rivera)</span>
-                  </button>
-                  <button type="button" class="btn-demo-quick" id="hero-btn-demo-newuser">
-                    <span>✨ New Member (+150 pts)</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Tab 2: Create Account -->
-            <div class="auth-tab-content" id="hero-pane-signup" style="display: none;">
-              <div class="auth-header">
-                <h3>Join the Climate Action Movement</h3>
-                <p>Register now to earn +150 welcome points instantly.</p>
-              </div>
-              <form id="hero-form-signup" class="auth-form">
-                <div class="auth-field">
-                  <label for="hero-signup-name">Full Name</label>
-                  <input type="text" id="hero-signup-name" class="form-control" placeholder="Alex Rivera" value="Alex Rivera" autocomplete="name">
-                </div>
-                <div class="auth-field">
-                  <label for="hero-signup-email">Email Address</label>
-                  <input type="email" id="hero-signup-email" class="form-control" placeholder="alex@ecotrack.local" value="alex@ecotrack.local" autocomplete="email">
-                </div>
-                <div class="auth-field">
-                  <label for="hero-signup-password">Create Password</label>
-                  <input type="password" id="hero-signup-password" class="form-control" placeholder="At least 6 characters" value="demo123" autocomplete="new-password">
-                </div>
-                <div class="auth-field">
-                  <label for="hero-signup-role">Sustainability Focus</label>
-                  <select id="hero-signup-role" class="form-control">
-                    <option value="Household Recycling">Household Waste Reduction</option>
-                    <option value="Student Research">Academic &amp; Student Research</option>
-                    <option value="Corporate Sustainability">Workplace / Green Team</option>
-                    <option value="Eco Volunteer">Community Recycling Advocate</option>
-                  </select>
-                </div>
-                <button type="submit" class="btn btn-primary" id="hero-btn-signup-submit" style="width: 100%;">
-                  <span>Create Account &amp; Claim +150 Pts</span>
-                  <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                </button>
-              </form>
-            </div>
-          </div>
-
-          <!-- State B: Home Page Logged-In Snapshot Card (Visible when Logged In) -->
-          <div class="hero-highlights-card" id="hero-logged-in-snapshot" style="display: none;">
-            <div class="hero-balance-banner">
-              <div>
-                <div class="hero-balance-label">Your Points Balance</div>
-                <div class="hero-balance-val" id="hero-user-points">80 pts</div>
-              </div>
-              <a href="#rewards" class="btn btn-secondary btn-sm" style="background: rgba(255, 255, 255, 0.95); border: none; font-weight: 700; color: var(--teal-dark);">
-                Redeem Store &rarr;
-              </a>
-            </div>
-
-            <!-- Welcome Greeting & Quick Stats -->
-            <div style="background-color: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: var(--space-4);">
-              <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
-                <div class="dropdown-avatar" id="hero-avatar-initials" style="width: 36px; height: 36px; font-size: var(--text-xs);">EC</div>
-                <div>
-                  <div style="font-weight: 700; font-size: var(--text-sm); color: var(--ink);">Welcome back, <span id="hero-greeting-name">Alex</span>!</div>
-                  <span class="tier-badge-xs" id="hero-greeting-tier">Green Explorer</span>
-                </div>
-              </div>
-              <div style="display: flex; justify-content: space-between; font-size: var(--text-xs); color: var(--muted); padding-top: 8px; border-top: 1px dashed var(--line); margin-top: 8px;">
-                <span>Avoided: <strong style="color: var(--teal);" id="hero-stat-co2">3.42 kg CO₂e</strong></span>
-                <span>Diverted: <strong style="color: var(--ink);" id="hero-stat-diverted">1.45 kg</strong></span>
-              </div>
-            </div>
-
-            <div style="display: flex; flex-direction: column; gap: var(--space-2);">
-              <a href="#account" class="btn btn-primary" style="width: 100%;">
-                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-                <span>Go to My Account Dashboard</span>
-              </a>
-              <a href="#calculator" class="btn btn-secondary" style="width: 100%;">
-                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                <span>Classify Waste &amp; Earn Points</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ======================================================================
-         AUTHENTICATED APP CONTENT (REVEALED ONLY UPON SIGN IN)
-         ====================================================================== -->
-    <div id="authenticated-app-content" style="display: none;">
-      <!-- ======================================================================
-           2. CALCULATOR SECTION (#calculator)
-           ====================================================================== -->
-      <section class="section" id="calculator">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">Waste Footprint Calculator</h2>
-          <p class="section-lead">
-            Upload an image of your clean scrap or waste item, enter its weight, and earn points on your assessment.
-          </p>
-        </div>
-
-        <div class="calculator-grid">
-          <!-- Left Column: Step 1 (Upload) & Step 2 (Weight) -->
-          <div class="card">
-            <!-- Step 1: Upload -->
-            <div class="calc-step">
-              <div class="calc-step-header">
-                <span class="step-num">1</span>
-                <span>Upload a waste photo</span>
-              </div>
-
-              <!-- Drag and drop zone -->
-              <div class="dropzone" id="upload-dropzone" tabindex="0" role="button" aria-label="Drop photo here or press Enter to browse">
-                <svg class="dropzone-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                <div class="dropzone-text">
-                  <strong>Drag &amp; drop your photo here</strong> or select an option below
-                </div>
-                <div class="dropzone-actions">
-                  <button type="button" class="btn btn-secondary btn-sm" onclick="document.getElementById('input-file-browse').click()">Browse files</button>
-                  <button type="button" class="btn btn-secondary btn-sm" onclick="document.getElementById('input-file-camera').click()">Use camera</button>
-                </div>
-                <div style="font-size: var(--text-xs); color: var(--muted); margin-top: 4px;">
-                  Supports JPG, PNG, WebP (Max 10 MB)
-                </div>
-              </div>
-
-              <!-- Hidden inputs -->
-              <input type="file" id="input-file-browse" class="sr-only" accept="image/jpeg,image/png,image/webp">
-              <input type="file" id="input-file-camera" class="sr-only" accept="image/jpeg,image/png,image/webp" capture="environment">
-
-              <!-- Upload Preview Container -->
-              <div id="upload-preview-box" class="preview-box" style="display: none;">
-                <img id="upload-preview-img" src="" alt="Selected waste preview" class="preview-thumb">
-                <div class="preview-meta">
-                  <div id="upload-preview-name" class="preview-filename">image.jpg</div>
-                  <div id="upload-preview-size" class="preview-filesize">0 KB</div>
-                </div>
-                <div class="preview-actions">
-                  <button type="button" class="btn btn-ghost btn-sm" id="btn-upload-replace" aria-label="Replace photo">Replace</button>
-                  <button type="button" class="btn btn-danger-ghost btn-sm" id="btn-upload-remove" aria-label="Remove photo">Remove</button>
-                </div>
-              </div>
-
-              <!-- Error message line -->
-              <div id="upload-error-msg" class="form-error-msg" role="alert"></div>
-
-              <!-- Try an example button -->
-              <div class="example-trigger-row">
-                <button type="button" class="btn btn-ghost btn-sm" id="btn-try-example">
-                  <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                  <span>Try an example photo</span>
-                </button>
-              </div>
-            </div>
-
-            <!-- Step 2: Weight -->
-            <div class="calc-step" style="margin-bottom: 0;">
-              <div class="calc-step-header">
-                <span class="step-num">2</span>
-                <span class="form-label-title">
-                  <span>Enter item weight</span>
-                  <div style="position: relative; display: inline-block;">
-                    <button type="button" class="help-trigger" id="btn-weight-help" aria-label="Weight guidelines" aria-expanded="false" aria-controls="popover-weight-help">
-                      <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                    </button>
-                    <!-- Popover -->
-                    <div class="help-popover" id="popover-weight-help" hidden role="tooltip">
-                      Weight of the waste item itself, not its contents. Use a kitchen scale, or weigh several items of the same material together and enter the total.
-                    </div>
-                  </div>
-                </span>
-              </div>
-
-              <div class="form-group" style="margin-bottom: var(--space-2);">
-                <div class="weight-input-group">
-                  <div class="weight-input-wrapper">
-                    <input type="text" id="input-weight" class="form-control tabular" placeholder="e.g. 250" inputmode="decimal" aria-describedby="weight-error-msg weight-converted-preview">
-                  </div>
-                  <!-- Segmented Unit Switcher -->
-                  <div class="segmented-control" role="radiogroup" aria-label="Weight unit">
-                    <div class="segmented-option">
-                      <input type="radio" id="unit-g" name="weight-unit" value="g" checked>
-                      <label for="unit-g" class="segmented-label">g</label>
-                    </div>
-                    <div class="segmented-option">
-                      <input type="radio" id="unit-kg" name="weight-unit" value="kg">
-                      <label for="unit-kg" class="segmented-label">kg</label>
-                    </div>
-                    <div class="segmented-option">
-                      <input type="radio" id="unit-lb" name="weight-unit" value="lb">
-                      <label for="unit-lb" class="segmented-label">lb</label>
-                    </div>
-                  </div>
-                </div>
-
-                <div style="display: flex; justify-content: space-between; align-items: baseline;">
-                  <span id="weight-converted-preview" class="weight-converted-preview tabular">= 0.000 kg</span>
-                  <div id="weight-error-msg" class="form-error-msg" role="alert"></div>
-                </div>
-              </div>
-
-              <!-- Quick fills -->
-              <div class="chips-group">
-                <span class="chips-label">Typical values, edit if different:</span>
-                <div class="chips-list">
-                  <button type="button" class="chip" data-weight="25" data-unit="g">Small bottle (25 g)</button>
-                  <button type="button" class="chip" data-weight="15" data-unit="g">Drink can (15 g)</button>
-                  <button type="button" class="chip" data-weight="5" data-unit="g">A4 paper sheet (5 g)</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Action Bar -->
-            <div class="calc-action-bar">
-              <button type="button" class="btn btn-primary" id="btn-calculate" disabled>
-                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                </svg>
-                <span>Calculate footprint</span>
-              </button>
-              <div id="calc-status-hint" class="calc-status-hint">Add a photo and a weight to continue</div>
-            </div>
-          </div>
-
-          <!-- Right Column: Results -->
-          <div class="result-column" id="result-column-container">
-            <!-- Dynamically populated by ResultController -->
-          </div>
-        </div>
-
-        <div id="calc-live-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
-      </div>
-    </section>
-
-    <!-- ======================================================================
-         3. HISTORY SECTION (#history)
-         ====================================================================== -->
-    <section class="section" id="history">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">Session History &amp; Impact</h2>
-          <p class="section-lead">
-            Review accumulated calculations from this session, view distribution charts, and export your logged waste data.
-          </p>
-        </div>
-
-        <!-- Running Totals Metric Bar -->
-        <div class="history-totals-bar" id="history-totals-bar" style="display: none;">
-          <div class="history-total-metric">
-            <span class="metric-label">Total Carbon Footprint</span>
-            <span class="metric-num" id="history-total-footprint">0 kg CO₂e</span>
-          </div>
-          <div class="history-total-metric">
-            <span class="metric-label">Total Range Bounds</span>
-            <span class="metric-num" id="history-total-range" style="font-size: var(--text-lg); color: var(--muted);">0 – 0</span>
-          </div>
-          <div class="history-total-metric">
-            <span class="metric-label">Total Assessed Items</span>
-            <span class="metric-num" id="history-total-count">0 items</span>
-          </div>
-        </div>
-
-        <!-- History Actions -->
-        <div class="history-actions-row">
-          <div style="font-size: var(--text-sm); font-weight: 600; color: var(--ink);">
-            Item Assessment Log
-          </div>
-          <div style="display: flex; gap: var(--space-2);">
-            <button type="button" class="btn btn-secondary btn-sm" id="btn-export-csv" disabled>
-              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-              <span>Export CSV</span>
-            </button>
-            <button type="button" class="btn btn-danger-ghost btn-sm" id="btn-clear-history" disabled>
-              Clear history
-            </button>
-          </div>
-        </div>
-
-        <!-- Entries Table -->
-        <div class="card" style="padding: 0; overflow: hidden;">
-          <div class="table-responsive">
-            <table class="data-table" aria-label="Calculation history table">
-              <thead>
-                <tr>
-                  <th scope="col">Thumb</th>
-                  <th scope="col">Material</th>
-                  <th scope="col" class="numeric">Entered Weight</th>
-                  <th scope="col" class="numeric">Factor</th>
-                  <th scope="col" class="numeric">Footprint</th>
-                  <th scope="col" class="numeric">Range</th>
-                  <th scope="col" style="text-align: center;">Status</th>
-                  <th scope="col" style="text-align: right;">Action</th>
-                </tr>
-              </thead>
-              <tbody id="history-table-body">
-                <!-- Dynamically rendered -->
-              </tbody>
-            </table>
-          </div>
-
-          <!-- Empty state -->
-          <div id="history-empty-state" class="result-empty-state" style="border: none; min-height: 220px;">
-            <svg class="result-empty-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-            </svg>
-            <p>No items yet. Add your first result from the calculator to bank points.</p>
-            <div style="margin-top: 12px;">
-              <a href="#calculator" class="btn btn-secondary btn-sm">Go to calculator</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- 3 Analytical Charts -->
-        <div class="charts-grid">
-          <div class="chart-card">
-            <h4>Footprint by Material</h4>
-            <div class="chart-container-box">
-              <canvas id="chart-footprint-material" role="img" aria-label="Footprint distribution by material doughnut chart"></canvas>
-            </div>
-            <div id="summary-footprint-material" class="chart-summary-text">No data available to display.</div>
-          </div>
-
-          <div class="chart-card">
-            <h4>Weight by Material</h4>
-            <div class="chart-container-box">
-              <canvas id="chart-weight-material" role="img" aria-label="Material weight distribution bar chart"></canvas>
-            </div>
-            <div id="summary-weight-material" class="chart-summary-text">No data available to display.</div>
-          </div>
-
-          <div class="chart-card chart-card-full">
-            <h4>Footprint per Entry Over Time</h4>
-            <div class="chart-container-box">
-              <canvas id="chart-footprint-timeline" role="img" aria-label="Footprint per entry timeline line chart"></canvas>
-            </div>
-            <div id="summary-footprint-timeline" class="chart-summary-text">No entries recorded yet.</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ======================================================================
-         4. REWARDS STORE SECTION (#rewards)
-         ====================================================================== -->
-    <section class="section" id="rewards">
-      <div class="container">
-        <div class="rewards-header-banner">
-          <div>
-            <h2 class="section-title">Green Points Rewards Store</h2>
-            <p class="section-lead" style="margin-bottom: 0;">
-              Earn points for every waste item assessed and logged. Redeem your balance for verified tree planting, sustainable gear, and digital gift vouchers.
-            </p>
-          </div>
-          <div class="rewards-balance-pill">
-            <span style="font-size: 1.5rem;">🌿</span>
+        <!-- AUTH CARD -->
+        <aside class="card auth-card" id="account-access" aria-labelledby="account-access-title">
+          <div class="auth-card-brand">
+            <span class="auth-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a5 5 0 1 1 0 10A5 5 0 0 1 12 2Zm0 12c-5.33 0-8 2.67-8 4v2h16v-2c0-1.33-2.67-4-8-4Z" fill="currentColor"/></svg>
+            </span>
             <div>
-              <div style="font-size: var(--text-xs); color: var(--teal-dark); font-weight: 600; text-transform: uppercase;">Available Points</div>
-              <div class="rewards-balance-num" id="rewards-available-points">80 pts</div>
+              <h2 id="account-access-title">Welcome</h2>
+              <p class="auth-intro">Sign in or create a free account to open your personal analyzer.</p>
             </div>
           </div>
-        </div>
 
-        <!-- Rewards Grid (populated dynamically) -->
-        <div class="rewards-grid" id="rewards-grid">
-          <!-- Populated by main.js from REWARDS_CATALOG -->
-        </div>
+          <div class="tabs auth-tabs" role="tablist" aria-label="Choose sign in or sign up">
+            <button class="tab" id="tab-sign-in" type="button" role="tab" aria-selected="true" aria-controls="form-sign-in" tabindex="0">Sign in</button>
+            <button class="tab" id="tab-sign-up" type="button" role="tab" aria-selected="false" aria-controls="form-sign-up" tabindex="-1">Sign up</button>
+          </div>
+          <div class="notice notice-error" id="auth-error" role="alert" aria-live="polite" hidden></div>
+          <button class="text-link-button duplicate-switch" id="duplicate-switch" type="button" hidden>Sign in instead</button>
 
-        <!-- How points are calculated guide -->
-        <div style="margin-top: var(--space-8); padding: var(--space-5); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); font-size: var(--text-sm);">
-          <h4 style="margin-bottom: 6px; color: var(--teal-dark);">🌱 How to earn Green Points:</h4>
-          <ul style="list-style: disc; padding-left: 20px; color: var(--muted); line-height: 1.6;">
-            <li><strong>Base reward:</strong> Earn <strong>+15 points</strong> for every unique waste item classified with AI.</li>
-            <li><strong>Weight incentive:</strong> Earn <strong>+40 points per kg</strong> of material diverted from landfills.</li>
-            <li><strong>Carbon awareness bonus:</strong> Earn additional points scaled to the emission intensity avoided.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
+          <form class="auth-form" id="form-sign-in" role="tabpanel" aria-labelledby="tab-sign-in" novalidate>
+            <div class="form-field">
+              <label for="signin-email">Email address</label>
+              <input class="form-control" id="signin-email" name="email" type="email" autocomplete="email" required aria-describedby="signin-email-error" placeholder="you@example.com">
+              <span class="field-error" id="signin-email-error" aria-live="polite"></span>
+            </div>
+            <div class="form-field">
+              <label for="signin-password">Password</label>
+              <div class="password-wrap">
+                <input class="form-control" id="signin-password" name="password" type="password" autocomplete="current-password" required aria-describedby="signin-password-error" placeholder="••••••••">
+                <button class="password-toggle" type="button" data-password-toggle="signin-password" aria-pressed="false" aria-label="Show password">Show</button>
+              </div>
+              <span class="field-error" id="signin-password-error" aria-live="polite"></span>
+            </div>
+            <button class="button button-primary button-block" type="submit">Sign in</button>
 
-    <!-- ======================================================================
-         5. ECO-ACCOUNT & LOGIN / SIGNUP PORTAL (#account)
-         ====================================================================== -->
-    <section class="section account-section" id="account">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">Eco-Account &amp; Climate Portal</h2>
-          <p class="section-lead">
-            Manage your personal waste diversion audits, monitor lifetime carbon savings, and access your redeemable digital vouchers.
+            <!-- DEMO ACCESS BUTTON -->
+            <div class="demo-divider"><span>or</span></div>
+            <button class="button button-demo button-block" id="demo-access-signin" type="button">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 5v14l11-7-11-7Z" fill="currentColor"/></svg>
+              Quick demo access
+            </button>
+
+            <p class="auth-switch-copy">New here? <button class="text-link-button" type="button" data-switch-tab="tab-sign-up">Create an account</button></p>
+          </form>
+
+          <form class="auth-form" id="form-sign-up" role="tabpanel" aria-labelledby="tab-sign-up" hidden novalidate>
+            <div class="form-field">
+              <label for="signup-name">Full name</label>
+              <input class="form-control" id="signup-name" name="name" type="text" autocomplete="name" minlength="2" maxlength="60" required aria-describedby="signup-name-error" placeholder="Your name">
+              <span class="field-error" id="signup-name-error" aria-live="polite"></span>
+            </div>
+            <div class="form-field">
+              <label for="signup-email">Email address</label>
+              <input class="form-control" id="signup-email" name="email" type="email" autocomplete="email" required aria-describedby="signup-email-error" placeholder="you@example.com">
+              <span class="field-error" id="signup-email-error" aria-live="polite"></span>
+            </div>
+            <div class="form-field">
+              <label for="signup-password">Password</label>
+              <div class="password-wrap">
+                <input class="form-control" id="signup-password" name="password" type="password" autocomplete="new-password" minlength="8" required aria-describedby="signup-password-hint signup-password-error" placeholder="Min. 8 characters">
+                <button class="password-toggle" type="button" data-password-toggle="signup-password" aria-pressed="false" aria-label="Show password">Show</button>
+              </div>
+              <span class="unit-label" id="signup-password-hint">At least 8 characters, including a letter and a number.</span>
+              <span class="field-error" id="signup-password-error" aria-live="polite"></span>
+            </div>
+            <button class="button button-primary button-block" type="submit">Create account</button>
+
+            <!-- DEMO ACCESS BUTTON -->
+            <div class="demo-divider"><span>or</span></div>
+            <button class="button button-demo button-block" id="demo-access-signup" type="button">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 5v14l11-7-11-7Z" fill="currentColor"/></svg>
+              Quick demo access
+            </button>
+
+            <p class="auth-switch-copy">Already registered? <button class="text-link-button" type="button" data-switch-tab="tab-sign-in">Sign in</button></p>
+          </form>
+
+          <p class="auth-card-status" role="note">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4Z" fill="currentColor"/></svg>
+            Accounts are stored in this browser only. Do not use a real or reused password.
           </p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ─── STATS TICKER ──────────────────────────────────────────────────── -->
+    <section class="stats-section" aria-labelledby="climate-snapshot-title">
+      <div class="container">
+        <h2 class="sr-only" id="climate-snapshot-title">Climate snapshot</h2>
+        <div class="stats-grid">
+          <article class="card stat-card">
+            <div>
+              <span class="stat-value">1.19°C</span>
+              <span class="stat-caption">Global temperature anomaly in 2025, vs. NASA's 1951–1980 baseline.</span>
+            </div>
+            <p class="stat-source"><a href="https://science.nasa.gov/earth/explore/earth-indicators/global-temperature/" target="_blank" rel="noopener noreferrer">Source: NASA Earth Indicators</a></p>
+          </article>
+          <article class="card stat-card">
+            <div>
+              <span class="stat-value">426.07 ppm</span>
+              <span class="stat-caption">Monthly average atmospheric CO₂ at Mauna Loa in September 2026.</span>
+            </div>
+            <p class="stat-source"><a href="https://gml.noaa.gov/ccgg/trends/" target="_blank" rel="noopener noreferrer">Source: NOAA Global Monitoring Laboratory</a></p>
+          </article>
+          <article class="card stat-card">
+            <div>
+              <span class="stat-value">Since 1958</span>
+              <span class="stat-caption">The Mauna Loa record is the longest continuous atmospheric CO₂ dataset.</span>
+            </div>
+            <p class="stat-source"><a href="https://gml.noaa.gov/ccgg/trends/" target="_blank" rel="noopener noreferrer">Source: NOAA Global Monitoring Laboratory</a></p>
+          </article>
         </div>
+        <p class="stats-caveat">The NASA figure uses a 1951–1980 reference period, not a pre-industrial baseline. NOAA observations are preliminary and may be revised.</p>
+      </div>
+    </section>
 
-        <!-- ------------------------------------------------------------------
-             STATE 1: GUEST VIEW (LOGIN & SIGN UP TABS)
-             ------------------------------------------------------------------ -->
-        <div class="auth-wrapper" id="account-guest-view" style="display: none;">
-          <div class="auth-card">
-            <div class="auth-nav-tabs">
-              <button type="button" class="auth-tab-btn active" id="btn-tab-signin" data-auth-tab="pane-signin">
-                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
-                <span>Sign In</span>
-              </button>
-              <button type="button" class="auth-tab-btn" id="btn-tab-signup" data-auth-tab="pane-signup">
-                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
-                <span>Create Free Account</span>
-              </button>
-            </div>
-
-            <!-- Tab Pane 1: Sign In -->
-            <div class="auth-tab-content" id="pane-signin">
-              <div class="auth-header">
-                <h3>Welcome back, Climate Champion</h3>
-                <p>Enter your credentials to access your points wallet and carbon logs.</p>
-              </div>
-              <form id="form-signin" class="auth-form">
-                <div class="auth-field">
-                  <label for="signin-email">Email or Username</label>
-                  <input type="text" id="signin-email" class="form-control" placeholder="champion@ecotrack.local" required autocomplete="username">
-                </div>
-                <div class="auth-field">
-                  <label for="signin-password">Password</label>
-                  <input type="password" id="signin-password" class="form-control" placeholder="••••••••" required autocomplete="current-password">
-                </div>
-                <div class="auth-options">
-                  <label class="auth-checkbox-label">
-                    <input type="checkbox" id="signin-remember" checked>
-                    <span>Remember me</span>
-                  </label>
-                  <a href="#calculator" style="font-size: var(--text-xs); color: var(--teal); text-decoration: none;">Forgot password?</a>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">
-                  <span>Sign In to My Account</span>
-                  <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                </button>
-              </form>
-
-              <!-- 1-Click Quick Demo Sign In -->
-              <div class="auth-demo-box">
-                <span class="auth-demo-label">Instant 1-Click Demo Testing</span>
-                <div class="auth-demo-grid">
-                  <button type="button" class="btn-demo-quick" id="btn-demo-champion">
-                    <span>🌿 EcoChampion (80 pts)</span>
-                  </button>
-                  <button type="button" class="btn-demo-quick" id="btn-demo-newuser">
-                    <span>✨ New Member (+150 pts)</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Tab Pane 2: Sign Up -->
-            <div class="auth-tab-content" id="pane-signup" style="display: none;">
-              <div class="auth-header">
-                <h3>Join the Climate Action Movement</h3>
-                <p>Start tracking waste diversion and earn +150 welcome bonus points instantly.</p>
-              </div>
-              <form id="form-signup" class="auth-form">
-                <div class="auth-field">
-                  <label for="signup-name">Full Name</label>
-                  <input type="text" id="signup-name" class="form-control" placeholder="Alex Rivera" required autocomplete="name">
-                </div>
-                <div class="auth-field">
-                  <label for="signup-email">Email Address</label>
-                  <input type="email" id="signup-email" class="form-control" placeholder="alex@example.org" required autocomplete="email">
-                </div>
-                <div class="auth-field">
-                  <label for="signup-password">Create Password</label>
-                  <input type="password" id="signup-password" class="form-control" placeholder="At least 6 characters" required autocomplete="new-password">
-                </div>
-                <div class="auth-field">
-                  <label for="signup-role">Primary Sustainability Goal</label>
-                  <select id="signup-role" class="form-control">
-                    <option value="Household Recycling">Household Waste Reduction</option>
-                    <option value="Student Research">Academic &amp; Research Project</option>
-                    <option value="Corporate Sustainability">Workplace / Green Team</option>
-                    <option value="Eco Volunteer">Community Recycling Advocate</option>
-                  </select>
-                </div>
-                <div class="auth-options">
-                  <label class="auth-checkbox-label">
-                    <input type="checkbox" id="signup-terms" required checked>
-                    <span>I agree to eco guidelines and claim +150 welcome points</span>
-                  </label>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">
-                  <span>Create Account &amp; Claim +150 Pts</span>
-                  <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                </button>
-              </form>
-            </div>
-          </div>
+    <!-- ─── ABOUT ─────────────────────────────────────────────────────────── -->
+    <section class="section" id="about" aria-labelledby="carbon-title">
+      <div class="container carbon-intro">
+        <div class="carbon-copy">
+          <span class="eyebrow">The basics</span>
+          <h2 id="carbon-title">What are carbon emissions?</h2>
+          <p>Carbon emissions is a common shorthand for greenhouse gases released by human activity. Carbon dioxide (CO₂) is one; methane (CH₄) is another. These gases trap heat in the atmosphere, contributing to global warming. Because different gases have different warming effects, emissions are often expressed as carbon dioxide equivalent (CO₂e) — a shared unit for comparing them. A waste item's estimated impact depends on its material and weight, along with the lifecycle stage and disposal pathway included in the calculation.</p>
         </div>
-
-        <!-- ------------------------------------------------------------------
-             STATE 2: LOGGED-IN VIEW (COMPREHENSIVE MULTI-SECTION DASHBOARD)
-             ------------------------------------------------------------------ -->
-        <div class="account-dashboard" id="account-logged-in-view">
-          <!-- Profile Hero Card -->
-          <div class="account-profile-hero">
-            <div class="account-user-info">
-              <div class="account-avatar" id="acc-avatar-initials">EC</div>
-              <div class="account-user-meta">
-                <h3 id="acc-full-name">Alex Rivera</h3>
-                <p><span id="acc-username">@EcoChampion</span> &bull; <span id="acc-email">champion@ecotrack.local</span></p>
-                <div class="account-badges-row">
-                  <span class="tier-badge" id="acc-tier-badge">
-                    <svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                    <span id="acc-tier-name">Green Explorer</span>
-                  </span>
-                  <span style="font-size: var(--text-xs); opacity: 0.85;">Member since <span id="acc-member-since">October 2024</span></span>
-                </div>
-              </div>
+        <aside class="info-panel" aria-label="How the calculator uses CO₂e">
+          <span class="eyebrow">For this calculator</span>
+          <h2>One unit. Clear assumptions.</h2>
+          <p>The calculator displays its illustrative material factor and the full calculation step. These values help you understand the logic — not a scientifically validated footprint.</p>
+          <div class="info-panel-features">
+            <div class="info-feature">
+              <span aria-hidden="true">📊</span>
+              <span>Material-specific factors</span>
             </div>
-
-            <div class="account-hero-actions">
-              <button type="button" class="btn-hero-white" id="btn-toggle-edit-profile">
-                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-                <span>Edit Profile</span>
-              </button>
-              <button type="button" class="btn-hero-ghost" id="btn-account-logout">
-                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
-                <span>Sign Out</span>
-              </button>
+            <div class="info-feature">
+              <span aria-hidden="true">🔢</span>
+              <span>Full formula shown</span>
+            </div>
+            <div class="info-feature">
+              <span aria-hidden="true">💡</span>
+              <span>Reduction tips included</span>
             </div>
           </div>
+        </aside>
+      </div>
+    </section>
 
-          <!-- Edit Profile Card (Toggled) -->
-          <div id="acc-edit-profile-card" class="account-edit-box" style="display: none;">
-            <h4 style="margin-bottom: var(--space-4); color: var(--ink);">Update Profile Details</h4>
-            <form id="form-update-profile" style="display: flex; flex-direction: column; gap: var(--space-4);">
-              <div class="auth-field">
-                <label for="edit-display-name">Full Name</label>
-                <input type="text" id="edit-display-name" class="form-control" required>
-              </div>
-              <div class="auth-field">
-                <label for="edit-email">Email Address</label>
-                <input type="email" id="edit-email" class="form-control" required>
-              </div>
-              <div style="display: flex; gap: var(--space-3); margin-top: 4px;">
-                <button type="submit" class="btn btn-primary btn-sm">Save Changes</button>
-                <button type="button" class="btn btn-secondary btn-sm" id="btn-cancel-edit-profile">Cancel</button>
-              </div>
-            </form>
+    <!-- ─── IMPACT ─────────────────────────────────────────────────────────── -->
+    <section class="section impact-section" id="impact" aria-labelledby="impact-title">
+      <div class="container">
+        <header class="section-heading">
+          <span class="eyebrow">Why it matters</span>
+          <h2 id="impact-title">A changing climate affects people and nature.</h2>
+          <p>Greenhouse-gas emissions contribute to long-term warming, with consequences that vary across regions and communities.</p>
+        </header>
+
+        <div class="impact-grid">
+          <article class="card impact-card">
+            <span class="impact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v2m0 14v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M3 12h2m14 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            </span>
+            <h3>Rising temperatures</h3>
+            <p>Long-term warming increases the likelihood and intensity of extreme heat in many parts of the world.</p>
+          </article>
+          <article class="card impact-card">
+            <span class="impact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 15.5c2.1 0 2.1-1.5 4.2-1.5s2.1 1.5 4.2 1.5 2.1-1.5 4.2-1.5 2.1 1.5 3.4 1.5M4 19c2.1 0 2.1-1.5 4.2-1.5s2.1 1.5 4.2 1.5 2.1-1.5 4.2-1.5 2.1 1.5 3.4 1.5M12 3v7m-3-3 3 3 3-3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <h3>Weather extremes</h3>
+            <p>Climate change can intensify some heavy rainfall, drought, and other extremes, while local outcomes differ.</p>
+          </article>
+          <article class="card impact-card">
+            <span class="impact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M3 17.5c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 3 2M4 14l2.2-3.2L9 12l3-6 3.2 5 2-1.5L20 14M12 6V3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <h3>Rising seas</h3>
+            <p>Warming oceans and land-ice loss contribute to sea-level rise, increasing risks for many coastal areas.</p>
+          </article>
+          <article class="card impact-card">
+            <span class="impact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.4-7-11a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 6.6-7 11-7 11Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M12 17v-6m0 2c-2.5 0-3.5-1.5-3.5-3m3.5 5c2.5 0 3.5-1.5 3.5-3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            </span>
+            <h3>Nature and health</h3>
+            <p>Changes in heat, water, and habitats can place added pressure on ecosystems, food systems, and human health.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── MATERIALS ─────────────────────────────────────────────────────── -->
+    <section class="section waste-section" aria-labelledby="waste-title">
+      <div class="container waste-layout">
+        <div class="waste-copy">
+          <span class="eyebrow">Why waste matters</span>
+          <h2 id="waste-title">Materials have different stories — and different impacts.</h2>
+          <p>Emissions can occur when materials are extracted, manufactured, transported, and treated after use. Food and other organic waste can release methane when it decomposes in landfill conditions. Plastics, paper, metals, wood, and organics each have different production and disposal pathways, so their estimated footprints are not interchangeable.</p>
+        </div>
+        <aside class="material-panel" aria-labelledby="materials-title">
+          <h3 id="materials-title">Supported material categories</h3>
+          <p>The analyzer classifies waste into one of these categories based on image filename, then applies an illustrative CO₂e factor.</p>
+          <div class="material-chips" aria-label="Supported waste materials">
+            <span class="material-chip material-metal">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M8 12h8M12 8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Metal
+            </span>
+            <span class="material-chip material-organic">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2C6 8 4 12 8 17c2 2.5 4 3.5 4 3.5S14 19.5 16 17c4-5 2-9-4-15Z" fill="currentColor"/></svg>
+              Organic
+            </span>
+            <span class="material-chip material-paper">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+              Paper
+            </span>
+            <span class="material-chip material-plastic">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 2h12l2 7H4L6 2ZM4 9v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+              Plastic
+            </span>
+            <span class="material-chip material-wood">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2v20M5 8l7-6 7 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Wood
+            </span>
           </div>
+        </aside>
+      </div>
+    </section>
 
-          <!-- 5 Section Tab Navigation -->
-          <nav class="account-section-tabs" aria-label="Account Sections Navigation">
-            <button type="button" class="account-tab-link active" data-acc-tab="tab-overview">
-              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-              <span>1. Overview &amp; Status</span>
-            </button>
-            <button type="button" class="account-tab-link" data-acc-tab="tab-impact">
-              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-              <span>2. Carbon Impact Analytics</span>
-            </button>
-            <button type="button" class="account-tab-link" data-acc-tab="tab-ledger">
-              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-              <span>3. Green Points Wallet</span>
-            </button>
-            <button type="button" class="account-tab-link" data-acc-tab="tab-vouchers">
-              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/></svg>
-              <span>4. Claimed Digital Vouchers</span>
-            </button>
-            <button type="button" class="account-tab-link" data-acc-tab="tab-achievements">
-              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
-              <span>5. Eco Badges &amp; Milestones</span>
-            </button>
-          </nav>
+    <!-- ─── HOW IT WORKS ──────────────────────────────────────────────────── -->
+    <section class="section how-section" id="how-it-works" aria-labelledby="steps-title">
+      <div class="container">
+        <header class="section-heading">
+          <span class="eyebrow">How it works</span>
+          <h2 id="steps-title">From a waste item to an informed estimate.</h2>
+          <p>Three simple steps to explore the carbon impact of any waste item.</p>
+        </header>
+        <div class="steps-grid">
+          <article class="card step-card">
+            <span class="step-number" aria-hidden="true">1</span>
+            <h3>Create an account</h3>
+            <p>Sign up in seconds — no email verification needed. Your account lives in this browser.</p>
+          </article>
+          <article class="card step-card">
+            <span class="step-number" aria-hidden="true">2</span>
+            <h3>Upload and weigh</h3>
+            <p>In the dashboard, preview a JPG, PNG, or WebP photo locally and enter its approximate weight in grams or kilograms.</p>
+          </article>
+          <article class="card step-card">
+            <span class="step-number" aria-hidden="true">3</span>
+            <h3>Review the result</h3>
+            <p>A filename-based material classification and illustrative factor produce a CO₂e estimate with reduction tips.</p>
+          </article>
+        </div>
+      </div>
+    </section>
 
-          <!-- TAB 1: OVERVIEW & STATUS -->
-          <div class="account-tab-content-panel active" id="tab-overview">
-            <div class="account-stats-row">
-              <div class="account-stat-card">
-                <div class="account-stat-label">
-                  <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                  <span>Available Balance</span>
-                </div>
-                <div class="account-stat-val" id="acc-stat-points">80 pts</div>
-                <div class="account-stat-sub"><a href="#rewards" style="text-decoration: underline;">Redeem in store &rarr;</a></div>
-              </div>
+    <!-- ─── BENEFITS ─────────────────────────────────────────────────────── -->
+    <section class="section benefits-section" aria-labelledby="benefits-title">
+      <div class="container">
+        <header class="section-heading">
+          <span class="eyebrow">What you get</span>
+          <h2 id="benefits-title">Useful information, without the guesswork.</h2>
+        </header>
+        <div class="benefits-grid">
+          <article class="benefit-card"><span class="benefit-check" aria-hidden="true">✓</span><p>An item-level estimate with units and assumptions fully shown.</p></article>
+          <article class="benefit-card"><span class="benefit-check" aria-hidden="true">✓</span><p>A material suggestion that you can override if uncertain.</p></article>
+          <article class="benefit-card"><span class="benefit-check" aria-hidden="true">✓</span><p>Clear comparisons labeled as approximate when supported.</p></article>
+          <article class="benefit-card"><span class="benefit-check" aria-hidden="true">✓</span><p>Practical ideas to reduce, reuse, recycle, or compost.</p></article>
+        </div>
+      </div>
+    </section>
 
-              <div class="account-stat-card">
-                <div class="account-stat-label">
-                  <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
-                  <span>Lifetime Earned</span>
-                </div>
-                <div class="account-stat-val" id="acc-stat-lifetime">80 pts</div>
-                <div class="account-stat-sub">Cumulative earned points</div>
-              </div>
-
-              <div class="account-stat-card">
-                <div class="account-stat-label">
-                  <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/></svg>
-                  <span>Carbon Monitored</span>
-                </div>
-                <div class="account-stat-val" id="acc-stat-co2">3.42 kg</div>
-                <div class="account-stat-sub">CO₂e emissions audited</div>
-              </div>
-
-              <div class="account-stat-card">
-                <div class="account-stat-label">
-                  <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-                  <span>Waste Diverted</span>
-                </div>
-                <div class="account-stat-val" id="acc-stat-diverted">1.45 kg</div>
-                <div class="account-stat-sub">From local municipal landfills</div>
-              </div>
-            </div>
-
-            <!-- Tier Progress Component -->
-            <div class="tier-progress-card">
-              <div class="tier-progress-header">
-                <div class="tier-progress-title">
-                  Eco-Tier Status: <strong style="color: var(--teal);" id="acc-tier-prog-name">Green Explorer</strong>
-                </div>
-                <div class="tier-progress-target" id="acc-tier-prog-target">
-                  80 / 200 pts to Eco Advocate (40%)
-                </div>
-              </div>
-              <div class="tier-progress-track">
-                <div class="tier-progress-fill" id="acc-tier-prog-fill" style="width: 40%;"></div>
-              </div>
-              <p style="font-size: var(--text-xs); color: var(--muted); margin-top: 8px;">
-                Every classified waste item earns Green Points that advance your eco-tier and unlock higher reward multipliers.
-              </p>
-            </div>
+    <!-- ─── MISSION ──────────────────────────────────────────────────────── -->
+    <section class="section mission-section" aria-labelledby="mission-title">
+      <div class="container">
+        <div class="mission-panel">
+          <div class="mission-text">
+            <span class="eyebrow">Our purpose</span>
+            <h2 id="mission-title">Make everyday waste easier to understand.</h2>
+            <p>We believe informed choices start with clear information. This calculator helps explore the potential carbon impact of everyday waste — without confusing a placeholder estimate for a precise measurement.</p>
+            <a class="button button-primary mission-cta" href="#account-access">Get started for free</a>
           </div>
-
-          <!-- TAB 2: CARBON IMPACT ANALYTICS -->
-          <div class="account-tab-content-panel" id="tab-impact">
-            <div class="impact-analytics-grid">
-              <div class="impact-tile">
-                <div class="impact-tile-icon" aria-hidden="true">
-                  <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
-                </div>
-                <div class="impact-tile-info">
-                  <h4>Tree Absorption Equivalent</h4>
-                  <div class="impact-number" id="acc-tree-equiv">~0.16 Trees</div>
-                  <p>Offset equivalent in annual tree absorption capacity based on avoided landfill methane emissions.</p>
-                </div>
-              </div>
-
-              <div class="impact-tile">
-                <div class="impact-tile-icon" aria-hidden="true">
-                  <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                </div>
-                <div class="impact-tile-info">
-                  <h4>Avoided Vehicle Driving</h4>
-                  <div class="impact-number" id="acc-car-equiv">~13.7 km</div>
-                  <p>Kilometres of passenger vehicle driving carbon footprint prevented through responsible disposal.</p>
-                </div>
-              </div>
-
-              <div class="impact-tile">
-                <div class="impact-tile-icon" aria-hidden="true">
-                  <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-                </div>
-                <div class="impact-tile-info">
-                  <h4>Single-Use Items Diverted</h4>
-                  <div class="impact-number" id="acc-bottles-equiv">~58 Items</div>
-                  <p>Calculated equivalent of single-use containers and packaging saved from municipal incinerators.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- TAB 3: GREEN POINTS WALLET & LEDGER -->
-          <div class="account-tab-content-panel" id="tab-ledger">
-            <div class="card" style="padding: var(--space-5);">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4);">
-                <h4 style="font-size: var(--text-base); color: var(--ink);">Transaction &amp; Points Activity</h4>
-                <span style="font-size: var(--text-xs); color: var(--muted);">Real-time ledger</span>
-              </div>
-              <div class="redemptions-list" id="acc-full-ledger-list">
-                <!-- Populated dynamically -->
-              </div>
-            </div>
-          </div>
-
-          <!-- TAB 4: CLAIMED DIGITAL VOUCHERS -->
-          <div class="account-tab-content-panel" id="tab-vouchers">
-            <div class="vouchers-list-grid" id="acc-vouchers-grid">
-              <!-- Populated dynamically -->
-            </div>
-          </div>
-
-          <!-- TAB 5: ECO BADGES & ACHIEVEMENTS -->
-          <div class="account-tab-content-panel" id="tab-achievements">
-            <div class="achievements-grid" id="acc-achievements-grid">
-              <!-- Populated dynamically -->
+          <div class="mission-visual" aria-hidden="true">
+            <div class="mission-co2-ring">
+              <span>CO₂e</span>
             </div>
           </div>
         </div>
       </div>
     </section>
-  </div> <!-- end #authenticated-app-content -->
+
+    <!-- ─── FAQ ──────────────────────────────────────────────────────────── -->
+    <section class="section faq-section" id="faq" aria-labelledby="faq-title">
+      <div class="container">
+        <header class="section-heading">
+          <span class="eyebrow">Questions</span>
+          <h2 id="faq-title">Frequently asked questions</h2>
+        </header>
+        <div class="faq-grid">
+          <details class="faq-item">
+            <summary>How is the emission calculated?</summary>
+            <div class="faq-answer"><p>The calculator multiplies the entered weight in kilograms by an illustrative factor for one of five categories. These values have no verified source and do not represent a documented lifecycle or waste-treatment pathway. Treat results as examples, not scientific measurements.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>How accurate will the estimate be?</summary>
+            <div class="faq-answer"><p>Material classification is simulated from the filename and weight is user-entered. The illustrative factors are not scientifically validated. A reliable estimate would also depend on item composition, local disposal practices, and well-sourced emission factors.</p></div>
+          </details>
+          <details class="faq-item" id="privacy">
+            <summary>What happens to my uploaded photo?</summary>
+            <div class="faq-answer"><p>The dashboard previews the image locally and does not send it to a server. A small thumbnail may be saved in this browser's local history. Browser data is not secure, may be cleared, and is not synced. Do not upload sensitive images.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Which items will I be able to upload?</summary>
+            <div class="faq-answer"><p>The calculator supports metal, organic waste, paper, plastic, and wood. The current simulated classification uses image filenames only; it does not inspect the image content.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Do I need to know the exact weight?</summary>
+            <div class="faq-answer"><p>You can enter an approximate weight in grams or kilograms. A more accurate weight does not remove uncertainty from the simulated material classification or illustrative factor.</p></div>
+          </details>
+          <details class="faq-item" id="terms">
+            <summary>Terms of use</summary>
+            <div class="faq-answer"><p>Do not enter sensitive personal information or use a real or reused password. The illustrative carbon estimates are not scientific measurements, environmental advice, or a basis for environmental claims.</p></div>
+          </details>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <!-- ======================================================================
-       FOOTER
-       ====================================================================== -->
   <footer class="site-footer">
-    <div class="container footer-container">
+    <div class="container footer-inner">
       <div class="footer-top">
-        <div class="footer-brand">
-          <h3>AI Waste Classification &amp; Carbon Footprint Calculator</h3>
-          <p>
-            An innovative platform turning computer vision waste identification into transparent carbon accounting and tangible green rewards.
-          </p>
-        </div>
-
-        <div class="footer-links">
-          <a href="#top">Home</a>
-          <a href="#calculator">Calculator</a>
-          <a href="#history">History &amp; Impact</a>
-          <a href="#rewards">Rewards Store</a>
+        <a class="footer-brand" href="#top">
+          <img src="assets/logo.svg" alt="">
+          <span>Waste Impact</span>
+        </a>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="#about">About</a>
+          <a href="#impact">Impact</a>
+          <a href="#faq">FAQ</a>
+          <a href="#privacy">Privacy</a>
+          <a href="#terms">Terms</a>
+        </nav>
+      </div>
+      <p class="footer-tagline">A browser-only tool for exploring the carbon impact of everyday waste.</p>
+      <div class="footer-sources">
+        <h2>Data sources</h2>
+        <p class="source-note">Climate snapshot values are linked to their sources above. Temperature and CO₂ observations use different datasets and baselines. Waste-specific factors are unsourced placeholders and are not scientific data.</p>
+        <div class="source-links">
+          <a href="https://science.nasa.gov/earth/explore/earth-indicators/global-temperature/" target="_blank" rel="noopener noreferrer">NASA global temperature</a>
+          <a href="https://gml.noaa.gov/ccgg/trends/" target="_blank" rel="noopener noreferrer">NOAA CO₂ trends</a>
         </div>
       </div>
-
-      <div class="footer-disclaimer">
-        <div>
-          <strong>Disclaimer:</strong> Estimates for educational and awareness purposes. Points and vouchers are digital incentives.
-        </div>
-        <div>
-          &copy; 2024 AI Carbon Footprint Calculator. All rights reserved.
-        </div>
-      </div>
+      <p class="footer-bottom">© 2026 Waste Impact. Estimates use illustrative factors; no image is sent to a server.</p>
     </div>
   </footer>
-
-
-
-  <!-- ======================================================================
-       REDEMPTION SUCCESS MODAL
-       ====================================================================== -->
-  <div class="modal-backdrop" id="redemption-success-modal" role="dialog" aria-modal="true" aria-labelledby="modal-success-title">
-    <div class="modal-container" style="max-width: 440px;">
-      <div class="modal-header" style="background-color: var(--teal-light);">
-        <h3 id="modal-success-title" style="color: var(--teal-dark); display: flex; align-items: center; gap: 8px;">
-          <span>🎉</span> Reward Claimed!
-        </h3>
-        <button type="button" class="modal-close-btn" id="btn-close-success-modal" aria-label="Close modal">
-          <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
-      <div class="modal-body" style="text-align: center; gap: var(--space-4);">
-        <p style="font-size: var(--text-sm); color: var(--muted);">You successfully redeemed:</p>
-        <h4 id="success-reward-title" style="font-size: var(--text-lg); color: var(--ink);">Plant a Native Forest Tree</h4>
-        <div style="background-color: var(--paper); border: 2px dashed var(--teal); border-radius: var(--radius-sm); padding: var(--space-4); margin: var(--space-2) 0;">
-          <div style="font-size: var(--text-xs); color: var(--muted); text-transform: uppercase; font-weight: 600;">Your Voucher / Certificate Code</div>
-          <div id="success-reward-code" style="font-family: var(--font-mono); font-size: 1.25rem; font-weight: 700; color: var(--teal); letter-spacing: 0.05em; margin-top: 6px;">
-            ECO-TREE-8492
-          </div>
-        </div>
-        <p style="font-size: var(--text-xs); color: var(--muted);">
-          This record has been saved to your account redemptions list. Show this voucher or certificate code to our sustainable partners!
-        </p>
-        <button type="button" class="btn btn-primary" onclick="document.getElementById('redemption-success-modal').classList.remove('is-open')" style="width: 100%;">
-          Awesome, got it!
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Application Bootstrap -->
-  <script type="module" src="js/main.js"></script>
 </body>
 </html>

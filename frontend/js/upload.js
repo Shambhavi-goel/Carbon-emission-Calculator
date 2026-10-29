@@ -1,282 +1,128 @@
-/**
- * Image Upload & Client-Side Processing Controller
- * Handles drag-drop, file decoding validation, canvas resizing (max 1024px),
- * 64px thumbnail creation, and preview lifecycle.
- */
+import { MAX_IMAGE_BYTES } from "./config.js";
+import { validateImage } from "./validators.js";
 
-import { MAX_UPLOAD_MB, RESIZE_MAX_PX } from "./config.js";
+export function initializeImageUpload(elements, onChange) {
+  let selectedFile = null;
+  let previewUrl = "";
+  let busy = false;
+  let selectionVersion = 0;
 
-export class UploadController {
-  constructor({
-    dropzoneEl,
-    fileInputEl,
-    cameraInputEl,
-    previewContainerEl,
-    previewImgEl,
-    previewNameEl,
-    previewSizeEl,
-    removeBtnEl,
-    replaceBtnEl,
-    exampleBtnEl,
-    errorEl,
-    onFileSelected,
-    onFileRemoved
-  }) {
-    this.dropzoneEl = dropzoneEl;
-    this.fileInputEl = fileInputEl;
-    this.cameraInputEl = cameraInputEl;
-    this.previewContainerEl = previewContainerEl;
-    this.previewImgEl = previewImgEl;
-    this.previewNameEl = previewNameEl;
-    this.previewSizeEl = previewSizeEl;
-    this.removeBtnEl = removeBtnEl;
-    this.replaceBtnEl = replaceBtnEl;
-    this.exampleBtnEl = exampleBtnEl;
-    this.errorEl = errorEl;
-    this.onFileSelected = onFileSelected;
-    this.onFileRemoved = onFileRemoved;
+  elements.input.addEventListener("change", () => {
+    if (!busy && elements.input.files?.[0]) void selectImage(elements.input.files[0]);
+  });
 
-    this.currentBlob = null;
-    this.thumbnailUrl = null;
-    this.currentFileName = "";
-
-    this.init();
-  }
-
-  init() {
-    // Dropzone keyboard access
-    this.dropzoneEl.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        this.fileInputEl.click();
-      }
-    });
-
-    // File input changes
-    this.fileInputEl.addEventListener("change", (e) => this.handleFiles(e.target.files));
-    if (this.cameraInputEl) {
-      this.cameraInputEl.addEventListener("change", (e) => this.handleFiles(e.target.files));
+  elements.zone.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      elements.input.click();
     }
+  });
 
-    // Drag and Drop
-    ["dragenter", "dragover"].forEach(evtName => {
-      this.dropzoneEl.addEventListener(evtName, (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        this.dropzoneEl.classList.add("drag-over");
-      });
-    });
+  elements.zone.addEventListener("dragover", (event) => {
+    event.preventDefault();
+    if (busy) return;
+    elements.zone.classList.add("is-dragging");
+  });
 
-    ["dragleave", "drop"].forEach(evtName => {
-      this.dropzoneEl.addEventListener(evtName, (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        this.dropzoneEl.classList.remove("drag-over");
-      });
-    });
+  elements.zone.addEventListener("dragleave", () => elements.zone.classList.remove("is-dragging"));
+  elements.zone.addEventListener("drop", (event) => {
+    event.preventDefault();
+    elements.zone.classList.remove("is-dragging");
+    if (busy) return;
+    const file = event.dataTransfer?.files?.[0];
+    if (file) void selectImage(file);
+  });
 
-    this.dropzoneEl.addEventListener("drop", (e) => {
-      const files = e.dataTransfer?.files;
-      if (files && files.length > 0) {
-        this.handleFiles(files);
-      }
-    });
+  elements.replaceButton.addEventListener("click", () => elements.input.click());
+  elements.removeButton.addEventListener("click", remove);
 
-    // Replace and Remove buttons
-    if (this.replaceBtnEl) {
-      this.replaceBtnEl.addEventListener("click", () => this.fileInputEl.click());
-    }
-    if (this.removeBtnEl) {
-      this.removeBtnEl.addEventListener("click", () => this.reset());
-    }
-
-    // Try an example
-    if (this.exampleBtnEl) {
-      this.exampleBtnEl.addEventListener("click", () => this.loadExampleImage());
-    }
-  }
-
-  async handleFiles(fileList) {
-    if (!fileList || fileList.length === 0) return;
-    const file = fileList[0];
-    this.clearError();
-
-    // Check file size (10 MB max)
-    if (file.size > MAX_UPLOAD_MB * 1024 * 1024) {
-      this.setError(`File exceeds the ${MAX_UPLOAD_MB} MB limit. Please choose a smaller photo.`);
+  async function selectImage(file) {
+    if (busy) return;
+    const currentSelection = ++selectionVersion;
+    const validationMessage = validateImage(file, MAX_IMAGE_BYTES);
+    if (validationMessage) {
+      selectedFile = null;
+      clearPreview();
+      onChange(null, validationMessage);
       return;
     }
 
-    // Check MIME and extension for HEIC/unsupported
-    const isHeic = file.type === "image/heic" || file.type === "image/heif" || 
-                  /\.(heic|heif)$/i.test(file.name);
-    if (isHeic) {
-      this.setError("This format is not supported. Please upload a JPG or PNG.");
-      return;
-    }
-
+    let objectUrl = "";
     try {
-      // Decode image
-      const decodedImg = await this.loadImageElement(file);
-      
-      // Resize to max 1024px long side, export as JPEG quality 0.9
-      const processedBlob = await this.resizeToJpegBlob(decodedImg, RESIZE_MAX_PX, 0.9);
-      
-      // Generate 64px square thumbnail for history table
-      const thumbDataUrl = await this.createThumbnailDataUrl(decodedImg, 64);
-
-      this.currentBlob = processedBlob;
-      this.thumbnailUrl = thumbDataUrl;
-      this.currentFileName = file.name;
-
-      this.showPreview(thumbDataUrl, file.name, file.size);
-
-      if (this.onFileSelected) {
-        this.onFileSelected({
-          blob: processedBlob,
-          thumbnailUrl: thumbDataUrl,
-          fileName: file.name
-        });
+      const bitmap = await createImageBitmap(file);
+      try {
+        if (bitmap.width < 1 || bitmap.height < 1) throw new Error("The selected image has invalid dimensions.");
+      } finally {
+        bitmap.close();
       }
-    } catch (err) {
-      console.error("[Upload] Failed decoding image:", err);
-      this.setError("This format is not supported. Please upload a JPG or PNG.");
-      this.reset();
+      if (currentSelection !== selectionVersion) return;
+      objectUrl = URL.createObjectURL(file);
+      const previousUrl = previewUrl;
+      previewUrl = objectUrl;
+      selectedFile = file;
+      elements.previewImage.src = previewUrl;
+      elements.previewName.textContent = file.name;
+      elements.previewSize.textContent = `${(file.size / (1024 * 1024)).toFixed(2)} MB`;
+      elements.zone.hidden = true;
+      elements.preview.hidden = false;
+      if (previousUrl) URL.revokeObjectURL(previousUrl);
+      onChange(selectedFile, "");
+    } catch (error) {
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
+      if (currentSelection !== selectionVersion) return;
+      console.error("Could not decode selected image.", error);
+      selectedFile = null;
+      clearPreview();
+      onChange(null, "This file could not be read as an image. Choose a valid JPG, PNG, or WebP file.");
     }
   }
 
-  async loadExampleImage() {
-    this.clearError();
-    const examplePath = "assets/sample/example-1.jpg";
-    try {
-      const res = await fetch(examplePath);
-      if (!res.ok) throw new Error("Sample file not found");
-      const blob = await res.blob();
-      const file = new File([blob], "example-aluminium-can.jpg", { type: "image/jpeg" });
-      await this.handleFiles([file]);
-    } catch (e) {
-      console.warn("[Upload] Could not load example file:", e);
-      this.setError("Sample photo 'example-1.jpg' not found in assets/sample/. Please upload an image directly.");
-    }
+  function clearPreview() {
+    if (previewUrl) URL.revokeObjectURL(previewUrl);
+    previewUrl = "";
+    elements.previewImage.removeAttribute("src");
+    elements.previewName.textContent = "";
+    elements.previewSize.textContent = "";
+    elements.preview.hidden = true;
+    elements.zone.hidden = false;
   }
 
-  loadImageElement(file) {
-    return new Promise((resolve, reject) => {
-      const objectUrl = URL.createObjectURL(file);
-      const img = new Image();
-      img.onload = () => {
-        URL.revokeObjectURL(objectUrl);
-        // Verify genuine dimensions
-        if (img.naturalWidth === 0 || img.naturalHeight === 0) {
-          reject(new Error("Zero dimension image"));
-        } else {
-          resolve(img);
-        }
-      };
-      img.onerror = () => {
-        URL.revokeObjectURL(objectUrl);
-        reject(new Error("Image decode failed"));
-      };
-      img.src = objectUrl;
-    });
+  function remove() {
+    if (busy) return;
+    selectionVersion += 1;
+    selectedFile = null;
+    elements.input.value = "";
+    clearPreview();
+    onChange(null, "");
   }
 
-  resizeToJpegBlob(img, maxDim = RESIZE_MAX_PX, quality = 0.9) {
-    return new Promise((resolve, reject) => {
-      let width = img.naturalWidth;
-      let height = img.naturalHeight;
-
-      if (width > maxDim || height > maxDim) {
-        if (width > height) {
-          height = Math.round((height * maxDim) / width);
-          width = maxDim;
-        } else {
-          width = Math.round((width * maxDim) / height);
-          height = maxDim;
-        }
-      }
-
-      const canvas = document.createElement("canvas");
-      canvas.width = width;
-      canvas.height = height;
-      const ctx = canvas.getContext("2d");
-      
-      // High quality smoothing
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = "high";
-      ctx.drawImage(img, 0, 0, width, height);
-
-      canvas.toBlob((blob) => {
-        if (blob) {
-          resolve(blob);
-        } else {
-          reject(new Error("Canvas blob conversion failed"));
-        }
-      }, "image/jpeg", quality);
-    });
+  function setBusy(value) {
+    busy = value;
+    elements.input.disabled = value;
+    elements.replaceButton.disabled = value;
+    elements.removeButton.disabled = value;
+    elements.zone.tabIndex = value ? -1 : 0;
+    elements.zone.setAttribute("aria-disabled", String(value));
   }
 
-  createThumbnailDataUrl(img, size = 64) {
-    return new Promise((resolve) => {
-      const canvas = document.createElement("canvas");
-      canvas.width = size;
-      canvas.height = size;
-      const ctx = canvas.getContext("2d");
+  return {
+    remove,
+    setBusy
+  };
+}
 
-      // Draw centered square crop
-      const minDim = Math.min(img.naturalWidth, img.naturalHeight);
-      const sx = (img.naturalWidth - minDim) / 2;
-      const sy = (img.naturalHeight - minDim) / 2;
-
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = "medium";
-      ctx.drawImage(img, sx, sy, minDim, minDim, 0, 0, size, size);
-
-      resolve(canvas.toDataURL("image/jpeg", 0.8));
-    });
-  }
-
-  showPreview(thumbSrc, name, sizeBytes) {
-    this.dropzoneEl.style.display = "none";
-    this.previewContainerEl.style.display = "flex";
-    this.previewImgEl.src = thumbSrc;
-    this.previewNameEl.textContent = name;
-    this.previewSizeEl.textContent = `${(sizeBytes / 1024).toFixed(0)} KB`;
-  }
-
-  reset() {
-    this.currentBlob = null;
-    this.thumbnailUrl = null;
-    this.currentFileName = "";
-    this.fileInputEl.value = "";
-    if (this.cameraInputEl) this.cameraInputEl.value = "";
-    
-    this.previewContainerEl.style.display = "none";
-    this.dropzoneEl.style.display = "flex";
-    this.clearError();
-
-    if (this.onFileRemoved) {
-      this.onFileRemoved();
-    }
-  }
-
-  setError(msg) {
-    this.errorEl.textContent = msg;
-  }
-
-  clearError() {
-    this.errorEl.textContent = "";
-  }
-
-  hasFile() {
-    return !!this.currentBlob;
-  }
-
-  getData() {
-    return {
-      blob: this.currentBlob,
-      thumbnailUrl: this.thumbnailUrl,
-      fileName: this.currentFileName
-    };
+export async function createThumbnail(file) {
+  const bitmap = await createImageBitmap(file);
+  try {
+    const canvas = document.createElement("canvas");
+    const scale = Math.min(1, 200 / Math.max(bitmap.width, bitmap.height));
+    canvas.width = Math.max(1, Math.round(bitmap.width * scale));
+    canvas.height = Math.max(1, Math.round(bitmap.height * scale));
+    const context = canvas.getContext("2d");
+    if (!context) throw new Error("A browser canvas is unavailable.");
+    context.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+    return canvas.toDataURL("image/jpeg", 0.72);
+  } finally {
+    bitmap.close();
   }
 }
