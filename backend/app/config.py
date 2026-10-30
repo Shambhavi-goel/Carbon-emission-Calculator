@@ -6,6 +6,7 @@ class Settings(BaseSettings):
     PORT: int = 8000
 
     # PostgreSQL Database
+    DATABASE_URL: str | None = None
     DB_HOST: str = "localhost"
     DB_PORT: int = 5432
     DB_NAME: str = "carbon_emission_db"
