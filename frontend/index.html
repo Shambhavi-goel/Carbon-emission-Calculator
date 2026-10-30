@@ -55,7 +55,7 @@
         <div class="hero-copy">
           <h1 id="hero-title">See the carbon emission<br>hiding in your waste.</h1>
           <p class="hero-intro">Upload a photo of any waste item, enter its weight, and get an instant illustrative CO₂e
-            estimate — with clear assumptions so you always know what the number means.</p>
+            estimate with clear assumptions so you always know what the number means.</p>
           <div class="hero-actions">
             <a class="button button-primary hero-cta" href="#account-access">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -165,7 +165,7 @@
           <p>Carbon emissions is a common shorthand for greenhouse gases released by human activity. Carbon dioxide
             (CO₂) is one; methane (CH₄) is another. These gases trap heat in the atmosphere, contributing to global
             warming. Because different gases have different warming effects, emissions are often expressed as carbon
-            dioxide equivalent (CO₂e) — a shared unit for comparing them. A waste item's estimated impact depends on its
+            dioxide equivalent (CO₂e), a shared unit for comparing them. A waste item's estimated impact depends on its
             material and weight, along with the lifecycle stage and disposal pathway included in the calculation.</p>
         </div>
       </div>
@@ -247,7 +247,7 @@
         </div>
         <aside class="material-panel" aria-labelledby="materials-title">
           <h3 id="materials-title">Supported material categories</h3>
-          <p>The analyzer classifies waste into one of these categories based on image filename, then applies an
+          <p>The analyzer classifies waste into one of these categories based on image, then applies an
             illustrative CO₂e factor.</p>
           <div class="material-chips" aria-label="Supported waste materials">
             <span class="material-chip material-metal">
@@ -301,47 +301,24 @@
           <article class="card step-card">
             <span class="step-number" aria-hidden="true">1</span>
             <h3>Create an account</h3>
-            <p>Sign up in seconds — no email verification needed. Your account lives in this browser.</p>
+            <p>Sign up in seconds</p>
           </article>
           <article class="card step-card">
             <span class="step-number" aria-hidden="true">2</span>
             <h3>Upload and weigh</h3>
-            <p>In the dashboard, preview a JPG, PNG, or WebP photo locally and enter its approximate weight in grams or
+            <p>In the dashboard, upload an image of the wast item and enter its approximate weight in grams or
               kilograms.</p>
           </article>
           <article class="card step-card">
             <span class="step-number" aria-hidden="true">3</span>
             <h3>Review the result</h3>
-            <p>A filename-based material classification and illustrative factor produce a CO₂e estimate with reduction
-              tips.</p>
+            <p>The model analyzes the image, classify the waste item and produce a CO₂e estimate of the item</p>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- ─── BENEFITS ─────────────────────────────────────────────────────── -->
-    <section class="section benefits-section" aria-labelledby="benefits-title">
-      <div class="container">
-        <header class="section-heading">
-          <span class="eyebrow">What you get</span>
-          <h2 id="benefits-title">Useful information, without the guesswork.</h2>
-        </header>
-        <div class="benefits-grid">
-          <article class="benefit-card"><span class="benefit-check" aria-hidden="true">✓</span>
-            <p>An item-level estimate with units and assumptions fully shown.</p>
-          </article>
-          <article class="benefit-card"><span class="benefit-check" aria-hidden="true">✓</span>
-            <p>A material suggestion that you can override if uncertain.</p>
-          </article>
-          <article class="benefit-card"><span class="benefit-check" aria-hidden="true">✓</span>
-            <p>Clear comparisons labeled as approximate when supported.</p>
-          </article>
-          <article class="benefit-card"><span class="benefit-check" aria-hidden="true">✓</span>
-            <p>Practical ideas to reduce, reuse, recycle, or compost.</p>
-          </article>
-        </div>
-      </div>
-    </section>
+
 
     <!-- ─── MISSION ──────────────────────────────────────────────────────── -->
     <section class="section mission-section" aria-labelledby="mission-title">
@@ -352,7 +329,7 @@
             <h2 id="mission-title">Make everyday waste easier to understand.</h2>
             <p>We believe informed choices start with clear information. This calculator helps explore the potential
               carbon impact of everyday waste — without confusing a placeholder estimate for a precise measurement.</p>
-            <a class="button button-primary mission-cta" href="#account-access">Get started for free</a>
+            <a class="button button-primary mission-cta" href="#account-access">Get started</a>
           </div>
           <div class="mission-visual" aria-hidden="true">
             <div class="mission-co2-ring">
@@ -375,46 +352,20 @@
             <summary>How is the emission calculated?</summary>
             <div class="faq-answer">
               <p>The calculator multiplies the entered weight in kilograms by an illustrative factor for one of five
-                categories. These values have no verified source and do not represent a documented lifecycle or
-                waste-treatment pathway. Treat results as examples, not scientific measurements.</p>
+                categories.</p>
             </div>
           </details>
-          <details class="faq-item">
-            <summary>How accurate will the estimate be?</summary>
-            <div class="faq-answer">
-              <p>Material classification is simulated from the filename and weight is user-entered. The illustrative
-                factors are not scientifically validated. A reliable estimate would also depend on item composition,
-                local disposal practices, and well-sourced emission factors.</p>
-            </div>
-          </details>
-          <details class="faq-item" id="privacy">
-            <summary>What happens to my uploaded photo?</summary>
-            <div class="faq-answer">
-              <p>The dashboard previews the image locally and does not send it to a server. A small thumbnail may be
-                saved in this browser's local history. Browser data is not secure, may be cleared, and is not synced. Do
-                not upload sensitive images.</p>
-            </div>
-          </details>
+
           <details class="faq-item">
             <summary>Which items will I be able to upload?</summary>
             <div class="faq-answer">
-              <p>The calculator supports metal, organic waste, paper, plastic, and wood. The current simulated
-                classification uses image filenames only; it does not inspect the image content.</p>
+              <p>The calculator supports metal, organic waste, paper, plastic, and wood. </p>
             </div>
           </details>
           <details class="faq-item">
             <summary>Do I need to know the exact weight?</summary>
             <div class="faq-answer">
-              <p>You can enter an approximate weight in grams or kilograms. A more accurate weight does not remove
-                uncertainty from the simulated material classification or illustrative factor.</p>
-            </div>
-          </details>
-          <details class="faq-item" id="terms">
-            <summary>Terms of use</summary>
-            <div class="faq-answer">
-              <p>Do not enter sensitive personal information or use a real or reused password. The illustrative carbon
-                estimates are not scientific measurements, environmental advice, or a basis for environmental claims.
-              </p>
+              <p>You can enter an approximate weight in grams or kilograms. </p>
             </div>
           </details>
         </div>
@@ -427,7 +378,7 @@
       <div class="footer-top">
         <a class="footer-brand" href="#top">
           <img src="assets/logo.svg" alt="">
-          <span>Waste Impact</span>
+          <span>CarbonIQ</span>
         </a>
         <nav class="footer-nav" aria-label="Footer navigation">
           <a href="#about">About</a>
@@ -437,19 +388,7 @@
           <a href="#terms">Terms</a>
         </nav>
       </div>
-      <p class="footer-tagline">A browser-only tool for exploring the carbon impact of everyday waste.</p>
-      <div class="footer-sources">
-        <h2>Data sources</h2>
-        <p class="source-note">Climate snapshot values are linked to their sources above. Temperature and CO₂
-          observations use different datasets and baselines. Waste-specific factors are unsourced placeholders and are
-          not scientific data.</p>
-        <div class="source-links">
-          <a href="https://science.nasa.gov/earth/explore/earth-indicators/global-temperature/" target="_blank"
-            rel="noopener noreferrer">NASA global temperature</a>
-          <a href="https://gml.noaa.gov/ccgg/trends/" target="_blank" rel="noopener noreferrer">NOAA CO₂ trends</a>
-        </div>
-      </div>
-      <p class="footer-bottom">© 2026 Waste Impact. Estimates use illustrative factors; no image is sent to a server.
+      <p class="footer-bottom">© 2026 CarbonIQ.
       </p>
     </div>
   </footer>
