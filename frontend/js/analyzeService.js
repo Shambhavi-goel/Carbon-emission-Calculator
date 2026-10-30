@@ -4,7 +4,9 @@ import { mockAnalyze } from "./mockAnalyze.js";
 
 export async function analyze({ image, weightKg }) {
   if (USE_MOCK) return mockAnalyze(image);
-  if (!API_BASE_URL) throw new Error("The analysis API is not configured. Configure the API endpoint before analyzing items.");
+  if (API_BASE_URL === undefined || API_BASE_URL === null) {
+    throw new Error("The analysis API is not configured. Configure the API endpoint before analyzing items.");
+  }
 
   const controller = new AbortController();
   const timeout = window.setTimeout(() => controller.abort(), ANALYSIS_TIMEOUT_MS);
