@@ -1,19 +1,24 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Calculate the carbon footprint of your waste items with our free online waste carbon calculator. Upload a photo, enter the weight, and get an instant CO₂e estimate.">
+  <meta name="description"
+    content="Calculate the carbon footprint of your waste items with our free online waste carbon calculator. Upload a photo, enter the weight, and get an instant CO₂e estimate.">
   <title>Waste Impact | Waste Carbon Calculator</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/sections.css">
   <script type="module" src="js/main.js"></script>
 </head>
+
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
 
@@ -52,24 +57,19 @@
             <span class="eyebrow-dot" aria-hidden="true"></span>
             Waste carbon calculator
           </span>
-          <h1 id="hero-title">See the carbon footprint<br>hiding in your waste.</h1>
-          <p class="hero-intro">Upload a photo of any waste item, enter its weight, and get an instant illustrative CO₂e estimate — with clear assumptions so you always know what the number means.</p>
+          <h1 id="hero-title">See the carbon emission<br>hiding in your waste.</h1>
+          <p class="hero-intro">Upload a photo of any waste item, enter its weight, and get an instant illustrative CO₂e
+            estimate — with clear assumptions so you always know what the number means.</p>
           <div class="hero-actions">
             <a class="button button-primary hero-cta" href="#account-access">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3Zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22Z" fill="currentColor"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3Zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22Z"
+                  fill="currentColor" />
+              </svg>
               Create your account
             </a>
             <a class="button button-secondary" href="#how-it-works">Learn how it works</a>
-          </div>
-          <div class="hero-trust-row">
-            <span class="trust-badge">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4Z" fill="currentColor"/></svg>
-              Browser-only — no data sent to server
-            </span>
-            <span class="trust-badge">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
-              Free to use
-            </span>
           </div>
         </div>
 
@@ -77,7 +77,10 @@
         <aside class="card auth-card" id="account-access" aria-labelledby="account-access-title">
           <div class="auth-card-brand">
             <span class="auth-card-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a5 5 0 1 1 0 10A5 5 0 0 1 12 2Zm0 12c-5.33 0-8 2.67-8 4v2h16v-2c0-1.33-2.67-4-8-4Z" fill="currentColor"/></svg>
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 2a5 5 0 1 1 0 10A5 5 0 0 1 12 2Zm0 12c-5.33 0-8 2.67-8 4v2h16v-2c0-1.33-2.67-4-8-4Z"
+                  fill="currentColor" />
+              </svg>
             </span>
             <div>
               <h2 id="account-access-title">Welcome</h2>
@@ -86,72 +89,77 @@
           </div>
 
           <div class="tabs auth-tabs" role="tablist" aria-label="Choose sign in or sign up">
-            <button class="tab" id="tab-sign-in" type="button" role="tab" aria-selected="true" aria-controls="form-sign-in" tabindex="0">Sign in</button>
-            <button class="tab" id="tab-sign-up" type="button" role="tab" aria-selected="false" aria-controls="form-sign-up" tabindex="-1">Sign up</button>
+            <button class="tab" id="tab-sign-in" type="button" role="tab" aria-selected="true"
+              aria-controls="form-sign-in" tabindex="0">Sign in</button>
+            <button class="tab" id="tab-sign-up" type="button" role="tab" aria-selected="false"
+              aria-controls="form-sign-up" tabindex="-1">Sign up</button>
           </div>
           <div class="notice notice-error" id="auth-error" role="alert" aria-live="polite" hidden></div>
-          <button class="text-link-button duplicate-switch" id="duplicate-switch" type="button" hidden>Sign in instead</button>
+          <button class="text-link-button duplicate-switch" id="duplicate-switch" type="button" hidden>Sign in
+            instead</button>
 
           <form class="auth-form" id="form-sign-in" role="tabpanel" aria-labelledby="tab-sign-in" novalidate>
             <div class="form-field">
               <label for="signin-email">Email address</label>
-              <input class="form-control" id="signin-email" name="email" type="email" autocomplete="email" required aria-describedby="signin-email-error" placeholder="you@example.com">
+              <input class="form-control" id="signin-email" name="email" type="email" autocomplete="email" required
+                aria-describedby="signin-email-error" placeholder="you@example.com">
               <span class="field-error" id="signin-email-error" aria-live="polite"></span>
             </div>
             <div class="form-field">
               <label for="signin-password">Password</label>
               <div class="password-wrap">
-                <input class="form-control" id="signin-password" name="password" type="password" autocomplete="current-password" required aria-describedby="signin-password-error" placeholder="••••••••">
-                <button class="password-toggle" type="button" data-password-toggle="signin-password" aria-pressed="false" aria-label="Show password">Show</button>
+                <input class="form-control" id="signin-password" name="password" type="password"
+                  autocomplete="current-password" required aria-describedby="signin-password-error"
+                  placeholder="••••••••">
+                <button class="password-toggle" type="button" data-password-toggle="signin-password"
+                  aria-pressed="false" aria-label="Show password">Show</button>
               </div>
               <span class="field-error" id="signin-password-error" aria-live="polite"></span>
             </div>
             <button class="button button-primary button-block" type="submit">Sign in</button>
 
-            <!-- DEMO ACCESS BUTTON -->
-            <div class="demo-divider"><span>or</span></div>
-            <button class="button button-demo button-block" id="demo-access-signin" type="button">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 5v14l11-7-11-7Z" fill="currentColor"/></svg>
-              Quick demo access
-            </button>
 
-            <p class="auth-switch-copy">New here? <button class="text-link-button" type="button" data-switch-tab="tab-sign-up">Create an account</button></p>
+            <p class="auth-switch-copy">New here? <button class="text-link-button" type="button"
+                data-switch-tab="tab-sign-up">Create an account</button></p>
           </form>
 
           <form class="auth-form" id="form-sign-up" role="tabpanel" aria-labelledby="tab-sign-up" hidden novalidate>
             <div class="form-field">
               <label for="signup-name">Full name</label>
-              <input class="form-control" id="signup-name" name="name" type="text" autocomplete="name" minlength="2" maxlength="60" required aria-describedby="signup-name-error" placeholder="Your name">
+              <input class="form-control" id="signup-name" name="name" type="text" autocomplete="name" minlength="2"
+                maxlength="60" required aria-describedby="signup-name-error" placeholder="Your name">
               <span class="field-error" id="signup-name-error" aria-live="polite"></span>
             </div>
             <div class="form-field">
               <label for="signup-email">Email address</label>
-              <input class="form-control" id="signup-email" name="email" type="email" autocomplete="email" required aria-describedby="signup-email-error" placeholder="you@example.com">
+              <input class="form-control" id="signup-email" name="email" type="email" autocomplete="email" required
+                aria-describedby="signup-email-error" placeholder="you@example.com">
               <span class="field-error" id="signup-email-error" aria-live="polite"></span>
             </div>
             <div class="form-field">
               <label for="signup-password">Password</label>
               <div class="password-wrap">
-                <input class="form-control" id="signup-password" name="password" type="password" autocomplete="new-password" minlength="8" required aria-describedby="signup-password-hint signup-password-error" placeholder="Min. 8 characters">
-                <button class="password-toggle" type="button" data-password-toggle="signup-password" aria-pressed="false" aria-label="Show password">Show</button>
+                <input class="form-control" id="signup-password" name="password" type="password"
+                  autocomplete="new-password" minlength="8" required
+                  aria-describedby="signup-password-hint signup-password-error" placeholder="Min. 8 characters">
+                <button class="password-toggle" type="button" data-password-toggle="signup-password"
+                  aria-pressed="false" aria-label="Show password">Show</button>
               </div>
-              <span class="unit-label" id="signup-password-hint">At least 8 characters, including a letter and a number.</span>
+              <span class="unit-label" id="signup-password-hint">At least 8 characters, including a letter and a
+                number.</span>
               <span class="field-error" id="signup-password-error" aria-live="polite"></span>
             </div>
             <button class="button button-primary button-block" type="submit">Create account</button>
 
-            <!-- DEMO ACCESS BUTTON -->
-            <div class="demo-divider"><span>or</span></div>
-            <button class="button button-demo button-block" id="demo-access-signup" type="button">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 5v14l11-7-11-7Z" fill="currentColor"/></svg>
-              Quick demo access
-            </button>
 
-            <p class="auth-switch-copy">Already registered? <button class="text-link-button" type="button" data-switch-tab="tab-sign-in">Sign in</button></p>
+            <p class="auth-switch-copy">Already registered? <button class="text-link-button" type="button"
+                data-switch-tab="tab-sign-in">Sign in</button></p>
           </form>
 
           <p class="auth-card-status" role="note">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4Z" fill="currentColor"/></svg>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4Z" fill="currentColor" />
+            </svg>
             Accounts are stored in this browser only. Do not use a real or reused password.
           </p>
         </aside>
@@ -168,24 +176,28 @@
               <span class="stat-value">1.19°C</span>
               <span class="stat-caption">Global temperature anomaly in 2025, vs. NASA's 1951–1980 baseline.</span>
             </div>
-            <p class="stat-source"><a href="https://science.nasa.gov/earth/explore/earth-indicators/global-temperature/" target="_blank" rel="noopener noreferrer">Source: NASA Earth Indicators</a></p>
+            <p class="stat-source"><a href="https://science.nasa.gov/earth/explore/earth-indicators/global-temperature/"
+                target="_blank" rel="noopener noreferrer">Source: NASA Earth Indicators</a></p>
           </article>
           <article class="card stat-card">
             <div>
               <span class="stat-value">426.07 ppm</span>
               <span class="stat-caption">Monthly average atmospheric CO₂ at Mauna Loa in September 2026.</span>
             </div>
-            <p class="stat-source"><a href="https://gml.noaa.gov/ccgg/trends/" target="_blank" rel="noopener noreferrer">Source: NOAA Global Monitoring Laboratory</a></p>
+            <p class="stat-source"><a href="https://gml.noaa.gov/ccgg/trends/" target="_blank"
+                rel="noopener noreferrer">Source: NOAA Global Monitoring Laboratory</a></p>
           </article>
           <article class="card stat-card">
             <div>
               <span class="stat-value">Since 1958</span>
               <span class="stat-caption">The Mauna Loa record is the longest continuous atmospheric CO₂ dataset.</span>
             </div>
-            <p class="stat-source"><a href="https://gml.noaa.gov/ccgg/trends/" target="_blank" rel="noopener noreferrer">Source: NOAA Global Monitoring Laboratory</a></p>
+            <p class="stat-source"><a href="https://gml.noaa.gov/ccgg/trends/" target="_blank"
+                rel="noopener noreferrer">Source: NOAA Global Monitoring Laboratory</a></p>
           </article>
         </div>
-        <p class="stats-caveat">The NASA figure uses a 1951–1980 reference period, not a pre-industrial baseline. NOAA observations are preliminary and may be revised.</p>
+        <p class="stats-caveat">The NASA figure uses a 1951–1980 reference period, not a pre-industrial baseline. NOAA
+          observations are preliminary and may be revised.</p>
       </div>
     </section>
 
@@ -195,12 +207,17 @@
         <div class="carbon-copy">
           <span class="eyebrow">The basics</span>
           <h2 id="carbon-title">What are carbon emissions?</h2>
-          <p>Carbon emissions is a common shorthand for greenhouse gases released by human activity. Carbon dioxide (CO₂) is one; methane (CH₄) is another. These gases trap heat in the atmosphere, contributing to global warming. Because different gases have different warming effects, emissions are often expressed as carbon dioxide equivalent (CO₂e) — a shared unit for comparing them. A waste item's estimated impact depends on its material and weight, along with the lifecycle stage and disposal pathway included in the calculation.</p>
+          <p>Carbon emissions is a common shorthand for greenhouse gases released by human activity. Carbon dioxide
+            (CO₂) is one; methane (CH₄) is another. These gases trap heat in the atmosphere, contributing to global
+            warming. Because different gases have different warming effects, emissions are often expressed as carbon
+            dioxide equivalent (CO₂e) — a shared unit for comparing them. A waste item's estimated impact depends on its
+            material and weight, along with the lifecycle stage and disposal pathway included in the calculation.</p>
         </div>
         <aside class="info-panel" aria-label="How the calculator uses CO₂e">
           <span class="eyebrow">For this calculator</span>
           <h2>One unit. Clear assumptions.</h2>
-          <p>The calculator displays its illustrative material factor and the full calculation step. These values help you understand the logic — not a scientifically validated footprint.</p>
+          <p>The calculator displays its illustrative material factor and the full calculation step. These values help
+            you understand the logic — not a scientifically validated footprint.</p>
           <div class="info-panel-features">
             <div class="info-feature">
               <span aria-hidden="true">📊</span>
@@ -225,37 +242,58 @@
         <header class="section-heading">
           <span class="eyebrow">Why it matters</span>
           <h2 id="impact-title">A changing climate affects people and nature.</h2>
-          <p>Greenhouse-gas emissions contribute to long-term warming, with consequences that vary across regions and communities.</p>
+          <p>Greenhouse-gas emissions contribute to long-term warming, with consequences that vary across regions and
+            communities.</p>
         </header>
 
         <div class="impact-grid">
           <article class="card impact-card">
             <span class="impact-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v2m0 14v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M3 12h2m14 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M12 3v2m0 14v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M3 12h2m14 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z"
+                  stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+              </svg>
             </span>
             <h3>Rising temperatures</h3>
             <p>Long-term warming increases the likelihood and intensity of extreme heat in many parts of the world.</p>
           </article>
           <article class="card impact-card">
             <span class="impact-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M4 15.5c2.1 0 2.1-1.5 4.2-1.5s2.1 1.5 4.2 1.5 2.1-1.5 4.2-1.5 2.1 1.5 3.4 1.5M4 19c2.1 0 2.1-1.5 4.2-1.5s2.1 1.5 4.2 1.5 2.1-1.5 4.2-1.5 2.1 1.5 3.4 1.5M12 3v7m-3-3 3 3 3-3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M4 15.5c2.1 0 2.1-1.5 4.2-1.5s2.1 1.5 4.2 1.5 2.1-1.5 4.2-1.5 2.1 1.5 3.4 1.5M4 19c2.1 0 2.1-1.5 4.2-1.5s2.1 1.5 4.2 1.5 2.1-1.5 4.2-1.5 2.1 1.5 3.4 1.5M12 3v7m-3-3 3 3 3-3"
+                  stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
             </span>
             <h3>Weather extremes</h3>
-            <p>Climate change can intensify some heavy rainfall, drought, and other extremes, while local outcomes differ.</p>
+            <p>Climate change can intensify some heavy rainfall, drought, and other extremes, while local outcomes
+              differ.</p>
           </article>
           <article class="card impact-card">
             <span class="impact-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M3 17.5c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 3 2M4 14l2.2-3.2L9 12l3-6 3.2 5 2-1.5L20 14M12 6V3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M3 17.5c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 3 2M4 14l2.2-3.2L9 12l3-6 3.2 5 2-1.5L20 14M12 6V3"
+                  stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
             </span>
             <h3>Rising seas</h3>
-            <p>Warming oceans and land-ice loss contribute to sea-level rise, increasing risks for many coastal areas.</p>
+            <p>Warming oceans and land-ice loss contribute to sea-level rise, increasing risks for many coastal areas.
+            </p>
           </article>
           <article class="card impact-card">
             <span class="impact-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.4-7-11a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 6.6-7 11-7 11Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M12 17v-6m0 2c-2.5 0-3.5-1.5-3.5-3m3.5 5c2.5 0 3.5-1.5 3.5-3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 21s-7-4.4-7-11a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 6.6-7 11-7 11Z" stroke="currentColor"
+                  stroke-width="1.7" stroke-linejoin="round" />
+                <path d="M12 17v-6m0 2c-2.5 0-3.5-1.5-3.5-3m3.5 5c2.5 0 3.5-1.5 3.5-3" stroke="currentColor"
+                  stroke-width="1.7" stroke-linecap="round" />
+              </svg>
             </span>
             <h3>Nature and health</h3>
-            <p>Changes in heat, water, and habitats can place added pressure on ecosystems, food systems, and human health.</p>
+            <p>Changes in heat, water, and habitats can place added pressure on ecosystems, food systems, and human
+              health.</p>
           </article>
         </div>
       </div>
@@ -267,30 +305,48 @@
         <div class="waste-copy">
           <span class="eyebrow">Why waste matters</span>
           <h2 id="waste-title">Materials have different stories — and different impacts.</h2>
-          <p>Emissions can occur when materials are extracted, manufactured, transported, and treated after use. Food and other organic waste can release methane when it decomposes in landfill conditions. Plastics, paper, metals, wood, and organics each have different production and disposal pathways, so their estimated footprints are not interchangeable.</p>
+          <p>Emissions can occur when materials are extracted, manufactured, transported, and treated after use. Food
+            and other organic waste can release methane when it decomposes in landfill conditions. Plastics, paper,
+            metals, wood, and organics each have different production and disposal pathways, so their estimated
+            footprints are not interchangeable.</p>
         </div>
         <aside class="material-panel" aria-labelledby="materials-title">
           <h3 id="materials-title">Supported material categories</h3>
-          <p>The analyzer classifies waste into one of these categories based on image filename, then applies an illustrative CO₂e factor.</p>
+          <p>The analyzer classifies waste into one of these categories based on image filename, then applies an
+            illustrative CO₂e factor.</p>
           <div class="material-chips" aria-label="Supported waste materials">
             <span class="material-chip material-metal">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M8 12h8M12 8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" />
+                <path d="M8 12h8M12 8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
               Metal
             </span>
             <span class="material-chip material-organic">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2C6 8 4 12 8 17c2 2.5 4 3.5 4 3.5S14 19.5 16 17c4-5 2-9-4-15Z" fill="currentColor"/></svg>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 2C6 8 4 12 8 17c2 2.5 4 3.5 4 3.5S14 19.5 16 17c4-5 2-9-4-15Z" fill="currentColor" />
+              </svg>
               Organic
             </span>
             <span class="material-chip material-paper">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6Z" stroke="currentColor"
+                  stroke-width="2" stroke-linejoin="round" />
+              </svg>
               Paper
             </span>
             <span class="material-chip material-plastic">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 2h12l2 7H4L6 2ZM4 9v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 2h12l2 7H4L6 2ZM4 9v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9" stroke="currentColor"
+                  stroke-width="2" stroke-linejoin="round" />
+              </svg>
               Plastic
             </span>
             <span class="material-chip material-wood">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2v20M5 8l7-6 7 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 2v20M5 8l7-6 7 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
               Wood
             </span>
           </div>
@@ -315,12 +371,14 @@
           <article class="card step-card">
             <span class="step-number" aria-hidden="true">2</span>
             <h3>Upload and weigh</h3>
-            <p>In the dashboard, preview a JPG, PNG, or WebP photo locally and enter its approximate weight in grams or kilograms.</p>
+            <p>In the dashboard, preview a JPG, PNG, or WebP photo locally and enter its approximate weight in grams or
+              kilograms.</p>
           </article>
           <article class="card step-card">
             <span class="step-number" aria-hidden="true">3</span>
             <h3>Review the result</h3>
-            <p>A filename-based material classification and illustrative factor produce a CO₂e estimate with reduction tips.</p>
+            <p>A filename-based material classification and illustrative factor produce a CO₂e estimate with reduction
+              tips.</p>
           </article>
         </div>
       </div>
@@ -334,10 +392,18 @@
           <h2 id="benefits-title">Useful information, without the guesswork.</h2>
         </header>
         <div class="benefits-grid">
-          <article class="benefit-card"><span class="benefit-check" aria-hidden="true">✓</span><p>An item-level estimate with units and assumptions fully shown.</p></article>
-          <article class="benefit-card"><span class="benefit-check" aria-hidden="true">✓</span><p>A material suggestion that you can override if uncertain.</p></article>
-          <article class="benefit-card"><span class="benefit-check" aria-hidden="true">✓</span><p>Clear comparisons labeled as approximate when supported.</p></article>
-          <article class="benefit-card"><span class="benefit-check" aria-hidden="true">✓</span><p>Practical ideas to reduce, reuse, recycle, or compost.</p></article>
+          <article class="benefit-card"><span class="benefit-check" aria-hidden="true">✓</span>
+            <p>An item-level estimate with units and assumptions fully shown.</p>
+          </article>
+          <article class="benefit-card"><span class="benefit-check" aria-hidden="true">✓</span>
+            <p>A material suggestion that you can override if uncertain.</p>
+          </article>
+          <article class="benefit-card"><span class="benefit-check" aria-hidden="true">✓</span>
+            <p>Clear comparisons labeled as approximate when supported.</p>
+          </article>
+          <article class="benefit-card"><span class="benefit-check" aria-hidden="true">✓</span>
+            <p>Practical ideas to reduce, reuse, recycle, or compost.</p>
+          </article>
         </div>
       </div>
     </section>
@@ -349,7 +415,8 @@
           <div class="mission-text">
             <span class="eyebrow">Our purpose</span>
             <h2 id="mission-title">Make everyday waste easier to understand.</h2>
-            <p>We believe informed choices start with clear information. This calculator helps explore the potential carbon impact of everyday waste — without confusing a placeholder estimate for a precise measurement.</p>
+            <p>We believe informed choices start with clear information. This calculator helps explore the potential
+              carbon impact of everyday waste — without confusing a placeholder estimate for a precise measurement.</p>
             <a class="button button-primary mission-cta" href="#account-access">Get started for free</a>
           </div>
           <div class="mission-visual" aria-hidden="true">
@@ -371,27 +438,49 @@
         <div class="faq-grid">
           <details class="faq-item">
             <summary>How is the emission calculated?</summary>
-            <div class="faq-answer"><p>The calculator multiplies the entered weight in kilograms by an illustrative factor for one of five categories. These values have no verified source and do not represent a documented lifecycle or waste-treatment pathway. Treat results as examples, not scientific measurements.</p></div>
+            <div class="faq-answer">
+              <p>The calculator multiplies the entered weight in kilograms by an illustrative factor for one of five
+                categories. These values have no verified source and do not represent a documented lifecycle or
+                waste-treatment pathway. Treat results as examples, not scientific measurements.</p>
+            </div>
           </details>
           <details class="faq-item">
             <summary>How accurate will the estimate be?</summary>
-            <div class="faq-answer"><p>Material classification is simulated from the filename and weight is user-entered. The illustrative factors are not scientifically validated. A reliable estimate would also depend on item composition, local disposal practices, and well-sourced emission factors.</p></div>
+            <div class="faq-answer">
+              <p>Material classification is simulated from the filename and weight is user-entered. The illustrative
+                factors are not scientifically validated. A reliable estimate would also depend on item composition,
+                local disposal practices, and well-sourced emission factors.</p>
+            </div>
           </details>
           <details class="faq-item" id="privacy">
             <summary>What happens to my uploaded photo?</summary>
-            <div class="faq-answer"><p>The dashboard previews the image locally and does not send it to a server. A small thumbnail may be saved in this browser's local history. Browser data is not secure, may be cleared, and is not synced. Do not upload sensitive images.</p></div>
+            <div class="faq-answer">
+              <p>The dashboard previews the image locally and does not send it to a server. A small thumbnail may be
+                saved in this browser's local history. Browser data is not secure, may be cleared, and is not synced. Do
+                not upload sensitive images.</p>
+            </div>
           </details>
           <details class="faq-item">
             <summary>Which items will I be able to upload?</summary>
-            <div class="faq-answer"><p>The calculator supports metal, organic waste, paper, plastic, and wood. The current simulated classification uses image filenames only; it does not inspect the image content.</p></div>
+            <div class="faq-answer">
+              <p>The calculator supports metal, organic waste, paper, plastic, and wood. The current simulated
+                classification uses image filenames only; it does not inspect the image content.</p>
+            </div>
           </details>
           <details class="faq-item">
             <summary>Do I need to know the exact weight?</summary>
-            <div class="faq-answer"><p>You can enter an approximate weight in grams or kilograms. A more accurate weight does not remove uncertainty from the simulated material classification or illustrative factor.</p></div>
+            <div class="faq-answer">
+              <p>You can enter an approximate weight in grams or kilograms. A more accurate weight does not remove
+                uncertainty from the simulated material classification or illustrative factor.</p>
+            </div>
           </details>
           <details class="faq-item" id="terms">
             <summary>Terms of use</summary>
-            <div class="faq-answer"><p>Do not enter sensitive personal information or use a real or reused password. The illustrative carbon estimates are not scientific measurements, environmental advice, or a basis for environmental claims.</p></div>
+            <div class="faq-answer">
+              <p>Do not enter sensitive personal information or use a real or reused password. The illustrative carbon
+                estimates are not scientific measurements, environmental advice, or a basis for environmental claims.
+              </p>
+            </div>
           </details>
         </div>
       </div>
@@ -416,14 +505,19 @@
       <p class="footer-tagline">A browser-only tool for exploring the carbon impact of everyday waste.</p>
       <div class="footer-sources">
         <h2>Data sources</h2>
-        <p class="source-note">Climate snapshot values are linked to their sources above. Temperature and CO₂ observations use different datasets and baselines. Waste-specific factors are unsourced placeholders and are not scientific data.</p>
+        <p class="source-note">Climate snapshot values are linked to their sources above. Temperature and CO₂
+          observations use different datasets and baselines. Waste-specific factors are unsourced placeholders and are
+          not scientific data.</p>
         <div class="source-links">
-          <a href="https://science.nasa.gov/earth/explore/earth-indicators/global-temperature/" target="_blank" rel="noopener noreferrer">NASA global temperature</a>
+          <a href="https://science.nasa.gov/earth/explore/earth-indicators/global-temperature/" target="_blank"
+            rel="noopener noreferrer">NASA global temperature</a>
           <a href="https://gml.noaa.gov/ccgg/trends/" target="_blank" rel="noopener noreferrer">NOAA CO₂ trends</a>
         </div>
       </div>
-      <p class="footer-bottom">© 2026 Waste Impact. Estimates use illustrative factors; no image is sent to a server.</p>
+      <p class="footer-bottom">© 2026 Waste Impact. Estimates use illustrative factors; no image is sent to a server.
+      </p>
     </div>
   </footer>
 </body>
+
 </html>
