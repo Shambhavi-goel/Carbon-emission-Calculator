@@ -14,7 +14,7 @@ class Settings(BaseSettings):
     DB_PASSWORD: str = "postgres"
 
     # ML Model
-    MODEL_PATH: str = "models/waste_model.keras"
+    MODEL_PATH: str = "models/waste_model.onnx"
     IMAGE_SIZE: int = 224
 
     class Config:
