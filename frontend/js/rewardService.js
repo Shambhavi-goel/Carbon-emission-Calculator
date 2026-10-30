@@ -4,11 +4,13 @@
 
 /** Points earned per kg of waste tracked, by material */
 export const MATERIAL_RATES = Object.freeze({
-  metal:   30,
-  plastic: 25,
-  paper:   15,
-  organic: 12,
-  wood:    10
+  metal:        30,
+  plastic_high: 30,
+  plastic_mid:  25,
+  plastic_low:  20,
+  paper:        15,
+  organic:      12,
+  wood:         10
 });
 
 /** Flat base points for logging any item */

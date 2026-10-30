@@ -758,6 +758,9 @@
 .material-organic { --material-color: var(--mat-organic); }
 .material-paper { --material-color: var(--mat-paper); }
 .material-plastic { --material-color: var(--mat-plastic-mid); }
+.material-plastic-low { --material-color: var(--mat-plastic-low); }
+.material-plastic-mid { --material-color: var(--mat-plastic-mid); }
+.material-plastic-high { --material-color: var(--mat-plastic-high); }
 .material-wood { --material-color: var(--mat-wood); }
 
 .step-card {

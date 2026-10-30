@@ -1,21 +1,27 @@
 export const MATERIALS = Object.freeze([
-  { id: "plastic", label: "Plastic", colorClass: "material-plastic" },
-  { id: "paper", label: "Paper", colorClass: "material-paper" },
   { id: "metal", label: "Metal", colorClass: "material-metal" },
   { id: "organic", label: "Organic", colorClass: "material-organic" },
+  { id: "paper", label: "Paper", colorClass: "material-paper" },
+  { id: "plastic_high", label: "Plastic (High Impact)", colorClass: "material-plastic-high" },
+  { id: "plastic_low", label: "Plastic (Low Impact)", colorClass: "material-plastic-low" },
+  { id: "plastic_mid", label: "Plastic (Mid Impact)", colorClass: "material-plastic-mid" },
   { id: "wood", label: "Wood", colorClass: "material-wood" }
 ]);
 
 export const DEMO_EMISSION_FACTORS = Object.freeze({
-  plastic: 2.4,
-  paper: 1.1,
-  metal: 1.8,
-  organic: 0.7,
-  wood: 0.5
+  metal: 2.365,
+  organic: 0.28,
+  paper: 1.495,
+  plastic_high: 5.68,
+  plastic_low: 1.695,
+  plastic_mid: 3.58,
+  wood: 0.377915
 });
 
 export const MATERIAL_TIPS = Object.freeze({
-  plastic: ["Check local rules for accepted plastic types.", "Consider whether the item can be reused before disposal."],
+  plastic_high: ["Check local rules for dense/composite plastics.", "High-impact plastics often require specialized recycling."],
+  plastic_low: ["Recycle clean films and low-density containers where accepted.", "Avoid single-use wrappers when possible."],
+  plastic_mid: ["Rinse rigid plastic bottles and jugs before recycling.", "Check for recycling resin identification codes (1, 2, 5)."],
   paper: ["Keep recyclable paper clean and dry where local services accept it.", "Reuse paper packaging when practical."],
   metal: ["Separate metal according to your local recycling guidance.", "Reusable containers can help avoid single-use items."],
   organic: ["Check whether local composting or food-waste collection is available.", "Meal planning can help prevent avoidable food waste."],
