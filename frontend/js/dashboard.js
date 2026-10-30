@@ -268,7 +268,7 @@ function initializeDashboard(sessionUser) {
     const label = toast.querySelector("#toast-points");
     const sub = toast.querySelector("#toast-sub");
     if (label) label.textContent = `+${points} Eco-Points`;
-    if (sub) sub.textContent = isFirstToday ? "Daily streak bonus included! 🔥" : "Added to your wallet 🪙";
+    if (sub) sub.textContent = isFirstToday ? "Daily streak bonus included! 🔥" : "Added to your wallet";
     toast.hidden = false;
     toast.classList.remove("toast-exit");
     toast.classList.add("toast-enter");

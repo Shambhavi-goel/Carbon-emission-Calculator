@@ -1,25 +1,36 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Analyze a waste item and review its estimated carbon impact.">
-  <title>My Analyzer | Waste Impact</title>
+  <title>My Analyzer | CarbonIQ</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/sections.css">
   <script type="module" src="js/dashboard.js"></script>
 </head>
+
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
 
   <!-- ─── Reward Toast ──────────────────────────────────────────────────────── -->
   <div id="reward-toast" class="reward-toast" hidden aria-live="polite" aria-atomic="true">
-    <span class="toast-icon" aria-hidden="true">🪙</span>
+    <span class="toast-icon" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="10" fill="#F59E0B" stroke="#D97706" stroke-width="1.5" />
+        <circle cx="12" cy="12" r="7.5" stroke="#FDE68A" stroke-width="1" stroke-dasharray="2 1.5" />
+        <text x="12" y="15.5" font-size="11" font-weight="900" fill="#78350F" text-anchor="middle"
+          font-family="system-ui, sans-serif">₵</text>
+      </svg>
+    </span>
     <div class="toast-text">
       <strong id="toast-points">+0 Eco-Points</strong>
       <span id="toast-sub">Added to your wallet</span>
@@ -31,11 +42,20 @@
     <div class="modal-inner" data-modal-inner tabindex="-1">
       <div class="modal-header">
         <div class="modal-title-row">
-          <span class="modal-title-icon" aria-hidden="true">🪙</span>
+          <span class="modal-title-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="10" fill="#F59E0B" stroke="#D97706" stroke-width="1.5" />
+              <circle cx="12" cy="12" r="7.5" stroke="#FDE68A" stroke-width="1" stroke-dasharray="2 1.5" />
+              <text x="12" y="15.5" font-size="11" font-weight="900" fill="#78350F" text-anchor="middle"
+                font-family="system-ui, sans-serif">₵</text>
+            </svg>
+          </span>
           <h2 id="modal-title">My Eco-Wallet</h2>
         </div>
         <button class="modal-close" id="wallet-close" type="button" aria-label="Close wallet">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M18 6 6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
         </button>
       </div>
 
@@ -96,22 +116,36 @@
       <div class="container header-inner dashboard-header-inner">
         <a class="brand" href="index.html">
           <img src="assets/logo.svg" alt="">
-          <span>Waste Impact</span>
+          <span>CarbonIQ</span>
         </a>
         <nav class="site-nav dashboard-nav" aria-label="Dashboard navigation">
           <a href="#main-content">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 21V12h6v9" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5Z" stroke="currentColor" stroke-width="2"
+                stroke-linejoin="round" />
+              <path d="M9 21V12h6v9" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+            </svg>
             Analyzer
           </a>
           <a href="#history">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
             History
           </a>
         </nav>
         <div class="dashboard-account">
           <!-- Wallet badge pill -->
           <button class="wallet-pill" id="wallet-trigger" type="button" aria-label="Open Eco-Wallet">
-            <span aria-hidden="true">🪙</span>
+            <span aria-hidden="true" style="display:inline-flex;align-items:center;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="10" fill="#F59E0B" stroke="#D97706" stroke-width="1.5" />
+                <circle cx="12" cy="12" r="7.5" stroke="#FDE68A" stroke-width="1" stroke-dasharray="2 1.5" />
+                <text x="12" y="15.5" font-size="11" font-weight="900" fill="#78350F" text-anchor="middle"
+                  font-family="system-ui, sans-serif">₵</text>
+              </svg>
+            </span>
             <span id="wallet-balance">0</span>
             <span class="wallet-pill-label">pts</span>
           </button>
@@ -138,52 +172,76 @@
           <div class="dashboard-title-text">
             <span class="eyebrow">Personal analyzer</span>
             <h1>Calculate your waste emissions</h1>
-            <p>Choose an item photo and enter its approximate weight to explore an illustrative carbon estimate — and earn Eco-Points.</p>
+            <p>Choose an item photo and enter its approximate weight to get carbon estimate and earn Eco-Points.</p>
           </div>
           <div class="dashboard-title-actions">
             <button class="button button-secondary button-small" id="wallet-trigger-alt" type="button">
-              <span aria-hidden="true">🪙</span>
+              <span aria-hidden="true" style="display:inline-flex;align-items:center;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="10" fill="#F59E0B" stroke="#D97706" stroke-width="1.5" />
+                  <circle cx="12" cy="12" r="7.5" stroke="#FDE68A" stroke-width="1" stroke-dasharray="2 1.5" />
+                  <text x="12" y="15.5" font-size="11" font-weight="900" fill="#78350F" text-anchor="middle"
+                    font-family="system-ui, sans-serif">₵</text>
+                </svg>
+              </span>
               My Wallet
             </button>
             <a href="#history" class="button button-secondary button-small">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
               View history
             </a>
           </div>
         </header>
 
-        <!-- Limitations banner -->
-        <div class="notice notice-info limitations-banner" role="note">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2Zm0 15v-4m0-4h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Material identification is simulated from the file name. Emission factors are illustrative placeholders. No image is sent to a server. Points earned are stored in this browser only.
-        </div>
+
 
         <!-- ─── Summary Cards (4 items) ──────────────────────────────────── -->
         <section class="summary-grid" aria-label="Your analysis summary">
           <article class="card summary-card">
             <div class="summary-card-icon summary-icon-emissions" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2Zm1 14H11v-4h2v4Zm0-6H11V8h2v2Z" fill="currentColor"/></svg>
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2Zm1 14H11v-4h2v4Zm0-6H11V8h2v2Z" fill="currentColor" />
+              </svg>
             </div>
             <span class="summary-label">Total estimated emissions</span>
             <strong class="summary-value" id="summary-total">0.00 <span>kg CO₂e</span></strong>
           </article>
           <article class="card summary-card">
             <div class="summary-card-icon summary-icon-items" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2m-6 9 2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2m-6 9 2 2 4-4"
+                  stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
             </div>
             <span class="summary-label">Items analyzed</span>
             <strong class="summary-value" id="summary-count">0</strong>
           </article>
           <article class="card summary-card">
             <div class="summary-card-icon summary-icon-material" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm-1 14H9V8h2v8Zm4 0h-2V8h2v8Z" fill="currentColor"/></svg>
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm-1 14H9V8h2v8Zm4 0h-2V8h2v8Z"
+                  fill="currentColor" />
+              </svg>
             </div>
             <span class="summary-label">Most common material</span>
             <strong class="summary-value" id="summary-material">—</strong>
           </article>
           <!-- 4th card: Eco-Points wallet balance -->
-          <article class="card summary-card summary-card-wallet" role="button" tabindex="0" id="summary-wallet-card" aria-label="Open wallet">
-            <div class="summary-card-icon summary-icon-wallet" aria-hidden="true">🪙</div>
+          <article class="card summary-card summary-card-wallet" role="button" tabindex="0" id="summary-wallet-card"
+            aria-label="Open wallet">
+            <div class="summary-card-icon summary-icon-wallet" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="10" fill="#F59E0B" stroke="#D97706" stroke-width="1.5" />
+                <circle cx="12" cy="12" r="7.5" stroke="#FDE68A" stroke-width="1" stroke-dasharray="2 1.5" />
+                <text x="12" y="15.5" font-size="11" font-weight="900" fill="#78350F" text-anchor="middle"
+                  font-family="system-ui, sans-serif">₵</text>
+              </svg>
+            </div>
             <span class="summary-label">Eco-Points balance</span>
             <strong class="summary-value summary-value-pts" id="summary-points">0</strong>
             <span class="wallet-tier-chip" id="wallet-tier">🌱 Eco Explorer</span>
@@ -201,28 +259,30 @@
                 <h2 id="analyzer-title">Add a waste item</h2>
               </div>
               <span class="card-badge card-badge-new">
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+                </svg>
                 New
               </span>
             </header>
-
-            <p class="privacy-note">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4Z" fill="currentColor"/></svg>
-              Your selected image is previewed locally and is not uploaded. Only a small thumbnail may be saved with your browser history.
-            </p>
 
             <form id="analyzer-form" novalidate>
               <div class="form-field">
                 <label for="waste-image">Waste item photo</label>
                 <label class="upload-zone" id="upload-zone" for="waste-image" tabindex="0">
                   <span class="upload-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none"><path d="M12 16V4m0 0L7 9m5-5 5 5M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path d="M12 16V4m0 0L7 9m5-5 5 5M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4" stroke="currentColor"
+                        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
                   </span>
                   <strong>Choose or drop an image</strong>
                   <span>JPG, PNG, or WebP · up to 5 MB</span>
                   <span class="button button-secondary button-small" aria-hidden="true">Choose image</span>
                 </label>
-                <input class="sr-only" id="waste-image" name="image" type="file" accept="image/jpeg,image/png,image/webp" capture="environment" required aria-describedby="image-error">
+                <input class="sr-only" id="waste-image" name="image" type="file"
+                  accept="image/jpeg,image/png,image/webp" capture="environment" required
+                  aria-describedby="image-error">
                 <span class="field-error" id="image-error" aria-live="polite"></span>
               </div>
 
@@ -241,7 +301,8 @@
               <div class="weight-fields">
                 <div class="form-field">
                   <label for="item-weight">Approximate weight</label>
-                  <input class="form-control" id="item-weight" name="weight" type="number" min="0.01" step="any" inputmode="decimal" placeholder="e.g. 250" required aria-describedby="weight-hint weight-error">
+                  <input class="form-control" id="item-weight" name="weight" type="number" min="0.01" step="any"
+                    inputmode="decimal" placeholder="e.g. 250" required aria-describedby="weight-hint weight-error">
                   <span class="unit-label" id="weight-hint">An approximate weight is fine.</span>
                   <span class="field-error" id="weight-error" aria-live="polite"></span>
                 </div>
@@ -255,11 +316,16 @@
               </div>
 
               <button class="button button-primary button-block" id="analyze-button" type="submit" disabled>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 12 2 2 4-4M7.835 4.697a3.42 3.42 0 0 0 1.946-.806 3.42 3.42 0 0 1 4.438 0 3.42 3.42 0 0 0 1.946.806 3.42 3.42 0 0 1 3.138 3.138 3.42 3.42 0 0 0 .806 1.946 3.42 3.42 0 0 1 0 4.438 3.42 3.42 0 0 0-.806 1.946 3.42 3.42 0 0 1-3.138 3.138 3.42 3.42 0 0 0-1.946.806 3.42 3.42 0 0 1-4.438 0 3.42 3.42 0 0 0-1.946-.806 3.42 3.42 0 0 1-3.138-3.138 3.42 3.42 0 0 0-.806-1.946 3.42 3.42 0 0 1 0-4.438 3.42 3.42 0 0 0 .806-1.946 3.42 3.42 0 0 1 3.138-3.138Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path
+                    d="m9 12 2 2 4-4M7.835 4.697a3.42 3.42 0 0 0 1.946-.806 3.42 3.42 0 0 1 4.438 0 3.42 3.42 0 0 0 1.946.806 3.42 3.42 0 0 1 3.138 3.138 3.42 3.42 0 0 0 .806 1.946 3.42 3.42 0 0 1 0 4.438 3.42 3.42 0 0 0-.806 1.946 3.42 3.42 0 0 1-3.138 3.138 3.42 3.42 0 0 0-1.946.806 3.42 3.42 0 0 1-4.438 0 3.42 3.42 0 0 0-1.946-.806 3.42 3.42 0 0 1-3.138-3.138 3.42 3.42 0 0 0-.806-1.946 3.42 3.42 0 0 1 0-4.438 3.42 3.42 0 0 0 .806-1.946 3.42 3.42 0 0 1 3.138-3.138Z"
+                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
                 Calculate carbon emission
               </button>
               <div class="notice notice-error" id="analysis-error" role="alert" aria-live="polite" hidden></div>
-              <button class="button button-secondary button-block retry-button" id="retry-analysis" type="button" hidden>Try again</button>
+              <button class="button button-secondary button-block retry-button" id="retry-analysis" type="button"
+                hidden>Try again</button>
             </form>
           </article>
 
@@ -285,7 +351,14 @@
 
               <!-- Points earned row inside result card -->
               <div class="result-points-row" id="result-points-row" hidden>
-                <span class="result-points-icon" aria-hidden="true">🪙</span>
+                <span class="result-points-icon" aria-hidden="true" style="display:inline-flex;align-items:center;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="12" r="10" fill="#F59E0B" stroke="#D97706" stroke-width="1.5" />
+                    <circle cx="12" cy="12" r="7.5" stroke="#FDE68A" stroke-width="1" stroke-dasharray="2 1.5" />
+                    <text x="12" y="15.5" font-size="11" font-weight="900" fill="#78350F" text-anchor="middle"
+                      font-family="system-ui, sans-serif">₵</text>
+                  </svg>
+                </span>
                 <span class="result-points-label">You earned</span>
                 <span class="result-points-value" id="result-points-value">+0 Eco-Points</span>
               </div>
@@ -298,9 +371,18 @@
                 </div>
               </div>
               <dl class="result-breakdown">
-                <div><dt>Weight used</dt><dd id="result-weight"></dd></div>
-                <div><dt>Illustrative factor</dt><dd id="result-factor"></dd></div>
-                <div><dt>Formula</dt><dd>weight (kg) × factor</dd></div>
+                <div>
+                  <dt>Weight used</dt>
+                  <dd id="result-weight"></dd>
+                </div>
+                <div>
+                  <dt>Illustrative factor</dt>
+                  <dd id="result-factor"></dd>
+                </div>
+                <div>
+                  <dt>Formula</dt>
+                  <dd>weight (kg) × factor</dd>
+                </div>
               </dl>
               <p class="result-formula" id="result-formula"></p>
               <section class="tips-section" aria-labelledby="tips-title">
@@ -309,7 +391,9 @@
               </section>
               <p class="save-status" id="save-status" role="status" aria-live="polite"></p>
               <button class="button button-secondary button-small" id="analyze-another" type="button">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+                </svg>
                 Analyze another item
               </button>
             </div>
@@ -320,7 +404,6 @@
         <section class="history-section" id="history" aria-labelledby="history-title">
           <div class="history-heading">
             <div>
-              <span class="eyebrow">Your browser-local records</span>
               <h2 id="history-title">Analysis history</h2>
             </div>
             <div class="history-controls">
@@ -334,7 +417,10 @@
           </div>
           <div class="history-chart-card card">
             <h3>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18 20V10M12 20V4M6 20v-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M18 20V10M12 20V4M6 20v-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
               Estimated emissions by material
             </h3>
             <div id="history-chart" class="history-chart" aria-label="Total estimated emissions by material"></div>
@@ -372,8 +458,6 @@
             <a href="index.html#privacy">Privacy</a>
           </nav>
         </div>
-        <p class="footer-tagline">Accounts and results are stored in this browser only and are not synced across devices.</p>
-        <p class="footer-bottom">No image is sent to a server. Emission factors are illustrative placeholders, not scientifically validated data.</p>
       </div>
     </footer>
   </div>
@@ -381,7 +465,11 @@
   <main class="access-error" id="access-error" hidden>
     <div class="card access-error-card">
       <div class="access-error-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M15 9l-6 6M9 9l6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" stroke="currentColor" stroke-width="1.8"
+            stroke-linejoin="round" />
+          <path d="M15 9l-6 6M9 9l6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        </svg>
       </div>
       <h1>Dashboard unavailable</h1>
       <p class="muted" id="access-error-message">Your session could not be checked.</p>
@@ -389,4 +477,5 @@
     </div>
   </main>
 </body>
+
 </html>
