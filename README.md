@@ -1,11 +1,5 @@
 # CarbonIQ — Waste Carbon Emission Calculator
 
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688?style=flat&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
-[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-14+-4169E1?style=flat&logo=postgresql&logoColor=white)](https://www.postgresql.org)
-[![ONNX Runtime](https://img.shields.io/badge/ONNX_Runtime-1.17+-005CED?style=flat&logo=onnx&logoColor=white)](https://onnxruntime.ai)
-[![Vercel](https://img.shields.io/badge/Deploy-Vercel-000000?style=flat&logo=vercel&logoColor=white)](https://vercel.com)
-
 **CarbonIQ** is an AI-powered ecological footprint tracker and waste classification platform. By uploading an image of household or commercial waste and entering an approximate weight, the platform automatically identifies the waste material using deep learning, computes the accurate greenhouse gas emissions ($kg\ CO_2e$), awards gamified **Eco-Points**, tracks daily consistency streaks, and records a permanent ledger in a PostgreSQL database.
 
 ---
