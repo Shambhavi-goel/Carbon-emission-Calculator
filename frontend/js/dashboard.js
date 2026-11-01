@@ -1,5 +1,5 @@
-import { LOW_CONFIDENCE_THRESHOLD, MAX_WEIGHT_KG } from "./config.js";
-import { analyze } from "./analyzeService.js";
+import { LOW_CONFIDENCE_THRESHOLD, MAX_WEIGHT_KG } from "./config.js?v=2";
+import { analyze } from "./analyzeService.js?v=2";
 import { getDemoFactor, getMaterial, MATERIALS, MATERIAL_TIPS, calculateDemoEmission } from "./factors.js";
 import { validateWeight, toKilograms } from "./validators.js";
 import { deleteResult, getResults, getSummary, saveResult, updateResult } from "./storageService.js";
@@ -136,7 +136,10 @@ function initializeDashboard(sessionUser) {
   document.getElementById("retry-analysis").addEventListener("click", () => void submitAnalysis());
   document.getElementById("analyze-another").addEventListener("click", resetAnalyzer);
   materialFilter.addEventListener("change", renderHistory);
-  document.getElementById("correct-material").addEventListener("change", () => correctMaterial(false));
+  const correctMaterialEl = document.getElementById("correct-material");
+  if (correctMaterialEl) {
+    correctMaterialEl.addEventListener("change", () => correctMaterial(false));
+  }
 
   // ── Helpers ────────────────────────────────────────────────────────────────
   function setFieldError(element, message, field) {
@@ -243,7 +246,10 @@ function initializeDashboard(sessionUser) {
       if (thumbnail && !saved.thumbnailSaved) {
         setStorageWarning("Browser storage was full. The result was saved without its thumbnail.", true);
       } else if (!storageWarning.textContent) {
-        document.getElementById("save-status").textContent = "Saved in this browser for this account.";
+        const saveStatusEl = document.getElementById("save-status");
+        if (saveStatusEl) {
+          saveStatusEl.textContent = "Saved in this browser for this account.";
+        }
       }
     } catch (error) {
       console.error("Could not complete the waste analysis.", error);
@@ -286,12 +292,18 @@ function initializeDashboard(sessionUser) {
     resultContent.hidden = false;
     document.getElementById("result-material").textContent = material?.label ?? "Unknown material";
     document.getElementById("result-material").className = `material-badge ${material?.colorClass ?? ""}`;
-    document.getElementById("confidence-label").textContent = `Classification confidence: ${Math.round(result.confidence * 100)}%`;
+    const confidenceLabel = document.getElementById("confidence-label");
+    if (confidenceLabel) {
+      confidenceLabel.textContent = `Classification confidence: ${Math.round(result.confidence * 100)}%`;
+    }
     document.getElementById("result-value").textContent = result.co2eKg.toFixed(3);
     document.getElementById("result-weight").textContent = `${result.weightKg.toFixed(3)} kg`;
     document.getElementById("result-factor").textContent = `${result.emissionFactor.toFixed(2)} kg CO₂e/kg`;
-    document.getElementById("result-formula").textContent =
-      `${result.weightKg.toFixed(3)} kg × ${result.emissionFactor.toFixed(2)} kg CO₂e/kg = ${result.co2eKg.toFixed(3)} kg CO₂e`;
+    const formulaEl = document.getElementById("result-formula");
+    if (formulaEl) {
+      formulaEl.textContent =
+        `${result.weightKg.toFixed(3)} kg × ${result.emissionFactor.toFixed(2)} kg CO₂e/kg = ${result.co2eKg.toFixed(3)} kg CO₂e`;
+    }
 
     // Points earned inline in result card
     const pointsRow = document.getElementById("result-points-row");
@@ -304,33 +316,44 @@ function initializeDashboard(sessionUser) {
 
     const isLowConfidence = result.confidence < LOW_CONFIDENCE_THRESHOLD;
     const correction = document.getElementById("confidence-warning");
-    correction.hidden = !isLowConfidence;
-    if (isLowConfidence) {
-      const select = document.getElementById("correct-material");
-      select.replaceChildren();
-      for (const candidate of MATERIALS) {
-        const option = document.createElement("option");
-        option.value = candidate.id;
-        option.textContent = candidate.label;
-        option.selected = candidate.id === result.material;
-        select.append(option);
+    if (correction) {
+      correction.hidden = !isLowConfidence;
+      if (isLowConfidence) {
+        const select = document.getElementById("correct-material");
+        if (select) {
+          select.replaceChildren();
+          for (const candidate of MATERIALS) {
+            const option = document.createElement("option");
+            option.value = candidate.id;
+            option.textContent = candidate.label;
+            option.selected = candidate.id === result.material;
+            select.append(option);
+          }
+        }
       }
     }
 
     const tips = document.getElementById("result-tips");
-    tips.replaceChildren();
-    for (const tip of MATERIAL_TIPS[result.material] ?? []) {
-      const item = document.createElement("li");
-      item.textContent = tip;
-      tips.append(item);
+    if (tips) {
+      tips.replaceChildren();
+      for (const tip of MATERIAL_TIPS[result.material] ?? []) {
+        const item = document.createElement("li");
+        item.textContent = tip;
+        tips.append(item);
+      }
     }
-    document.getElementById("save-status").textContent = "";
+    const saveStatusEl = document.getElementById("save-status");
+    if (saveStatusEl) {
+      saveStatusEl.textContent = "";
+    }
   }
 
   // ── Correct material ───────────────────────────────────────────────────────
   function correctMaterial(awardBonus = true) {
     if (!latestResult || !currentResultId) return;
-    const materialId = document.getElementById("correct-material").value;
+    const correctMatEl = document.getElementById("correct-material");
+    if (!correctMatEl) return;
+    const materialId = correctMatEl.value;
     const factor = getDemoFactor(materialId);
     if (!factor) {
       setStorageWarning("No emission factor is available for that material.", true);
@@ -346,7 +369,10 @@ function initializeDashboard(sessionUser) {
       latestResult = updated;
       renderResult(updated);
       renderHistory();
-      document.getElementById("save-status").textContent = "Material correction saved in this browser.";
+      const saveStatusEl = document.getElementById("save-status");
+      if (saveStatusEl) {
+        saveStatusEl.textContent = "Material correction saved in this browser.";
+      }
 
       // Award correction bonus
       if (awardBonus) {
