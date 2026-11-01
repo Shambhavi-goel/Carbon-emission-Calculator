@@ -1,5 +1,5 @@
-import { redirectIfSignedIn } from "./authService.js";
-import { initializeAuthUI } from "./authUI.js";
+import { redirectIfSignedIn } from "./authService.js?v=2";
+import { initializeAuthUI } from "./authUI.js?v=2";
 
 try {
   redirectIfSignedIn();

@@ -1,4 +1,4 @@
-import { signIn, signUp } from "./authService.js";
+import { signIn, signUp } from "./authService.js?v=2";
 import { normalizeEmail, validateEmail, validateName, validatePassword } from "./validators.js";
 import { clearFieldErrors, setFieldError, setFormBusy, showNotice } from "./ui.js";
 
